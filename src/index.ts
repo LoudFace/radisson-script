@@ -380,5 +380,5 @@ window.Webflow.push(() => {
         },
       },
     },
-  }); // end of charts
+  }); // end of chartsss
 });
