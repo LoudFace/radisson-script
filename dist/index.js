@@ -14120,22 +14120,38 @@
     const ctx3 = document.querySelector("#graph3");
     if (!ctx || !ctx2 || !ctx3)
       return;
+    const screenWidth = window.innerWidth;
     const testData = [
       {
-        year: [2012, 2014, 2016, 2018, 2020, 2022, 2024],
-        count1: [10, 15, 5, 12, 8, 11, 8],
-        count2: [5, 15, 20, 4, 12, 16, 23],
-        count3: [15, 10, 10, 20, 15, 5, 2],
-        count4: [20, 15, 5, 8, 20, 4, 12],
-        count5: [2, 18, 15, 22, 4, 10, 8]
+        year: [51, 52, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        EERUT: [1.14, 0.49, 0.95, 2.19, 2.29, 1.22, 1.2, 1.17, 1.96, 1.86, 1.7, 1.2],
+        NOB: [4.1, 4.92, 4.88, 5.56, 6.2, 8.69, 8, 7.11, 8.37, 9.01, 6.37, 8.15],
+        UKIRWE: [24.36, 23.29, 27.65, 27.98, 26.64, 32.74, 30.45, 26.19, 26.71, 23.01, 24.2, 26.43],
+        CESE: [9.43, 7.21, 10.28, 12.94, 11.61, 13.72, 0, 12.29, 12.19, 10.55, 10.05, 11.25],
+        MEA: [11.28, 10.67, 10.28, 12.15, 11.91, 12.33, 12.33, 12.32, 12.3, 12.07, 11.77, 11.71],
+        months: [
+          "Jun '22",
+          "Jul '22",
+          "Aug '22",
+          "Sept '22",
+          "Oct '22",
+          "Nov '22",
+          "Jan '22",
+          "Feb '23"
+        ],
+        RF: [3, 6, 17, 2, 10, 30, 50, 59],
+        IB: [5, 3, 33, 12, 45, 20, 32, 40]
       }
     ];
     const { year } = testData[0];
-    const { count1 } = testData[0];
-    const { count2 } = testData[0];
-    const { count3 } = testData[0];
-    const { count4 } = testData[0];
-    const { count5 } = testData[0];
+    const { EERUT } = testData[0];
+    const { NOB } = testData[0];
+    const { UKIRWE } = testData[0];
+    const { CESE } = testData[0];
+    const { MEA } = testData[0];
+    const { months } = testData[0];
+    const { RF } = testData[0];
+    const { IB } = testData[0];
     const testData2 = [
       {
         weeks: [52, 51, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -14148,6 +14164,23 @@
     const { china } = testData2[0];
     const { india } = testData2[0];
     const { seap } = testData2[0];
+    auto_default.defaults.elements.line.tension = 0.2;
+    auto_default.defaults.elements.point.radius = 1;
+    auto_default.defaults.datasets.line.borderWidth = 2;
+    auto_default.defaults.datasets.line.fill = true;
+    auto_default.defaults.elements.point.hoverRadius = 5;
+    auto_default.defaults.responsive = true;
+    auto_default.defaults.plugins.tooltip.padding = 20;
+    auto_default.defaults.plugins.tooltip.xAlign = "center";
+    auto_default.defaults.plugins.tooltip.yAlign = "bottom";
+    auto_default.defaults.plugins.tooltip.position = "nearest";
+    auto_default.defaults.plugins.tooltip.backgroundColor = "rgba(242,242,242,0.3)";
+    auto_default.defaults.plugins.tooltip.caretPadding = 15;
+    auto_default.defaults.plugins.tooltip.caretSize = 15;
+    auto_default.defaults.plugins.tooltip.bodyAlign = "left";
+    auto_default.defaults.plugins.tooltip.footerAlign = "left";
+    auto_default.defaults.plugins.tooltip.titleMarginBottom = 20;
+    auto_default.defaults.plugins.tooltip.usePointStyle = true;
     new auto_default(ctx, {
       type: "line",
       data: {
@@ -14155,60 +14188,53 @@
         //x-axis name
         datasets: [
           {
-            label: "count1",
-            data: count1,
-            borderWidth: 1,
-            fill: true,
-            tension: 0.2,
-            borderColor: "rgba(218, 218,218, .80)",
+            label: "EERUT",
+            borderColor: "#97D4C1",
             backgroundColor: "rgba(218, 218,218, 0.18)"
           },
           {
-            label: "count2",
-            data: count2,
-            borderWidth: 1,
-            fill: true,
-            tension: 0.2,
-            borderColor: "rgba(180, 150,150, .80)",
-            backgroundColor: "rgba(180, 150,150, 0.18)"
+            label: "NOB",
+            data: NOB,
+            borderColor: "#C0EA5F",
+            backgroundColor: "rgba(192, 234, 95, 0.3)"
           },
           {
-            label: "count3",
-            data: count3,
-            borderWidth: 1,
-            fill: true,
-            tension: 0.2,
-            borderColor: "rgba(21, 210,210, .80)",
-            backgroundColor: "rgba(21, 210,210, 0.18)"
+            label: "UKIRWE",
+            data: UKIRWE,
+            borderColor: "#7C74EB",
+            backgroundColor: "rgba(124, 116, 235, .3)"
           },
           {
-            label: "count4",
-            data: count4,
-            borderWidth: 1,
-            fill: true,
-            tension: 0.2,
-            borderColor: "rgba(21, 210,25, .80)",
-            backgroundColor: "rgba(21, 210,25, 0.18)"
+            label: "CESE",
+            data: CESE,
+            borderColor: "#F65340",
+            backgroundColor: "rgba(246, 83, 64, 0.3)"
           },
           {
-            label: "count5",
-            data: count5,
-            borderWidth: 1,
-            fill: true,
-            tension: 0.2,
-            borderColor: "rgba(21, 134,210, .80)",
-            backgroundColor: "rgba(21, 134,210, 0.18)"
+            label: "MEA",
+            data: MEA,
+            borderColor: "#DADADA",
+            backgroundColor: "rgba(218, 218, 218, .3)"
           }
         ]
       },
       options: {
+        responsive: true,
         interaction: {
           mode: "index"
         },
         plugins: {
           tooltip: {
-            padding: 20,
-            usePointStyle: true
+            callbacks: {
+              title: function(context) {
+                const firstEl = context[0].label;
+                return `Week ${firstEl}`;
+              },
+              label: function(context) {
+                const { label } = context.dataset;
+                return `${label}  : ${context.parsed.y}%  YTD`;
+              }
+            }
           },
           legend: {
             // name of chart shown on top
@@ -14231,8 +14257,9 @@
         scales: {
           x: {
             ticks: {
+              color: "#fff",
               font: {
-                size: 20
+                size: screenWidth > 800 ? 20 : 10
               }
             },
             border: {
@@ -14245,7 +14272,11 @@
             },
             title: {
               display: true,
-              text: "Week"
+              text: "Week",
+              color: "#fff",
+              font: {
+                size: screenWidth > 800 ? 15 : 10
+              }
             },
             beginAtZero: true
           },
@@ -14262,8 +14293,10 @@
             },
             beginAtZero: true,
             ticks: {
+              color: "#fff",
               font: {
-                size: 20
+                size: screenWidth > 800 ? 20 : 10
+                //y-axis label font size
               },
               callback: (value) => `${value}%`
             }
@@ -14280,7 +14313,6 @@
           {
             label: "china",
             data: china,
-            borderWidth: 1,
             fill: true,
             tension: 0.2,
             borderColor: "rgba(218, 218,218, .80)",
@@ -14289,7 +14321,6 @@
           {
             label: "india",
             data: india,
-            borderWidth: 1,
             fill: true,
             tension: 0.2,
             borderColor: "rgba(180, 150,150, .80)",
@@ -14298,7 +14329,6 @@
           {
             label: "seap",
             data: seap,
-            borderWidth: 1,
             fill: true,
             tension: 0.2,
             borderColor: "rgba(21, 210,210, .80)",
@@ -14313,22 +14343,15 @@
         plugins: {
           tooltip: {
             padding: 20,
-            usePointStyle: true,
             callbacks: {
-              title: () => "Week"
-              // label: function (context) {
-              //   let label = context. || '';
-              //   if (label) {
-              //     label += ': ';
-              //   }
-              //   if (context.parsed.y !== null) {
-              //     label += new Intl.NumberFormat('en-US', {
-              //       style: 'currency',
-              //       currency: 'USD',
-              //     }).format(context.parsed.y);
-              //   }
-              //   return label;
-              // },
+              title: function(context) {
+                const firstEl = context[0].label;
+                return `Week ${firstEl}`;
+              },
+              label: function(context) {
+                const { label } = context.dataset;
+                return `${label}  : ${context.parsed.y}%  `;
+              }
             }
           },
           legend: {
@@ -14365,8 +14388,7 @@
               display: false
             },
             title: {
-              display: true,
-              text: "Week"
+              display: true
             },
             beginAtZero: true
           },
@@ -14397,26 +14419,24 @@
     new auto_default(ctx3, {
       type: "line",
       data: {
-        labels: year,
+        labels: months,
         //x-axis name
         datasets: [
           {
-            label: "count1",
-            data: count1,
-            borderWidth: 1,
+            label: "Instant bookings",
+            data: RF,
             fill: true,
             tension: 0.2,
-            borderColor: "rgba(21, 118,118, .80)",
-            backgroundColor: "rgba(21, 118,118, 0.18)"
+            borderColor: "#79B7FF",
+            backgroundColor: "rgba(121, 183,255, 0.2)"
           },
           {
-            label: "count2",
-            data: count2,
-            borderWidth: 1,
+            label: "RFP bookings",
+            data: IB,
             fill: true,
             tension: 0.2,
-            borderColor: "rgba(200, 20,30, .80)",
-            backgroundColor: "rgba(200, 20,30, 0.18)"
+            borderColor: "#F65340",
+            backgroundColor: "rgba(246, 83,64,0.2)"
           }
         ]
       },
@@ -14426,8 +14446,16 @@
         },
         plugins: {
           tooltip: {
-            padding: 20,
-            usePointStyle: true
+            callbacks: {
+              title: function(context) {
+                const firstEl = context[0].label;
+                return `${firstEl} 2022`;
+              },
+              label: function(context) {
+                const { label } = context.dataset;
+                return `${label}  : ${context.parsed.y}%  `;
+              }
+            }
           },
           legend: {
             // name of chart shown on top
@@ -14484,7 +14512,7 @@
               font: {
                 size: 20
               },
-              callback: (value) => `${value}%`
+              callback: (value) => `${value}`
             }
           }
         }
