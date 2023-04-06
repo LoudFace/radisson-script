@@ -278,7 +278,7 @@ window.Webflow.push(() => {
         x: {
           ticks: {
             font: {
-              size: 20,
+              size: screenWidth > 800 ? 20 : 10,
             },
           },
           border: {
@@ -310,7 +310,7 @@ window.Webflow.push(() => {
           beginAtZero: true,
           ticks: {
             font: {
-              size: 20,
+              size: screenWidth > 800 ? 20 : 10,
             },
             callback: (value) => `${value}%`,
           },
@@ -381,7 +381,7 @@ window.Webflow.push(() => {
         x: {
           ticks: {
             font: {
-              size: 20,
+              size: screenWidth > 800 ? 20 : 10,
             },
           },
           border: {
@@ -412,7 +412,7 @@ window.Webflow.push(() => {
           beginAtZero: true,
           ticks: {
             font: {
-              size: 20,
+              size: screenWidth > 800 ? 20 : 10,
             },
             callback: (value: number) => `${value}`,
           },
