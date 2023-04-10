@@ -14111,7 +14111,7 @@
   Chart.register(...registerables);
   var auto_default = Chart;
 
-  // src/index.ts
+  // src/radissonchartv1.ts
   window.Webflow ||= [];
   window.Webflow.push(() => {
     console.log("Samuel");
@@ -14563,4 +14563,4 @@ chart.js/dist/chart.js:
    * Released under the MIT License
    *)
 */
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=radissonchartv1.js.map
