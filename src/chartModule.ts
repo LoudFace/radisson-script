@@ -181,17 +181,44 @@ export const chartOnlineShareEmea = function (
       text: 'ECharts Getting Started Example',
     },
     tooltip: {
+      backgroundColor: '#333333',
+      borderColor: '#333333',
+      padding: 20,
+      textStyle: {
+        color: ' #CCCCCC',
+        fontSize: 10,
+      },
       trigger: 'axis',
       axisPointer: {
-        type: 'cross',
+        type: 'line',
         label: {
-          backgroundColor: 'red',
+          backgroundColor: '#333333',
         },
+      },
+      formatter: function (params) {
+        const ic1 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[0].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
+        const ic2 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[1].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
+        const ic3 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[2].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
+        const ic4 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[3].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
+        const ic5 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[4].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
+
+        const title = `<span style=" color: white; border-bottom: 1px solid #4D4D4D; margin-bottom: 10px; padding-bottom:5px; display: inline-block; width:100%;"> ${params[0].name} </span>`;
+        const spacing = `<span style=" display: inline-block; width:10px;" ></span>`;
+        const percentincrease1 = ` <span><span style="color:#17B96B; ">+21.76%</span> Wow</span> `;
+        const percentincrease2 = ` <span><span style="color:#17B96B; ">+18.06%</span> Wow</span> `;
+        const percentincrease3 = ` <span><span style="color:#17B96B; ">+19.33%</span> Wow</span> `;
+        const percentincrease4 = ` <span><span style="color:#17B96B; ">+9.90%</span> Wow</span> `;
+        const percentincrease5 = ` <span><span style="color:#17B96B; ">+6.60%</span> Wow</span> `;
+
+        return `${title} <br />
+                ${ic1} ${params[0].seriesName} ${spacing} : ${params[0].data}%  ${spacing}  ${percentincrease1} <br/>  
+                ${ic2} ${params[1].seriesName} ${spacing}  : ${params[1].data}% ${spacing}  ${percentincrease2} <br/>
+                ${ic3} ${params[2].seriesName} ${spacing}  : ${params[2].data}% ${spacing}  ${percentincrease3} <br/>  
+                ${ic4} ${params[3].seriesName} ${spacing}  : ${params[3].data}%  ${spacing}  ${percentincrease4}<br/> 
+                ${ic5} ${params[4].seriesName} ${spacing}  : ${params[4].data}% ${spacing}  ${percentincrease5}  `;
       },
     },
     xAxis: {
-      // gridIndex: 1,
-
       type: 'category',
       boundaryGap: false,
       axisLine: {
@@ -257,6 +284,7 @@ export const chartOnlineShareEmea = function (
           ]),
         },
         showSymbol: false,
+        //  symbol: 'rect',
         data: yAxis,
       },
       {
@@ -349,11 +377,34 @@ export const chartOnlineShareApac = function (xAxis: 0, yAxis: 0, yAxis2: 0, yAx
     },
     tooltip: {
       trigger: 'axis',
+      backgroundColor: '#333333',
+      borderColor: '#333333',
+      padding: 20,
+      textStyle: {
+        color: ' #CCCCCC',
+        fontSize: 10,
+      },
       axisPointer: {
         // type: 'cross',
         label: {
           backgroundColor: 'red',
         },
+      },
+      formatter: function (params) {
+        const ic1 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[0].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
+        const ic2 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[1].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
+        const ic3 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[2].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
+
+        const title = `<span style=" color: white; border-bottom: 1px solid #4D4D4D; margin-bottom: 10px; padding-bottom:5px; display: inline-block; width:100%;"> ${params[0].name} </span>`;
+        const spacing = `<span style=" display: inline-block; width:10px;" ></span>`;
+        const percentincrease1 = ` <span><span style="color:#F65340; ">-17.34%</span> Wow</span> `;
+        const percentincrease2 = ` <span><span style="color:#F65340; ">-19.23%</span> Wow</span> `;
+        const percentincrease3 = ` <span><span style="color:#F65340; ">-16.40%</span> Wow</span> `;
+
+        return `${title} <br />
+                ${ic1} ${params[0].seriesName} ${spacing} : ${params[0].data}%  ${spacing}  ${percentincrease1} <br/>  
+                ${ic2} ${params[1].seriesName} ${spacing}  : ${params[1].data}% ${spacing}  ${percentincrease2} <br/>
+                ${ic3} ${params[2].seriesName} ${spacing}  : ${params[2].data}% ${spacing}  ${percentincrease3}  `;
       },
     },
     xAxis: {
@@ -404,7 +455,7 @@ export const chartOnlineShareApac = function (xAxis: 0, yAxis: 0, yAxis2: 0, yAx
     },
     series: [
       {
-        name: 'EERUT',
+        name: 'China',
         type: 'line',
         lineStyle: {
           //width: 0.5,
@@ -427,7 +478,7 @@ export const chartOnlineShareApac = function (xAxis: 0, yAxis: 0, yAxis2: 0, yAx
         data: yAxis,
       },
       {
-        name: 'NOB',
+        name: 'South Asia',
         type: 'line',
         showSymbol: false,
         areaStyle: {
@@ -446,7 +497,7 @@ export const chartOnlineShareApac = function (xAxis: 0, yAxis: 0, yAxis2: 0, yAx
         data: yAxis2,
       },
       {
-        name: 'UKIRWE',
+        name: 'SEAP',
         type: 'line',
         showSymbol: false,
         areaStyle: {

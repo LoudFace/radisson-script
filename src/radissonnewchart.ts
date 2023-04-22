@@ -161,175 +161,53 @@ window.Webflow.push(() => {
       apacScorePieChart(apacData, apacPieValue2);
     });
 
-  // // Create the echarts instance
-  // const myChart = echarts.init(chartTest);
-  // // Draw the chart
-  // const chartDraw = function (xAxis, yAxis, yAxis2, yAxis3: 0, yAxis4: 0, yAxis5: 0) {
-  //   myChart.setOption({
-  //     grid: {},
-  //     color: ['#DADADA', '#C0EA5F', '#F65340', '#7C74EB', '#9EEDFE'],
-  //     title: {
-  //       show: false,
-  //       text: 'ECharts Getting Started Example',
-  //     },
-  //     tooltip: {
-  //       trigger: 'axis',
-  //       axisPointer: {
-  //         type: 'cross',
-  //         label: {
-  //           backgroundColor: 'red',
-  //         },
-  //       },
-  //     },
-  //     xAxis: {
-  //       // gridIndex: 1,
+  const pageBody = document.querySelector<HTMLElement>('body');
+  const pageWrapper = document.querySelector('.page-wrapper');
+  const darkModeCont = document.querySelector<HTMLElement>('.dark-mode-container');
+  const lightModeCont = document.querySelector<HTMLElement>('.light-mode-container');
+  const toggleBtn = document.querySelector<HTMLElement>('.tooglebtn-container');
+  const logoImg = document.querySelector<HTMLImageElement>('.lognav--img');
+  let clicked = true;
+  if (!pageBody || !darkModeCont || !lightModeCont || !toggleBtn || !pageWrapper || !logoImg)
+    return;
 
-  //       type: 'category',
-  //       boundaryGap: false,
-  //       axisLine: {
-  //         //show: true,
-  //         onZero: false,
-  //         show: true,
+  const switchToLightMode = function () {
+    darkModeCont.style.backgroundColor = 'transparent';
+    lightModeCont.style.backgroundColor = '#f8f8f8';
+    pageBody.style.color = '#6666';
+    pageBody.style.backgroundColor = '#fff';
+    pageWrapper.classList.add('lightmode');
+    logoImg.src =
+      'https://uploads-ssl.webflow.com/63ee41b9862db4b9345f1a50/6444365d3896b516cde647f7_hotel-Radisson-logo%201.svg';
+  };
 
-  //         lineStyle: {
-  //           color: 'white',
-  //           width: 2,
-  //         },
-  //       },
-  //       axisLabel: {
-  //         color: 'white',
-  //       },
-  //       data: xAxis,
-  //     },
-  //     yAxis: {
-  //       splitLine: {
-  //         show: true,
-  //         lineStyle: {
-  //           width: 0.5,
-  //           color: '#262626',
-  //         },
-  //       },
-  //       type: 'value',
-  //       axisLabel: {
-  //         formatter: '{value}%',
-  //         color: 'white',
-  //       },
-  //       axisLine: {
-  //         show: true,
-  //         color: 'white',
-  //         width: 2,
-  //         lineStyle: {
-  //           color: 'white',
-  //           width: 2,
-  //           cap: 'round',
-  //         },
-  //       },
-  //       min: 0,
-  //       max: 50,
-  //     },
-  //     series: [
-  //       {
-  //         name: 'EERUT',
-  //         type: 'line',
-  //         lineStyle: {
-  //           //width: 0.5,
-  //           // color: 'red',
-  //         },
-  //         areaStyle: {
-  //           opacity: 0.8,
-  //           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-  //             {
-  //               offset: 0,
-  //               color: '#DADADA',
-  //             },
-  //             {
-  //               offset: 0.6,
-  //               color: 'transparent',
-  //             },
-  //           ]),
-  //         },
-  //         showSymbol: false,
-  //         data: yAxis,
-  //       },
-  //       {
-  //         name: 'NOB',
-  //         type: 'line',
-  //         showSymbol: false,
-  //         areaStyle: {
-  //           opacity: 0.2,
-  //           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-  //             {
-  //               offset: 0,
-  //               color: '#C0EA5F',
-  //             },
-  //             {
-  //               offset: 1,
-  //               color: 'transparent',
-  //             },
-  //           ]),
-  //         },
-  //         data: yAxis2,
-  //       },
-  //       {
-  //         name: 'UKIRWE',
-  //         type: 'line',
-  //         showSymbol: false,
-  //         areaStyle: {
-  //           opacity: 0.2,
-  //           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-  //             {
-  //               offset: 0,
-  //               color: '#F65340',
-  //             },
-  //             {
-  //               offset: 1,
-  //               color: 'transparent',
-  //             },
-  //           ]),
-  //         },
-  //         data: yAxis3,
-  //       },
-  //       {
-  //         name: 'CESE',
-  //         type: 'line',
-  //         showSymbol: false,
-  //         areaStyle: {
-  //           opacity: 0.2,
-  //           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-  //             {
-  //               offset: 0,
-  //               color: '#7C74EB',
-  //             },
-  //             {
-  //               offset: 1,
-  //               color: 'transparent',
-  //             },
-  //           ]),
-  //         },
-  //         data: yAxis4,
-  //       },
-  //       {
-  //         name: 'MEA',
-  //         type: 'line',
-  //         showSymbol: false,
-  //         areaStyle: {
-  //           opacity: 0.2,
-  //           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-  //             {
-  //               offset: 0,
-  //               color: '#9EEDFE',
-  //             },
-  //             {
-  //               offset: 1,
-  //               color: 'transparent',
-  //             },
-  //           ]),
-  //         },
-  //         data: yAxis5,
-  //       },
-  //     ],
-  //   });
-  // };
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+    switchToLightMode();
+    clicked = !clicked;
+  }
+
+  const handleMode = function () {
+    if (clicked) {
+      darkModeCont.style.backgroundColor = 'transparent';
+      lightModeCont.style.backgroundColor = '#f8f8f8';
+      pageBody.style.color = '#6666';
+      pageBody.style.backgroundColor = '#fff';
+      pageWrapper.classList.add('lightmode');
+      logoImg.src =
+        'https://uploads-ssl.webflow.com/63ee41b9862db4b9345f1a50/6444365d3896b516cde647f7_hotel-Radisson-logo%201.svg';
+    } else {
+      darkModeCont.style.backgroundColor = '#f8f8f8';
+      lightModeCont.style.backgroundColor = 'transparent';
+      pageBody.style.color = '#999999';
+      pageBody.style.backgroundColor = '#0d0d0d';
+      pageWrapper.classList.remove('lightmode');
+      logoImg.src =
+        'https://assets.website-files.com/63ee41b9862db4b9345f1a50/640c5fed09bfca3196634b09_hotel-Radisson-logo%201.svg';
+    }
+    clicked = !clicked;
+  };
+
+  toggleBtn.addEventListener('click', handleMode);
 });
 
 // airtable token: patoll3eGTrzISDDg.fa7abddfdd64020bc6e145425a6c43ed16529a8cf956e4b929e4f9b14bfd3ca3

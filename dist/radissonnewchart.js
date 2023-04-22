@@ -77515,16 +77515,42 @@
         text: "ECharts Getting Started Example"
       },
       tooltip: {
+        backgroundColor: "#333333",
+        borderColor: "#333333",
+        padding: 20,
+        textStyle: {
+          color: " #CCCCCC",
+          fontSize: 10
+        },
         trigger: "axis",
         axisPointer: {
-          type: "cross",
+          type: "line",
           label: {
-            backgroundColor: "red"
+            backgroundColor: "#333333"
           }
+        },
+        formatter: function(params) {
+          const ic1 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[0].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
+          const ic2 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[1].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
+          const ic3 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[2].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
+          const ic4 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[3].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
+          const ic5 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[4].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
+          const title = `<span style=" color: white; border-bottom: 1px solid #4D4D4D; margin-bottom: 10px; padding-bottom:5px; display: inline-block; width:100%;"> ${params[0].name} </span>`;
+          const spacing = `<span style=" display: inline-block; width:10px;" ></span>`;
+          const percentincrease1 = ` <span><span style="color:#17B96B; ">+21.76%</span> Wow</span> `;
+          const percentincrease2 = ` <span><span style="color:#17B96B; ">+18.06%</span> Wow</span> `;
+          const percentincrease3 = ` <span><span style="color:#17B96B; ">+19.33%</span> Wow</span> `;
+          const percentincrease4 = ` <span><span style="color:#17B96B; ">+9.90%</span> Wow</span> `;
+          const percentincrease5 = ` <span><span style="color:#17B96B; ">+6.60%</span> Wow</span> `;
+          return `${title} <br />
+                ${ic1} ${params[0].seriesName} ${spacing} : ${params[0].data}%  ${spacing}  ${percentincrease1} <br/>  
+                ${ic2} ${params[1].seriesName} ${spacing}  : ${params[1].data}% ${spacing}  ${percentincrease2} <br/>
+                ${ic3} ${params[2].seriesName} ${spacing}  : ${params[2].data}% ${spacing}  ${percentincrease3} <br/>  
+                ${ic4} ${params[3].seriesName} ${spacing}  : ${params[3].data}%  ${spacing}  ${percentincrease4}<br/> 
+                ${ic5} ${params[4].seriesName} ${spacing}  : ${params[4].data}% ${spacing}  ${percentincrease5}  `;
         }
       },
       xAxis: {
-        // gridIndex: 1,
         type: "category",
         boundaryGap: false,
         axisLine: {
@@ -77589,6 +77615,7 @@
             ])
           },
           showSymbol: false,
+          //  symbol: 'rect',
           data: yAxis
         },
         {
@@ -77680,11 +77707,32 @@
       },
       tooltip: {
         trigger: "axis",
+        backgroundColor: "#333333",
+        borderColor: "#333333",
+        padding: 20,
+        textStyle: {
+          color: " #CCCCCC",
+          fontSize: 10
+        },
         axisPointer: {
           // type: 'cross',
           label: {
             backgroundColor: "red"
           }
+        },
+        formatter: function(params) {
+          const ic1 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[0].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
+          const ic2 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[1].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
+          const ic3 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[2].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
+          const title = `<span style=" color: white; border-bottom: 1px solid #4D4D4D; margin-bottom: 10px; padding-bottom:5px; display: inline-block; width:100%;"> ${params[0].name} </span>`;
+          const spacing = `<span style=" display: inline-block; width:10px;" ></span>`;
+          const percentincrease1 = ` <span><span style="color:#F65340; ">-17.34%</span> Wow</span> `;
+          const percentincrease2 = ` <span><span style="color:#F65340; ">-19.23%</span> Wow</span> `;
+          const percentincrease3 = ` <span><span style="color:#F65340; ">-16.40%</span> Wow</span> `;
+          return `${title} <br />
+                ${ic1} ${params[0].seriesName} ${spacing} : ${params[0].data}%  ${spacing}  ${percentincrease1} <br/>  
+                ${ic2} ${params[1].seriesName} ${spacing}  : ${params[1].data}% ${spacing}  ${percentincrease2} <br/>
+                ${ic3} ${params[2].seriesName} ${spacing}  : ${params[2].data}% ${spacing}  ${percentincrease3}  `;
         }
       },
       xAxis: {
@@ -77733,7 +77781,7 @@
       },
       series: [
         {
-          name: "EERUT",
+          name: "China",
           type: "line",
           lineStyle: {
             //width: 0.5,
@@ -77756,7 +77804,7 @@
           data: yAxis
         },
         {
-          name: "NOB",
+          name: "South Asia",
           type: "line",
           showSymbol: false,
           areaStyle: {
@@ -77775,7 +77823,7 @@
           data: yAxis2
         },
         {
-          name: "UKIRWE",
+          name: "SEAP",
           type: "line",
           showSymbol: false,
           areaStyle: {
@@ -77867,6 +77915,46 @@
       apacScore.textContent = `${apacData}%`;
       apacScorePieChart(apacData, apacPieValue2);
     });
+    const pageBody = document.querySelector("body");
+    const pageWrapper = document.querySelector(".page-wrapper");
+    const darkModeCont = document.querySelector(".dark-mode-container");
+    const lightModeCont = document.querySelector(".light-mode-container");
+    const toggleBtn = document.querySelector(".tooglebtn-container");
+    const logoImg = document.querySelector(".lognav--img");
+    let clicked = true;
+    if (!pageBody || !darkModeCont || !lightModeCont || !toggleBtn || !pageWrapper || !logoImg)
+      return;
+    const switchToLightMode = function() {
+      darkModeCont.style.backgroundColor = "transparent";
+      lightModeCont.style.backgroundColor = "#f8f8f8";
+      pageBody.style.color = "#6666";
+      pageBody.style.backgroundColor = "#fff";
+      pageWrapper.classList.add("lightmode");
+      logoImg.src = "https://uploads-ssl.webflow.com/63ee41b9862db4b9345f1a50/6444365d3896b516cde647f7_hotel-Radisson-logo%201.svg";
+    };
+    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) {
+      switchToLightMode();
+      clicked = !clicked;
+    }
+    const handleMode = function() {
+      if (clicked) {
+        darkModeCont.style.backgroundColor = "transparent";
+        lightModeCont.style.backgroundColor = "#f8f8f8";
+        pageBody.style.color = "#6666";
+        pageBody.style.backgroundColor = "#fff";
+        pageWrapper.classList.add("lightmode");
+        logoImg.src = "https://uploads-ssl.webflow.com/63ee41b9862db4b9345f1a50/6444365d3896b516cde647f7_hotel-Radisson-logo%201.svg";
+      } else {
+        darkModeCont.style.backgroundColor = "#f8f8f8";
+        lightModeCont.style.backgroundColor = "transparent";
+        pageBody.style.color = "#999999";
+        pageBody.style.backgroundColor = "#0d0d0d";
+        pageWrapper.classList.remove("lightmode");
+        logoImg.src = "https://assets.website-files.com/63ee41b9862db4b9345f1a50/640c5fed09bfca3196634b09_hotel-Radisson-logo%201.svg";
+      }
+      clicked = !clicked;
+    };
+    toggleBtn.addEventListener("click", handleMode);
   });
 })();
 /*! Bundled license information:
