@@ -206,4 +206,4 @@ window.Webflow.push(() => {
   //API token : keyAk5slAmWBfaIoz
 });
 
-// <script defer src='https://cdn.jsdelivr.net/gh/LoudFace/radisson-script/dist/radissonnewchart.js'> </script>
+// <script defer src='https://cdn.jsdelivr.net/gh/LoudFace/radisson-script/dist/radissonnewchartv1.js'> </script>
