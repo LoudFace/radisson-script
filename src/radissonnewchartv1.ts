@@ -1,5 +1,6 @@
 import Airtable, { Record } from 'airtable';
 
+//import { callback } from 'chart.js/dist/helpers/helpers.core';
 //import * as echarts from 'echarts';
 import {
   apacScorePieChart,
@@ -16,13 +17,15 @@ window.Webflow.push(() => {
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
-
   //Pie chart second Number function
   const pieSecondValue = function (x) {
     return 100 - x;
   };
+  // section scroll into view
+  const hotelAppSect = document.querySelector('.hotel-app--section');
+  const imageQualitySection = document.querySelector('.image-quality--section');
+  if (!imageQualitySection || !hotelAppSect) return;
 
-  console.log(pieSecondValue(50));
   Airtable.configure({ apiKey: 'keyAk5slAmWBfaIoz' });
   const radiChartbase = new Airtable({ apiKey: 'keyAk5slAmWBfaIoz' }).base('appRQPFdsg8bGEHBO');
 
@@ -158,12 +161,6 @@ window.Webflow.push(() => {
         .slice(-1);
       const pieValue2 = 100 - overallData;
 
-      //UI update
-      overallScore.textContent = `${overallData}%`;
-      //overall pie chart
-      //function calling the chart on the pageLoad
-      overAllScorePieChart(overallData, pieValue2);
-
       // EMEA pie chart
       const [emeaData] = records
         .map((record) => record.get('Image Quality: EMEA'))
@@ -171,11 +168,6 @@ window.Webflow.push(() => {
         .map((rec) => rec * 100)
         .slice(-1);
       const emeaPieValue2 = 100 - emeaData;
-      //UI update
-      emeaScore.textContent = `${emeaData}%`;
-      //pie chart function
-      //function calling the chart on the pageLoad
-      emeaScorePieChart(emeaData, emeaPieValue2);
 
       // APAC pie chart
       const [apacData] = records
@@ -184,12 +176,31 @@ window.Webflow.push(() => {
         .map((rec) => rec * 100)
         .slice(-1);
       const apacPieValue2 = 100 - apacData;
-      //update UI
-      apacScore.textContent = `${apacData}%`;
-      //function calling the chart on the pageLoad
-      apacScorePieChart(apacData, apacPieValue2);
-    });
 
+      ///Load Chart when scrolled inview
+      function callbackFunction(entries) {
+        entries.forEach((el) => {
+          if (el.isIntersecting) {
+            overallScore.textContent = `${overallData}%`;
+            overAllScorePieChart(overallData, pieValue2);
+
+            apacScore.textContent = `${apacData}%`;
+            apacScorePieChart(apacData, apacPieValue2);
+
+            emeaScore.textContent = `${emeaData}%`;
+            emeaScorePieChart(emeaData, emeaPieValue2);
+          }
+        });
+      }
+      const callbackOptions = {
+        threshold: 0.6,
+      };
+      const observer = new IntersectionObserver(callbackFunction, callbackOptions);
+      observer.observe(imageQualitySection);
+
+      //// e
+    });
+  ///// Pie Chart
   radiChartbase('tblCxvDHIID3Z8ncV')
     .select({ view: 'Grid view' })
     .eachPage(function page(records) {
@@ -199,8 +210,22 @@ window.Webflow.push(() => {
         .map((rec) => Math.floor(rec * 100))
         .slice(-1);
       const secondValue = pieSecondValue(downloadsData);
-      downloadScore.textContent = `${downloadsData}%`;
-      appDownloadPieChart(downloadsData, secondValue);
+
+      const pieintoView = function (entries) {
+        entries.forEach((el) => {
+          if (el.isIntersecting) {
+            downloadScore.textContent = `${downloadsData}%`;
+            appDownloadPieChart(downloadsData, secondValue);
+          }
+        });
+      };
+
+      const options = {
+        threshold: 0.6,
+      };
+
+      const newObserve = new IntersectionObserver(pieintoView, options);
+      newObserve.observe(hotelAppSect);
     });
   // airtable token: patoll3eGTrzISDDg.fa7abddfdd64020bc6e145425a6c43ed16529a8cf956e4b929e4f9b14bfd3ca3
   //API token : keyAk5slAmWBfaIoz
