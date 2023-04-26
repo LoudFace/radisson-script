@@ -142,6 +142,9 @@ export const downLoadChart = function (
           width: 2,
         },
       },
+      axisTick: {
+        alignWithLabel: true,
+      },
       axisLabel: {
         color: 'white',
         padding: [10, 0, 0, 0],
@@ -285,6 +288,7 @@ export const downLoadChart = function (
         xAxisIndex: [0, 1],
         start: 10,
         end: 100,
+        minSpan: 20,
       },
       //   {
       //     show: true,

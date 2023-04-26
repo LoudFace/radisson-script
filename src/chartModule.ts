@@ -33,6 +33,7 @@ export const appDownloadPieChart = function (value1, value2) {
       {
         type: 'pie',
         radius: ['75%', '95%'],
+        animationDuration: 1500,
         avoidLabelOverlap: false,
         label: {
           show: false,
@@ -81,6 +82,7 @@ export const overAllScorePieChart = function (value1, value2) {
       {
         type: 'pie',
         radius: ['75%', '95%'],
+        animationDuration: 2500,
         avoidLabelOverlap: false,
         label: {
           show: false,
@@ -130,6 +132,7 @@ export const emeaScorePieChart = function (value1, value2) {
         type: 'pie',
         radius: ['75%', '95%'],
         avoidLabelOverlap: false,
+        animationDuration: 2500,
         label: {
           show: false,
           position: 'center',
@@ -179,6 +182,7 @@ export const apacScorePieChart = function (value1, value2) {
         type: 'pie',
         radius: ['75%', '95%'],
         avoidLabelOverlap: false,
+        animationDuration: 2500,
         label: {
           show: false,
           position: 'center',

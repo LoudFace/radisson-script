@@ -2,12 +2,12 @@ const pageBody = document.querySelector<HTMLElement>('body');
 const pageWrapper = document.querySelector('.page-wrapper');
 const darkModeCont = document.querySelector<HTMLElement>('.dark-mode-container');
 const lightModeCont = document.querySelector<HTMLElement>('.light-mode-container');
-export const toggleBtn = document.querySelector<HTMLElement>('.tooglebtn-container');
+const toggleBtn = document.querySelector<HTMLElement>('.tooglebtn-container');
 const logoImg = document.querySelector<HTMLImageElement>('.lognav--img');
 let clicked = true;
 if (!pageBody || !darkModeCont || !lightModeCont || !toggleBtn || !pageWrapper || !logoImg) return;
 
-export const switchToLightMode = function () {
+const switchToLightMode = function () {
   darkModeCont.style.backgroundColor = 'transparent';
   lightModeCont.style.backgroundColor = '#f8f8f8';
   pageBody.style.color = '#6666';
@@ -22,7 +22,7 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matc
   clicked = !clicked;
 }
 
-export const handleMode = function () {
+const handleMode = function () {
   if (clicked) {
     darkModeCont.style.backgroundColor = 'transparent';
     lightModeCont.style.backgroundColor = '#f8f8f8';
