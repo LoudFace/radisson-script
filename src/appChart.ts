@@ -159,7 +159,7 @@ export const appAndInitChart = function (xAxis: 0, yAxis: 0, yAxis2: 0) {
     },
     series: [
       {
-        name: 'iOS',
+        name: 'Android',
         type: 'line',
         lineStyle: {
           //width: 0.5,

@@ -288,4 +288,4 @@ window.Webflow.push(() => {
 //<script defer src='https://cdn.jsdelivr.net/gh/LoudFace/radisson-script/dist/appPageContent.js'> </script>
 // https://cdn.jsdelivr.net/gh/LoudFace/radisson-script/dist/appPageContent.js
 
-//<script defer src='https://cdn.jsdelivr.net/gh/LoudFace/radisson-script/dist/radissonnewchartv1-3.js'> </script>
+//<script defer src='https://cdn.jsdelivr.net/gh/LoudFace/radisson-script/dist/radissonnewchartv1-4.js'> </script>
