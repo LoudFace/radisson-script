@@ -8,7 +8,7 @@ const BUILD_DIRECTORY = 'dist';
 const PRODUCTION = process.env.NODE_ENV === 'production';
 
 // Config entrypoint files
-const ENTRY_POINTS = ['src/index.ts', 'src/radissonnewchartv1-3.ts', 'src/appPageContentv1.ts'];
+const ENTRY_POINTS = ['src/index.ts', 'src/radissonnewchartv1-4.ts', 'src/appPageContentv1-1.ts'];
 
 // Config dev serving
 const LIVE_RELOAD = !PRODUCTION;

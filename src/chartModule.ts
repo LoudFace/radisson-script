@@ -234,7 +234,11 @@ export const chartOnlineShareEmea = function (
   yAxis5: 0
 ) {
   myChart.setOption({
-    grid: {},
+    grid: {
+      width: '90%',
+      left: 40,
+      //height: '80%',
+    },
     color: ['#DADADA', '#C0EA5F', '#F65340', '#7C74EB', '#9EEDFE'],
     title: {
       show: false,
@@ -293,6 +297,8 @@ export const chartOnlineShareEmea = function (
       },
       axisLabel: {
         color: 'white',
+        padding: [10, 0, 0, 0],
+        // interval: 0,
       },
       data: xAxis,
     },
@@ -424,12 +430,25 @@ export const chartOnlineShareEmea = function (
         data: yAxis5,
       },
     ],
+    dataZoom: [
+      {
+        type: 'inside',
+        xAxisIndex: [0, 1],
+        start: 5,
+        end: 100,
+        minSpan: 20,
+      },
+    ],
   });
 };
 ////////second Chart APAC
 export const chartOnlineShareApac = function (xAxis: 0, yAxis: 0, yAxis2: 0, yAxis3: 0) {
   apacChart.setOption({
-    grid: {},
+    grid: {
+      width: '90%',
+      left: 35,
+      //height: '80%',
+    },
     color: ['#C0EA5F', '#7C74EB', '#DADADA'],
     title: {
       show: false,
@@ -484,6 +503,8 @@ export const chartOnlineShareApac = function (xAxis: 0, yAxis: 0, yAxis2: 0, yAx
       },
       axisLabel: {
         color: 'white',
+        padding: [10, 0, 0, 0],
+        // interval: 0,
       },
       data: xAxis,
     },
@@ -576,13 +597,25 @@ export const chartOnlineShareApac = function (xAxis: 0, yAxis: 0, yAxis2: 0, yAx
         data: yAxis3,
       },
     ],
+    dataZoom: [
+      {
+        type: 'inside',
+        xAxisIndex: [0, 1],
+        start: 5,
+        end: 100,
+        minSpan: 20,
+      },
+    ],
   });
 };
 
 //third chart  rfp bookings and instant bookings
 export const bookingsLineChart = function (xAxis: 0, yAxis: 0, yAxis2: 0, yAxis3: 0) {
   bookingsLine.setOption({
-    grid: {},
+    grid: {
+      width: '80%',
+      left: 40,
+    },
     color: ['#C0EA5F', '#7C74EB', '#DADADA'],
     title: {
       show: false,
@@ -635,6 +668,8 @@ export const bookingsLineChart = function (xAxis: 0, yAxis: 0, yAxis2: 0, yAxis3
       },
       axisLabel: {
         color: 'white',
+        //interval: 1,
+        padding: [10, 0, 0, 0],
       },
       data: xAxis,
     },
@@ -725,6 +760,15 @@ export const bookingsLineChart = function (xAxis: 0, yAxis: 0, yAxis2: 0, yAxis3
           ]),
         },
         data: yAxis3,
+      },
+    ],
+    dataZoom: [
+      {
+        type: 'inside',
+        xAxisIndex: [0, 1],
+        start: 5,
+        end: 100,
+        minSpan: 20,
       },
     ],
   });
