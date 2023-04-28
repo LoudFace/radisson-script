@@ -322,8 +322,26 @@ window.Webflow.push(() => {
 
       // iOsPieSecondValue = pieSecondValue()
     });
+
+  /// testimonial UI update
+  const testiWrapper1 = document.getElementById('testiWrapper1');
+  const testiWrapper2 = document.getElementById('testiWrapper2');
+  const testiWrapper3 = document.getElementById('testiWrapper3');
+  const testiWrapper4 = document.getElementById('testiWrapper4');
+
+  getTableRecords('tblLkbATwP3Os0oF7').eachPage(function page(records) {
+    const updateTestiUi = function (data, testiwrapperID) {
+      testiwrapperID.innerHTML = `<div class="testimonial-flx-wrapper"><div class="test-image-wrapper"><img loading="lazy" width="240" src="${data.fields['Image URL (IcePortal)']}" id="testiImage1" alt="" class="testi-img"></div><div class="rating-container"><img src="https://assets.website-files.com/63ee41b9862db4b9345f1a50/640e31d12f96962207a18fdf_Review.svg" loading="lazy" id="testiStarRating1" alt=""><div id="testiContent1" class="text-style">${data.fields['Review']}</div></div><img src="${data.fields['FlagLink']}" loading="lazy" width="52" height="52" id="testiFlag1" alt="" class="country--flag"></div>`;
+    };
+    updateTestiUi(records[0], testiWrapper1);
+    updateTestiUi(records[1], testiWrapper2);
+    updateTestiUi(records[2], testiWrapper3);
+    updateTestiUi(records[3], testiWrapper4);
+  });
 });
 
 //<script defer src='https://cdn.jsdelivr.net/gh/LoudFace/radisson-script/dist/appPageContentv1.js'> </script>
 
 // <script defer src='https://cdn.jsdelivr.net/gh/LoudFace/radisson-script/dist/appPageContentv1-1.js'> </script>
+
+// <div class="testimonial-flx-wrapper"><div class="test-image-wrapper"><img loading="lazy" width="240" src="https://assets.website-files.com/63ee41b9862db4b9345f1a50/643ea53e2793f42c0cb4f44b_BG.png" id="testiImage1" alt="" class="testi-img"></div><div class="rating-container"><img src="https://assets.website-files.com/63ee41b9862db4b9345f1a50/640e31d12f96962207a18fdf_Review.svg" loading="lazy" id="testiStarRating1" alt=""><div id="testiContent1" class="text-style">Feugiat faucibus amet rhoncus felis neque orci magna ac. Lacus a bibendum leo quam risus dui laoreet lacus sagittis. Nam gravida enim pellentesque quis eu in est.</div></div><img src="https://assets.website-files.com/63ee41b9862db4b9345f1a50/643ea2571829124442e529e1_Frame%201000001756.png" loading="lazy" width="52" height="52" id="testiFlag1" alt="" class="country--flag"></div>
