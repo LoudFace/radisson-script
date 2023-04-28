@@ -81,7 +81,7 @@ export const appAndInitChart = function (xAxis: 0, yAxis: 0, yAxis2: 0) {
       borderColor: '#333333',
       padding: 20,
       textStyle: {
-        color: ' #CCCCCC',
+        color: '#CCCCCC',
         fontSize: 10,
       },
       trigger: 'axis',
@@ -382,10 +382,10 @@ export const downLoadChart = function (
 
         return `${title} <br />
                     ${ic1} ${params[0].seriesName} ${spacing} : ${params[0].data}%  ${spacing}  ${percentincrease1} <br/>
-                    ${ic2} ${params[1].seriesName} ${spacing}  : ${params[1].data}% ${spacing}  ${percentincrease2} <br/>
-                    ${ic3} ${params[2].seriesName} ${spacing}  : ${params[2].data}% ${spacing}  ${percentincrease3} <br/>
-                    ${ic4} ${params[3].seriesName} ${spacing}  : ${params[3].data}%  ${spacing}  ${percentincrease4}<br/>
-                    ${ic5} ${params[4].seriesName} ${spacing}  : ${params[4].data}% ${spacing}  ${percentincrease5}  `;
+                    ${ic2} ${params[1].seriesName} ${spacing} : ${params[1].data}% ${spacing}  ${percentincrease2} <br/>
+                    ${ic3} ${params[2].seriesName} ${spacing} : ${params[2].data}% ${spacing}  ${percentincrease3} <br/>
+                    ${ic4} ${params[3].seriesName} ${spacing} : ${params[3].data}%  ${spacing}  ${percentincrease4}<br/>
+                    ${ic5} ${params[4].seriesName} ${spacing} : ${params[4].data}% ${spacing}  ${percentincrease5}  `;
       },
     },
     xAxis: {
@@ -424,7 +424,7 @@ export const downLoadChart = function (
           const num = value / 1000;
           return `${num}k`;
         },
-        color: 'white',
+        color: clicked ? 'white' : 'black',
       },
       axisLine: {
         show: true,

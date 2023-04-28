@@ -77424,7 +77424,7 @@
         borderColor: "#333333",
         padding: 20,
         textStyle: {
-          color: " #CCCCCC",
+          color: "#CCCCCC",
           fontSize: 10
         },
         trigger: "axis",
@@ -77699,10 +77699,10 @@
           const percentincrease5 = ` <span><span style="color:#17B96B; ">+6.60%</span> Wow</span> `;
           return `${title} <br />
                     ${ic1} ${params[0].seriesName} ${spacing} : ${params[0].data}%  ${spacing}  ${percentincrease1} <br/>
-                    ${ic2} ${params[1].seriesName} ${spacing}  : ${params[1].data}% ${spacing}  ${percentincrease2} <br/>
-                    ${ic3} ${params[2].seriesName} ${spacing}  : ${params[2].data}% ${spacing}  ${percentincrease3} <br/>
-                    ${ic4} ${params[3].seriesName} ${spacing}  : ${params[3].data}%  ${spacing}  ${percentincrease4}<br/>
-                    ${ic5} ${params[4].seriesName} ${spacing}  : ${params[4].data}% ${spacing}  ${percentincrease5}  `;
+                    ${ic2} ${params[1].seriesName} ${spacing} : ${params[1].data}% ${spacing}  ${percentincrease2} <br/>
+                    ${ic3} ${params[2].seriesName} ${spacing} : ${params[2].data}% ${spacing}  ${percentincrease3} <br/>
+                    ${ic4} ${params[3].seriesName} ${spacing} : ${params[3].data}%  ${spacing}  ${percentincrease4}<br/>
+                    ${ic5} ${params[4].seriesName} ${spacing} : ${params[4].data}% ${spacing}  ${percentincrease5}  `;
         }
       },
       xAxis: {
@@ -77740,7 +77740,7 @@
             const num = value / 1e3;
             return `${num}k`;
           },
-          color: "white"
+          color: clicked ? "white" : "black"
         },
         axisLine: {
           show: true,
