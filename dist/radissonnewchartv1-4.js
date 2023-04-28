@@ -80818,6 +80818,7 @@
     const toggleBtn = document.querySelector(".tooglebtn-container");
     const logoImg = document.querySelector(".lognav--img");
     const footerLogoimg = document.querySelector(".footer--logo-img");
+    console.log(footerLogoimg);
     let clicked = true;
     if (!pageBody || !darkModeCont || !lightModeCont || !toggleBtn || !pageWrapper || !logoImg || !footerLogoimg)
       return;

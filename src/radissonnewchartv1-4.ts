@@ -240,6 +240,7 @@ window.Webflow.push(() => {
   const toggleBtn = document.querySelector<HTMLElement>('.tooglebtn-container');
   const logoImg = document.querySelector<HTMLImageElement>('.lognav--img');
   const footerLogoimg = document.querySelector<HTMLImageElement>('.footer--logo-img');
+  console.log(footerLogoimg);
   let clicked = true;
   if (
     !pageBody ||
@@ -265,7 +266,7 @@ window.Webflow.push(() => {
   // if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
   //   switchToLightMode();
   //   clicked = !clicked;
-  // }
+  //
 
   const handleMode = function () {
     if (clicked) {
