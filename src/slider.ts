@@ -1,6 +1,7 @@
 import '@splidejs/splide/css';
 
 import Splide from '@splidejs/splide';
+import { AutoScroll } from '@splidejs/splide-extension-auto-scroll';
 
 const carouselImg = document.getElementById('splideImg');
 
@@ -22,7 +23,8 @@ export function imageCarousel() {
     autoWidth: true, // for cards with differing widths
     //waitForTransition: false,
     //updateOnMove: true,
-    autoplay: true,
+    //autoplay: true,
+    autoScroll: { speed: 1 },
     //trimSpace: false, // true removes empty space from end of list
     breakpoints: {
       991: {
@@ -34,5 +36,5 @@ export function imageCarousel() {
         perPage: 2,
       },
     },
-  }).mount();
+  }).mount({ AutoScroll });
 }

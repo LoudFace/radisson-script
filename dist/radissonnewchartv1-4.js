@@ -1450,11 +1450,11 @@
           var Symbol3 = root.Symbol;
           module3.exports = Symbol3;
         }, { "./_root": 72 }], 26: [function(require2, module3, exports3) {
-          var baseTimes = require2("./_baseTimes"), isArguments = require2("./isArguments"), isArray4 = require2("./isArray"), isBuffer = require2("./isBuffer"), isIndex = require2("./_isIndex"), isTypedArray2 = require2("./isTypedArray");
+          var baseTimes = require2("./_baseTimes"), isArguments = require2("./isArguments"), isArray5 = require2("./isArray"), isBuffer = require2("./isBuffer"), isIndex = require2("./_isIndex"), isTypedArray2 = require2("./isTypedArray");
           var objectProto = Object.prototype;
           var hasOwnProperty = objectProto.hasOwnProperty;
           function arrayLikeKeys(value, inherited) {
-            var isArr = isArray4(value), isArg = !isArr && isArguments(value), isBuff = !isArr && !isArg && isBuffer(value), isType = !isArr && !isArg && !isBuff && isTypedArray2(value), skipIndexes = isArr || isArg || isBuff || isType, result = skipIndexes ? baseTimes(value.length, String) : [], length = result.length;
+            var isArr = isArray5(value), isArg = !isArr && isArguments(value), isBuff = !isArr && !isArg && isBuffer(value), isType = !isArr && !isArg && !isBuff && isTypedArray2(value), skipIndexes = isArr || isArg || isBuff || isType, result = skipIndexes ? baseTimes(value.length, String) : [], length = result.length;
             for (var key in value) {
               if ((inherited || hasOwnProperty.call(value, key)) && !(skipIndexes && // Safari 9 has enumerable `arguments.length` in strict mode.
               (key == "length" || // Node.js 0.10 has enumerable non-index properties on buffers.
@@ -1518,7 +1518,7 @@
           }
           module3.exports = baseIsArguments;
         }, { "./_baseGetTag": 30, "./isObjectLike": 88 }], 32: [function(require2, module3, exports3) {
-          var isFunction3 = require2("./isFunction"), isMasked = require2("./_isMasked"), isObject6 = require2("./isObject"), toSource = require2("./_toSource");
+          var isFunction3 = require2("./isFunction"), isMasked = require2("./_isMasked"), isObject7 = require2("./isObject"), toSource = require2("./_toSource");
           var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
           var reIsHostCtor = /^\[object .+?Constructor\]$/;
           var funcProto = Function.prototype, objectProto = Object.prototype;
@@ -1528,7 +1528,7 @@
             "^" + funcToString.call(hasOwnProperty).replace(reRegExpChar, "\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, "$1.*?") + "$"
           );
           function baseIsNative(value) {
-            if (!isObject6(value) || isMasked(value)) {
+            if (!isObject7(value) || isMasked(value)) {
               return false;
             }
             var pattern = isFunction3(value) ? reIsNative : reIsHostCtor;
@@ -1573,14 +1573,14 @@
           }
           module3.exports = baseTimes;
         }, {}], 36: [function(require2, module3, exports3) {
-          var Symbol3 = require2("./_Symbol"), arrayMap = require2("./_arrayMap"), isArray4 = require2("./isArray"), isSymbol = require2("./isSymbol");
+          var Symbol3 = require2("./_Symbol"), arrayMap = require2("./_arrayMap"), isArray5 = require2("./isArray"), isSymbol = require2("./isSymbol");
           var INFINITY = 1 / 0;
           var symbolProto = Symbol3 ? Symbol3.prototype : void 0, symbolToString = symbolProto ? symbolProto.toString : void 0;
           function baseToString(value) {
             if (typeof value == "string") {
               return value;
             }
-            if (isArray4(value)) {
+            if (isArray5(value)) {
               return arrayMap(value, baseToString) + "";
             }
             if (isSymbol(value)) {
@@ -1598,9 +1598,9 @@
           }
           module3.exports = baseUnary;
         }, {}], 38: [function(require2, module3, exports3) {
-          var isArray4 = require2("./isArray"), isKey = require2("./_isKey"), stringToPath = require2("./_stringToPath"), toString = require2("./toString");
+          var isArray5 = require2("./isArray"), isKey = require2("./_isKey"), stringToPath = require2("./_stringToPath"), toString = require2("./toString");
           function castPath(value, object) {
-            if (isArray4(value)) {
+            if (isArray5(value)) {
               return value;
             }
             return isKey(value, object) ? [value] : stringToPath(toString(value));
@@ -1719,10 +1719,10 @@
           }
           module3.exports = isIndex;
         }, {}], 52: [function(require2, module3, exports3) {
-          var isArray4 = require2("./isArray"), isSymbol = require2("./isSymbol");
+          var isArray5 = require2("./isArray"), isSymbol = require2("./isSymbol");
           var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/, reIsPlainProp = /^\w*$/;
           function isKey(value, object) {
-            if (isArray4(value)) {
+            if (isArray5(value)) {
               return false;
             }
             var type = typeof value;
@@ -1971,8 +1971,8 @@
           };
           module3.exports = isArguments;
         }, { "./_baseIsArguments": 31, "./isObjectLike": 88 }], 79: [function(require2, module3, exports3) {
-          var isArray4 = Array.isArray;
-          module3.exports = isArray4;
+          var isArray5 = Array.isArray;
+          module3.exports = isArray5;
         }, {}], 80: [function(require2, module3, exports3) {
           var isFunction3 = require2("./isFunction"), isLength = require2("./isLength");
           function isArrayLike2(value) {
@@ -1996,10 +1996,10 @@
           var isBuffer = nativeIsBuffer || stubFalse;
           module3.exports = isBuffer;
         }, { "./_root": 72, "./stubFalse": 95 }], 83: [function(require2, module3, exports3) {
-          var baseGetTag = require2("./_baseGetTag"), isObject6 = require2("./isObject");
+          var baseGetTag = require2("./_baseGetTag"), isObject7 = require2("./isObject");
           var asyncTag = "[object AsyncFunction]", funcTag = "[object Function]", genTag = "[object GeneratorFunction]", proxyTag = "[object Proxy]";
           function isFunction3(value) {
-            if (!isObject6(value)) {
+            if (!isObject7(value)) {
               return false;
             }
             var tag = baseGetTag(value);
@@ -2025,11 +2025,11 @@
           }
           module3.exports = isNumber2;
         }, { "./_baseGetTag": 30, "./isObjectLike": 88 }], 87: [function(require2, module3, exports3) {
-          function isObject6(value) {
+          function isObject7(value) {
             var type = typeof value;
             return value != null && (type == "object" || type == "function");
           }
-          module3.exports = isObject6;
+          module3.exports = isObject7;
         }, {}], 88: [function(require2, module3, exports3) {
           function isObjectLike(value) {
             return value != null && typeof value == "object";
@@ -2055,10 +2055,10 @@
           }
           module3.exports = isPlainObject;
         }, { "./_baseGetTag": 30, "./_getPrototype": 43, "./isObjectLike": 88 }], 90: [function(require2, module3, exports3) {
-          var baseGetTag = require2("./_baseGetTag"), isArray4 = require2("./isArray"), isObjectLike = require2("./isObjectLike");
+          var baseGetTag = require2("./_baseGetTag"), isArray5 = require2("./isArray"), isObjectLike = require2("./isObjectLike");
           var stringTag = "[object String]";
           function isString3(value) {
-            return typeof value == "string" || !isArray4(value) && isObjectLike(value) && baseGetTag(value) == stringTag;
+            return typeof value == "string" || !isArray5(value) && isObjectLike(value) && baseGetTag(value) == stringTag;
           }
           module3.exports = isString3;
         }, { "./_baseGetTag": 30, "./isArray": 79, "./isObjectLike": 88 }], 91: [function(require2, module3, exports3) {
@@ -9168,7 +9168,7 @@
   function _trim(str) {
     return str.replace(/^\s+|\s+$/g, "");
   }
-  function linearMap(val, domain, range, clamp3) {
+  function linearMap(val, domain, range, clamp4) {
     var d0 = domain[0];
     var d1 = domain[1];
     var r0 = range[0];
@@ -9178,7 +9178,7 @@
     if (subDomain === 0) {
       return subRange === 0 ? r0 : (r0 + r1) / 2;
     }
-    if (clamp3) {
+    if (clamp4) {
       if (subDomain > 0) {
         if (val <= d0) {
           return r0;
@@ -9293,11 +9293,11 @@
       return votes - seats[idx];
     });
     while (currentSum < targetSeats) {
-      var max4 = Number.NEGATIVE_INFINITY;
+      var max5 = Number.NEGATIVE_INFINITY;
       var maxId = null;
       for (var i = 0, len2 = remainder.length; i < len2; ++i) {
-        if (remainder[i] > max4) {
-          max4 = remainder[i];
+        if (remainder[i] > max5) {
+          max5 = remainder[i];
           maxId = i;
         }
       }
@@ -11017,7 +11017,7 @@
   var start = create();
   var end = create();
   var extremity = create();
-  function fromPoints(points4, min4, max4) {
+  function fromPoints(points4, min5, max5) {
     if (points4.length === 0) {
       return;
     }
@@ -11033,76 +11033,76 @@
       top = mathMin2(top, p[1]);
       bottom = mathMax2(bottom, p[1]);
     }
-    min4[0] = left;
-    min4[1] = top;
-    max4[0] = right;
-    max4[1] = bottom;
+    min5[0] = left;
+    min5[1] = top;
+    max5[0] = right;
+    max5[1] = bottom;
   }
-  function fromLine(x0, y0, x1, y1, min4, max4) {
-    min4[0] = mathMin2(x0, x1);
-    min4[1] = mathMin2(y0, y1);
-    max4[0] = mathMax2(x0, x1);
-    max4[1] = mathMax2(y0, y1);
+  function fromLine(x0, y0, x1, y1, min5, max5) {
+    min5[0] = mathMin2(x0, x1);
+    min5[1] = mathMin2(y0, y1);
+    max5[0] = mathMax2(x0, x1);
+    max5[1] = mathMax2(y0, y1);
   }
   var xDim = [];
   var yDim = [];
-  function fromCubic(x0, y0, x1, y1, x2, y2, x3, y3, min4, max4) {
+  function fromCubic(x0, y0, x1, y1, x2, y2, x3, y3, min5, max5) {
     var cubicExtrema2 = cubicExtrema;
     var cubicAt2 = cubicAt;
     var n = cubicExtrema2(x0, x1, x2, x3, xDim);
-    min4[0] = Infinity;
-    min4[1] = Infinity;
-    max4[0] = -Infinity;
-    max4[1] = -Infinity;
+    min5[0] = Infinity;
+    min5[1] = Infinity;
+    max5[0] = -Infinity;
+    max5[1] = -Infinity;
     for (var i = 0; i < n; i++) {
       var x = cubicAt2(x0, x1, x2, x3, xDim[i]);
-      min4[0] = mathMin2(x, min4[0]);
-      max4[0] = mathMax2(x, max4[0]);
+      min5[0] = mathMin2(x, min5[0]);
+      max5[0] = mathMax2(x, max5[0]);
     }
     n = cubicExtrema2(y0, y1, y2, y3, yDim);
     for (var i = 0; i < n; i++) {
       var y = cubicAt2(y0, y1, y2, y3, yDim[i]);
-      min4[1] = mathMin2(y, min4[1]);
-      max4[1] = mathMax2(y, max4[1]);
+      min5[1] = mathMin2(y, min5[1]);
+      max5[1] = mathMax2(y, max5[1]);
     }
-    min4[0] = mathMin2(x0, min4[0]);
-    max4[0] = mathMax2(x0, max4[0]);
-    min4[0] = mathMin2(x3, min4[0]);
-    max4[0] = mathMax2(x3, max4[0]);
-    min4[1] = mathMin2(y0, min4[1]);
-    max4[1] = mathMax2(y0, max4[1]);
-    min4[1] = mathMin2(y3, min4[1]);
-    max4[1] = mathMax2(y3, max4[1]);
+    min5[0] = mathMin2(x0, min5[0]);
+    max5[0] = mathMax2(x0, max5[0]);
+    min5[0] = mathMin2(x3, min5[0]);
+    max5[0] = mathMax2(x3, max5[0]);
+    min5[1] = mathMin2(y0, min5[1]);
+    max5[1] = mathMax2(y0, max5[1]);
+    min5[1] = mathMin2(y3, min5[1]);
+    max5[1] = mathMax2(y3, max5[1]);
   }
-  function fromQuadratic(x0, y0, x1, y1, x2, y2, min4, max4) {
+  function fromQuadratic(x0, y0, x1, y1, x2, y2, min5, max5) {
     var quadraticExtremum2 = quadraticExtremum;
     var quadraticAt3 = quadraticAt;
     var tx = mathMax2(mathMin2(quadraticExtremum2(x0, x1, x2), 1), 0);
     var ty = mathMax2(mathMin2(quadraticExtremum2(y0, y1, y2), 1), 0);
     var x = quadraticAt3(x0, x1, x2, tx);
     var y = quadraticAt3(y0, y1, y2, ty);
-    min4[0] = mathMin2(x0, x2, x);
-    min4[1] = mathMin2(y0, y2, y);
-    max4[0] = mathMax2(x0, x2, x);
-    max4[1] = mathMax2(y0, y2, y);
+    min5[0] = mathMin2(x0, x2, x);
+    min5[1] = mathMin2(y0, y2, y);
+    max5[0] = mathMax2(x0, x2, x);
+    max5[1] = mathMax2(y0, y2, y);
   }
-  function fromArc(x, y, rx, ry, startAngle, endAngle, anticlockwise, min4, max4) {
+  function fromArc(x, y, rx, ry, startAngle, endAngle, anticlockwise, min5, max5) {
     var vec2Min = min;
     var vec2Max = max;
     var diff = Math.abs(startAngle - endAngle);
     if (diff % PI2 < 1e-4 && diff > 1e-4) {
-      min4[0] = x - rx;
-      min4[1] = y - ry;
-      max4[0] = x + rx;
-      max4[1] = y + ry;
+      min5[0] = x - rx;
+      min5[1] = y - ry;
+      max5[0] = x + rx;
+      max5[1] = y + ry;
       return;
     }
     start[0] = mathCos(startAngle) * rx + x;
     start[1] = mathSin(startAngle) * ry + y;
     end[0] = mathCos(endAngle) * rx + x;
     end[1] = mathSin(endAngle) * ry + y;
-    vec2Min(min4, start, end);
-    vec2Max(max4, start, end);
+    vec2Min(min5, start, end);
+    vec2Max(max5, start, end);
     startAngle = startAngle % PI2;
     if (startAngle < 0) {
       startAngle = startAngle + PI2;
@@ -11125,8 +11125,8 @@
       if (angle > startAngle) {
         extremity[0] = mathCos(angle) * rx + x;
         extremity[1] = mathSin(angle) * ry + y;
-        vec2Min(min4, extremity, min4);
-        vec2Max(max4, extremity, max4);
+        vec2Min(min5, extremity, min5);
+        vec2Max(max5, extremity, max5);
       }
     }
   }
@@ -14831,17 +14831,17 @@
     var v22 = [];
     var prevPoint;
     var nextPoint;
-    var min4;
-    var max4;
+    var min5;
+    var max5;
     if (constraint) {
-      min4 = [Infinity, Infinity];
-      max4 = [-Infinity, -Infinity];
+      min5 = [Infinity, Infinity];
+      max5 = [-Infinity, -Infinity];
       for (var i = 0, len2 = points4.length; i < len2; i++) {
-        min(min4, min4, points4[i]);
-        max(max4, max4, points4[i]);
+        min(min5, min5, points4[i]);
+        max(max5, max5, points4[i]);
       }
-      min(min4, min4, constraint[0]);
-      max(max4, max4, constraint[1]);
+      min(min5, min5, constraint[0]);
+      max(max5, max5, constraint[1]);
     }
     for (var i = 0, len2 = points4.length; i < len2; i++) {
       var point = points4[i];
@@ -14871,10 +14871,10 @@
       var cp0 = add([], point, v12);
       var cp1 = add([], point, v22);
       if (constraint) {
-        max(cp0, cp0, min4);
-        min(cp0, cp0, max4);
-        max(cp1, cp1, min4);
-        min(cp1, cp1, max4);
+        max(cp0, cp0, min5);
+        min(cp0, cp0, max5);
+        max(cp1, cp1, min5);
+        min(cp1, cp1, max5);
       }
       cps.push(cp0);
       cps.push(cp1);
@@ -15381,15 +15381,15 @@
       var axis = this._axes[dim];
       var origin = this._origin;
       var proj = corners[0].dot(axis) + origin[dim];
-      var min4 = proj;
-      var max4 = proj;
+      var min5 = proj;
+      var max5 = proj;
       for (var i = 1; i < corners.length; i++) {
         var proj_1 = corners[i].dot(axis) + origin[dim];
-        min4 = Math.min(proj_1, min4);
-        max4 = Math.max(proj_1, max4);
+        min5 = Math.min(proj_1, min5);
+        max5 = Math.max(proj_1, max5);
       }
-      out2[0] = min4;
-      out2[1] = max4;
+      out2[0] = min5;
+      out2[1] = max5;
     };
     return OrientedBoundingRect2;
   }();
@@ -19679,18 +19679,18 @@
           var dimSize = this._dimSize;
           for (var dim = 0; dim < dimSize; dim++) {
             var dimExtent = extent3[dim];
-            var min4 = dimExtent[0] == null ? Infinity : dimExtent[0];
-            var max4 = dimExtent[1] == null ? -Infinity : dimExtent[1];
+            var min5 = dimExtent[0] == null ? Infinity : dimExtent[0];
+            var max5 = dimExtent[1] == null ? -Infinity : dimExtent[1];
             var count2 = end2 - start2;
             var arr = storage2[dim];
             for (var i = 0; i < count2; i++) {
               var val = data[i * dimSize + dim];
               arr[start2 + i] = val;
-              val < min4 && (min4 = val);
-              val > max4 && (max4 = val);
+              val < min5 && (min5 = val);
+              val > max5 && (max5 = val);
             }
-            dimExtent[0] = min4;
-            dimExtent[1] = max4;
+            dimExtent[0] = min5;
+            dimExtent[1] = max5;
           }
         };
         var countForTypedArray = function() {
@@ -20968,8 +20968,8 @@
         var newIndices = new Ctor(originalCount);
         var offset = 0;
         var dim0 = dims[0];
-        var min4 = range[dim0][0];
-        var max4 = range[dim0][1];
+        var min5 = range[dim0][0];
+        var max5 = range[dim0][1];
         var storeArr = newStore._chunks;
         var quickFinished = false;
         if (!newStore._indices) {
@@ -20978,7 +20978,7 @@
             var dimStorage = storeArr[dims[0]];
             for (var i = 0; i < len2; i++) {
               var val = dimStorage[i];
-              if (val >= min4 && val <= max4 || isNaN(val)) {
+              if (val >= min5 && val <= max5 || isNaN(val)) {
                 newIndices[offset++] = idx;
               }
               idx++;
@@ -20992,7 +20992,7 @@
             for (var i = 0; i < len2; i++) {
               var val = dimStorage[i];
               var val2 = dimStorage2[i];
-              if ((val >= min4 && val <= max4 || isNaN(val)) && (val2 >= min23 && val2 <= max23 || isNaN(val2))) {
+              if ((val >= min5 && val <= max5 || isNaN(val)) && (val2 >= min23 && val2 <= max23 || isNaN(val2))) {
                 newIndices[offset++] = idx;
               }
               idx++;
@@ -21005,7 +21005,7 @@
             for (var i = 0; i < originalCount; i++) {
               var rawIndex = newStore.getRawIndex(i);
               var val = storeArr[dims[0]][rawIndex];
-              if (val >= min4 && val <= max4 || isNaN(val)) {
+              if (val >= min5 && val <= max5 || isNaN(val)) {
                 newIndices[offset++] = rawIndex;
               }
             }
@@ -21227,15 +21227,15 @@
           return dimExtent.slice();
         }
         dimExtent = initialExtent;
-        var min4 = dimExtent[0];
-        var max4 = dimExtent[1];
+        var min5 = dimExtent[0];
+        var max5 = dimExtent[1];
         for (var i = 0; i < currEnd; i++) {
           var rawIdx = this.getRawIndex(i);
           var value = dimData[rawIdx];
-          value < min4 && (min4 = value);
-          value > max4 && (max4 = value);
+          value < min5 && (min5 = value);
+          value > max5 && (max5 = value);
         }
-        dimExtent = [min4, max4];
+        dimExtent = [min5, max5];
         this._extent[dim] = dimExtent;
         return dimExtent;
       };
@@ -23948,14 +23948,14 @@
   function createRadialGradient(ctx, obj, rect2) {
     var width = rect2.width;
     var height = rect2.height;
-    var min4 = Math.min(width, height);
+    var min5 = Math.min(width, height);
     var x = obj.x == null ? 0.5 : obj.x;
     var y = obj.y == null ? 0.5 : obj.y;
     var r = obj.r == null ? 0.5 : obj.r;
     if (!obj.global) {
       x = x * width + rect2.x;
       y = y * height + rect2.y;
-      r = r * min4;
+      r = r * min5;
     }
     x = isSafeNum(x) ? x : 0.5;
     y = isSafeNum(y) ? y : 0.5;
@@ -28741,8 +28741,8 @@
           extent3[1] = roundNumber(Math.ceil(extent3[1] / interval) * interval);
         }
       };
-      IntervalScale2.prototype.setNiceExtent = function(min4, max4) {
-        this._niceExtent = [min4, max4];
+      IntervalScale2.prototype.setNiceExtent = function(min5, max5) {
+        this._niceExtent = [min5, max5];
       };
       IntervalScale2.type = "interval";
       return IntervalScale2;
@@ -28835,14 +28835,14 @@
           valuesInAxis.sort(function(a, b) {
             return a - b;
           });
-          var min4 = null;
+          var min5 = null;
           for (var j = 1; j < valuesInAxis.length; ++j) {
             var delta = valuesInAxis[j] - valuesInAxis[j - 1];
             if (delta > 0) {
-              min4 = min4 === null ? delta : Math.min(min4, delta);
+              min5 = min5 === null ? delta : Math.min(min5, delta);
             }
           }
-          axisMinGaps[key] = min4;
+          axisMinGaps[key] = min5;
         }
       }
     }
@@ -29688,40 +29688,40 @@
         var axisDataLen = this._axisDataLen;
         var boundaryGapInner = this._boundaryGapInner;
         var span = !isOrdinal ? dataMax - dataMin || Math.abs(dataMin) : null;
-        var min4 = this._modelMinRaw === "dataMin" ? dataMin : this._modelMinNum;
-        var max4 = this._modelMaxRaw === "dataMax" ? dataMax : this._modelMaxNum;
-        var minFixed = min4 != null;
-        var maxFixed = max4 != null;
-        if (min4 == null) {
-          min4 = isOrdinal ? axisDataLen ? 0 : NaN : dataMin - boundaryGapInner[0] * span;
+        var min5 = this._modelMinRaw === "dataMin" ? dataMin : this._modelMinNum;
+        var max5 = this._modelMaxRaw === "dataMax" ? dataMax : this._modelMaxNum;
+        var minFixed = min5 != null;
+        var maxFixed = max5 != null;
+        if (min5 == null) {
+          min5 = isOrdinal ? axisDataLen ? 0 : NaN : dataMin - boundaryGapInner[0] * span;
         }
-        if (max4 == null) {
-          max4 = isOrdinal ? axisDataLen ? axisDataLen - 1 : NaN : dataMax + boundaryGapInner[1] * span;
+        if (max5 == null) {
+          max5 = isOrdinal ? axisDataLen ? axisDataLen - 1 : NaN : dataMax + boundaryGapInner[1] * span;
         }
-        (min4 == null || !isFinite(min4)) && (min4 = NaN);
-        (max4 == null || !isFinite(max4)) && (max4 = NaN);
-        var isBlank = eqNaN(min4) || eqNaN(max4) || isOrdinal && !axisDataLen;
+        (min5 == null || !isFinite(min5)) && (min5 = NaN);
+        (max5 == null || !isFinite(max5)) && (max5 = NaN);
+        var isBlank = eqNaN(min5) || eqNaN(max5) || isOrdinal && !axisDataLen;
         if (this._needCrossZero) {
-          if (min4 > 0 && max4 > 0 && !minFixed) {
-            min4 = 0;
+          if (min5 > 0 && max5 > 0 && !minFixed) {
+            min5 = 0;
           }
-          if (min4 < 0 && max4 < 0 && !maxFixed) {
-            max4 = 0;
+          if (min5 < 0 && max5 < 0 && !maxFixed) {
+            max5 = 0;
           }
         }
         var determinedMin = this._determinedMin;
         var determinedMax = this._determinedMax;
         if (determinedMin != null) {
-          min4 = determinedMin;
+          min5 = determinedMin;
           minFixed = true;
         }
         if (determinedMax != null) {
-          max4 = determinedMax;
+          max5 = determinedMax;
           maxFixed = true;
         }
         return {
-          min: min4,
-          max: max4,
+          min: min5,
+          max: max5,
           minFixed,
           maxFixed,
           isBlank
@@ -29772,8 +29772,8 @@
     var scaleType = scale4.type;
     var rawExtentResult = ensureScaleRawExtentInfo(scale4, model, scale4.getExtent()).calculate();
     scale4.setBlank(rawExtentResult.isBlank);
-    var min4 = rawExtentResult.min;
-    var max4 = rawExtentResult.max;
+    var min5 = rawExtentResult.min;
+    var max5 = rawExtentResult.max;
     var ecModel = model.ecModel;
     if (ecModel && scaleType === "time") {
       var barSeriesModels = prepareLayoutBarSeries("bar", ecModel);
@@ -29783,27 +29783,27 @@
       });
       if (isBaseAxisAndHasBarSeries_1) {
         var barWidthAndOffset = makeColumnLayout(barSeriesModels);
-        var adjustedScale = adjustScaleForOverflow(min4, max4, model, barWidthAndOffset);
-        min4 = adjustedScale.min;
-        max4 = adjustedScale.max;
+        var adjustedScale = adjustScaleForOverflow(min5, max5, model, barWidthAndOffset);
+        min5 = adjustedScale.min;
+        max5 = adjustedScale.max;
       }
     }
     return {
-      extent: [min4, max4],
+      extent: [min5, max5],
       // "fix" means "fixed", the value should not be
       // changed in the subsequent steps.
       fixMin: rawExtentResult.minFixed,
       fixMax: rawExtentResult.maxFixed
     };
   }
-  function adjustScaleForOverflow(min4, max4, model, barWidthAndOffset) {
+  function adjustScaleForOverflow(min5, max5, model, barWidthAndOffset) {
     var axisExtent = model.axis.getExtent();
     var axisLength = axisExtent[1] - axisExtent[0];
     var barsOnCurrentAxis = retrieveColumnLayout(barWidthAndOffset, model.axis);
     if (barsOnCurrentAxis === void 0) {
       return {
-        min: min4,
-        max: max4
+        min: min5,
+        max: max5
       };
     }
     var minOverflow = Infinity;
@@ -29817,14 +29817,14 @@
     minOverflow = Math.abs(minOverflow);
     maxOverflow = Math.abs(maxOverflow);
     var totalOverFlow = minOverflow + maxOverflow;
-    var oldRange = max4 - min4;
+    var oldRange = max5 - min5;
     var oldRangePercentOfNew = 1 - (minOverflow + maxOverflow) / axisLength;
     var overflowBuffer = oldRange / oldRangePercentOfNew - oldRange;
-    max4 += overflowBuffer * (maxOverflow / totalOverFlow);
-    min4 -= overflowBuffer * (minOverflow / totalOverFlow);
+    max5 += overflowBuffer * (maxOverflow / totalOverFlow);
+    min5 -= overflowBuffer * (minOverflow / totalOverFlow);
     return {
-      min: min4,
-      max: max4
+      min: min5,
+      max: max5
     };
   }
   function niceScaleExtent(scale4, inModel) {
@@ -29871,9 +29871,9 @@
   }
   function ifAxisCrossZero(axis) {
     var dataExtent = axis.scale.getExtent();
-    var min4 = dataExtent[0];
-    var max4 = dataExtent[1];
-    return !(min4 > 0 && max4 > 0 || min4 < 0 && max4 < 0);
+    var min5 = dataExtent[0];
+    var max5 = dataExtent[1];
+    return !(min5 > 0 && max5 > 0 || min5 < 0 && max5 < 0);
   }
   function makeLabelFormatter(axis) {
     var labelFormatter = axis.getLabelModel().get("formatter");
@@ -30033,15 +30033,15 @@
       applyTransform(points4[p], points4[p], transform2);
     }
   }
-  function updateBBoxFromPoints(points4, min4, max4, projection) {
+  function updateBBoxFromPoints(points4, min5, max5, projection) {
     for (var i = 0; i < points4.length; i++) {
       var p = points4[i];
       if (projection) {
         p = projection.project(p);
       }
       if (p && isFinite(p[0]) && isFinite(p[1])) {
-        min(min4, min4, p);
-        max(max4, max4, p);
+        min(min5, min5, p);
+        max(max5, max5, p);
       }
     }
   }
@@ -30139,22 +30139,22 @@
         if (rect2 && !projection) {
           return rect2;
         }
-        var min4 = [Infinity, Infinity];
-        var max4 = [-Infinity, -Infinity];
+        var min5 = [Infinity, Infinity];
+        var max5 = [-Infinity, -Infinity];
         var geometries = this.geometries;
         each(geometries, function(geo) {
           if (geo.type === "polygon") {
-            updateBBoxFromPoints(geo.exterior, min4, max4, projection);
+            updateBBoxFromPoints(geo.exterior, min5, max5, projection);
           } else {
             each(geo.points, function(points4) {
-              updateBBoxFromPoints(points4, min4, max4, projection);
+              updateBBoxFromPoints(points4, min5, max5, projection);
             });
           }
         });
-        if (!(isFinite(min4[0]) && isFinite(min4[1]) && isFinite(max4[0]) && isFinite(max4[1]))) {
-          min4[0] = min4[1] = max4[0] = max4[1] = 0;
+        if (!(isFinite(min5[0]) && isFinite(min5[1]) && isFinite(max5[0]) && isFinite(max5[1]))) {
+          min5[0] = min5[1] = max5[0] = max5[1] = 0;
         }
-        rect2 = new BoundingRect_default(min4[0], min4[1], max4[0] - min4[0], max4[1] - min4[1]);
+        rect2 = new BoundingRect_default(min5[0], min5[1], max5[0] - min5[0], max5[1] - min5[1]);
         if (!projection) {
           this._rect = rect2;
         }
@@ -30615,9 +30615,9 @@
       }
       Axis2.prototype.contain = function(coord) {
         var extent3 = this._extent;
-        var min4 = Math.min(extent3[0], extent3[1]);
-        var max4 = Math.max(extent3[0], extent3[1]);
-        return coord >= min4 && coord <= max4;
+        var min5 = Math.min(extent3[0], extent3[1]);
+        var max5 = Math.max(extent3[0], extent3[1]);
+        return coord >= min5 && coord <= max5;
       };
       Axis2.prototype.containData = function(data) {
         return this.scale.contain(data);
@@ -30633,7 +30633,7 @@
         extent3[0] = start2;
         extent3[1] = end2;
       };
-      Axis2.prototype.dataToCoord = function(data, clamp3) {
+      Axis2.prototype.dataToCoord = function(data, clamp4) {
         var extent3 = this._extent;
         var scale4 = this.scale;
         data = scale4.normalize(data);
@@ -30641,19 +30641,19 @@
           extent3 = extent3.slice();
           fixExtentWithBands(extent3, scale4.count());
         }
-        return linearMap(data, NORMALIZED_EXTENT, extent3, clamp3);
+        return linearMap(data, NORMALIZED_EXTENT, extent3, clamp4);
       };
-      Axis2.prototype.coordToData = function(coord, clamp3) {
+      Axis2.prototype.coordToData = function(coord, clamp4) {
         var extent3 = this._extent;
         var scale4 = this.scale;
         if (this.onBand && scale4.type === "ordinal") {
           extent3 = extent3.slice();
           fixExtentWithBands(extent3, scale4.count());
         }
-        var t = linearMap(coord, extent3, NORMALIZED_EXTENT, clamp3);
+        var t = linearMap(coord, extent3, NORMALIZED_EXTENT, clamp4);
         return this.scale.scale(t);
       };
-      Axis2.prototype.pointToData = function(point, clamp3) {
+      Axis2.prototype.pointToData = function(point, clamp4) {
         return;
       };
       Axis2.prototype.getTicksCoords = function(opt) {
@@ -30721,7 +30721,7 @@
     extent3[0] += margin;
     extent3[1] -= margin;
   }
-  function fixOnBandTicksCoords(axis, ticksCoords, alignWithLabel, clamp3) {
+  function fixOnBandTicksCoords(axis, ticksCoords, alignWithLabel, clamp4) {
     var ticksLen = ticksCoords.length;
     if (!axis.onBand || alignWithLabel || !ticksLen) {
       return;
@@ -30749,17 +30749,17 @@
     }
     var inverse = axisExtent[0] > axisExtent[1];
     if (littleThan2(ticksCoords[0].coord, axisExtent[0])) {
-      clamp3 ? ticksCoords[0].coord = axisExtent[0] : ticksCoords.shift();
+      clamp4 ? ticksCoords[0].coord = axisExtent[0] : ticksCoords.shift();
     }
-    if (clamp3 && littleThan2(axisExtent[0], ticksCoords[0].coord)) {
+    if (clamp4 && littleThan2(axisExtent[0], ticksCoords[0].coord)) {
       ticksCoords.unshift({
         coord: axisExtent[0]
       });
     }
     if (littleThan2(axisExtent[1], last.coord)) {
-      clamp3 ? last.coord = axisExtent[1] : ticksCoords.pop();
+      clamp4 ? last.coord = axisExtent[1] : ticksCoords.pop();
     }
-    if (clamp3 && littleThan2(last.coord, axisExtent[1])) {
+    if (clamp4 && littleThan2(last.coord, axisExtent[1])) {
       ticksCoords.push({
         coord: axisExtent[1]
       });
@@ -36334,18 +36334,18 @@
       return sum2;
     },
     max: function(frame) {
-      var max4 = -Infinity;
+      var max5 = -Infinity;
       for (var i = 0; i < frame.length; i++) {
-        frame[i] > max4 && (max4 = frame[i]);
+        frame[i] > max5 && (max5 = frame[i]);
       }
-      return isFinite(max4) ? max4 : NaN;
+      return isFinite(max5) ? max5 : NaN;
     },
     min: function(frame) {
-      var min4 = Infinity;
+      var min5 = Infinity;
       for (var i = 0; i < frame.length; i++) {
-        frame[i] < min4 && (min4 = frame[i]);
+        frame[i] < min5 && (min5 = frame[i]);
       }
-      return isFinite(min4) ? min4 : NaN;
+      return isFinite(min5) ? min5 : NaN;
     },
     // TODO
     // Median
@@ -39409,7 +39409,7 @@
         var zone = new BoundingRect_default(zoneDiag1[0], zoneDiag1[1], zoneDiag2[0] - zoneDiag1[0], zoneDiag2[1] - zoneDiag1[1]);
         return area.intersect(zone);
       };
-      Cartesian2D2.prototype.dataToPoint = function(data, clamp3, out2) {
+      Cartesian2D2.prototype.dataToPoint = function(data, clamp4, out2) {
         out2 = out2 || [];
         var xVal = data[0];
         var yVal = data[1];
@@ -39418,8 +39418,8 @@
         }
         var xAxis = this.getAxis("x");
         var yAxis = this.getAxis("y");
-        out2[0] = xAxis.toGlobalCoord(xAxis.dataToCoord(xVal, clamp3));
-        out2[1] = yAxis.toGlobalCoord(yAxis.dataToCoord(yVal, clamp3));
+        out2[0] = xAxis.toGlobalCoord(xAxis.dataToCoord(xVal, clamp4));
+        out2[1] = yAxis.toGlobalCoord(yAxis.dataToCoord(yVal, clamp4));
         return out2;
       };
       Cartesian2D2.prototype.clampData = function(data, out2) {
@@ -39434,15 +39434,15 @@
         out2[1] = Math.min(Math.max(Math.min(yAxisExtent[0], yAxisExtent[1]), y), Math.max(yAxisExtent[0], yAxisExtent[1]));
         return out2;
       };
-      Cartesian2D2.prototype.pointToData = function(point, clamp3) {
+      Cartesian2D2.prototype.pointToData = function(point, clamp4) {
         var out2 = [];
         if (this._invTransform) {
           return applyTransform(out2, point, this._invTransform);
         }
         var xAxis = this.getAxis("x");
         var yAxis = this.getAxis("y");
-        out2[0] = xAxis.coordToData(xAxis.toLocalCoord(point[0]), clamp3);
-        out2[1] = yAxis.coordToData(yAxis.toLocalCoord(point[1]), clamp3);
+        out2[0] = xAxis.coordToData(xAxis.toLocalCoord(point[0]), clamp4);
+        out2[1] = yAxis.coordToData(yAxis.toLocalCoord(point[1]), clamp4);
         return out2;
       };
       Cartesian2D2.prototype.getOtherAxis = function(axis) {
@@ -39486,8 +39486,8 @@
         asc4 && ret[0] > ret[1] && ret.reverse();
         return ret;
       };
-      Axis2D2.prototype.pointToData = function(point, clamp3) {
-        return this.coordToData(this.toLocalCoord(point[this.dim === "x" ? 0 : 1]), clamp3);
+      Axis2D2.prototype.pointToData = function(point, clamp4) {
+        return this.coordToData(this.toLocalCoord(point[this.dim === "x" ? 0 : 1]), clamp4);
       };
       Axis2D2.prototype.setCategorySortInfo = function(info) {
         if (this.type !== "category") {
@@ -39600,21 +39600,21 @@
       rawExtent[1] = extent3[1];
     }
     var interval = intervalScaleProto2.getInterval.call(scale4);
-    var min4 = rawExtent[0];
-    var max4 = rawExtent[1];
+    var min5 = rawExtent[0];
+    var max5 = rawExtent[1];
     if (isMinFixed && isMaxFixed) {
-      interval = (max4 - min4) / alignToSplitNumber;
+      interval = (max5 - min5) / alignToSplitNumber;
     } else if (isMinFixed) {
-      max4 = rawExtent[0] + interval * alignToSplitNumber;
-      while (max4 < rawExtent[1] && isFinite(max4) && isFinite(rawExtent[1])) {
+      max5 = rawExtent[0] + interval * alignToSplitNumber;
+      while (max5 < rawExtent[1] && isFinite(max5) && isFinite(rawExtent[1])) {
         interval = increaseInterval(interval);
-        max4 = rawExtent[0] + interval * alignToSplitNumber;
+        max5 = rawExtent[0] + interval * alignToSplitNumber;
       }
     } else if (isMaxFixed) {
-      min4 = rawExtent[1] - interval * alignToSplitNumber;
-      while (min4 > rawExtent[0] && isFinite(min4) && isFinite(rawExtent[0])) {
+      min5 = rawExtent[1] - interval * alignToSplitNumber;
+      while (min5 > rawExtent[0] && isFinite(min5) && isFinite(rawExtent[0])) {
         interval = increaseInterval(interval);
-        min4 = rawExtent[1] - interval * alignToSplitNumber;
+        min5 = rawExtent[1] - interval * alignToSplitNumber;
       }
     } else {
       var nicedSplitNumber = scale4.getTicks().length - 1;
@@ -39622,22 +39622,22 @@
         interval = increaseInterval(interval);
       }
       var range = interval * alignToSplitNumber;
-      max4 = Math.ceil(rawExtent[1] / interval) * interval;
-      min4 = round(max4 - range);
-      if (min4 < 0 && rawExtent[0] >= 0) {
-        min4 = 0;
-        max4 = round(range);
-      } else if (max4 > 0 && rawExtent[1] <= 0) {
-        max4 = 0;
-        min4 = -round(range);
+      max5 = Math.ceil(rawExtent[1] / interval) * interval;
+      min5 = round(max5 - range);
+      if (min5 < 0 && rawExtent[0] >= 0) {
+        min5 = 0;
+        max5 = round(range);
+      } else if (max5 > 0 && rawExtent[1] <= 0) {
+        max5 = 0;
+        min5 = -round(range);
       }
     }
     var t0 = (alignToTicks[0].value - alignToNicedTicks[0].value) / alignToInterval;
     var t1 = (alignToTicks[alignToSplitNumber].value - alignToNicedTicks[alignToSplitNumber].value) / alignToInterval;
-    intervalScaleProto2.setExtent.call(scale4, min4 + interval * t0, max4 + interval * t1);
+    intervalScaleProto2.setExtent.call(scale4, min5 + interval * t0, max5 + interval * t1);
     intervalScaleProto2.setInterval.call(scale4, interval);
     if (t0 || t1) {
-      intervalScaleProto2.setNiceExtent.call(scale4, min4 + interval, max4 - interval);
+      intervalScaleProto2.setNiceExtent.call(scale4, min5 + interval, max5 - interval);
     }
     if (true) {
       var ticks = intervalScaleProto2.getTicks.call(scale4);
@@ -43935,19 +43935,19 @@
     return datas[0].map(datas[0].mapDimension("value"), function(value, idx) {
       var mapKey = "ec-" + datas[0].getName(idx);
       var sum2 = 0;
-      var min4 = Infinity;
-      var max4 = -Infinity;
+      var min5 = Infinity;
+      var max5 = -Infinity;
       var len2 = dataNameMap[mapKey].length;
       for (var i = 0; i < len2; i++) {
-        min4 = Math.min(min4, dataNameMap[mapKey][i]);
-        max4 = Math.max(max4, dataNameMap[mapKey][i]);
+        min5 = Math.min(min5, dataNameMap[mapKey][i]);
+        max5 = Math.max(max5, dataNameMap[mapKey][i]);
         sum2 += dataNameMap[mapKey][i];
       }
       var result;
       if (statisticType === "min") {
-        result = min4;
+        result = min5;
       } else if (statisticType === "max") {
-        result = max4;
+        result = max5;
       } else if (statisticType === "average") {
         result = sum2 / len2;
       } else {
@@ -45146,22 +45146,22 @@
             points4.push([+layout5.x, +layout5.y]);
           }
         });
-        var min4 = [];
-        var max4 = [];
-        fromPoints(points4, min4, max4);
+        var min5 = [];
+        var max5 = [];
+        fromPoints(points4, min5, max5);
         var oldMin = this._min;
         var oldMax = this._max;
-        if (max4[0] - min4[0] === 0) {
-          min4[0] = oldMin ? oldMin[0] : min4[0] - 1;
-          max4[0] = oldMax ? oldMax[0] : max4[0] + 1;
+        if (max5[0] - min5[0] === 0) {
+          min5[0] = oldMin ? oldMin[0] : min5[0] - 1;
+          max5[0] = oldMax ? oldMax[0] : max5[0] + 1;
         }
-        if (max4[1] - min4[1] === 0) {
-          min4[1] = oldMin ? oldMin[1] : min4[1] - 1;
-          max4[1] = oldMax ? oldMax[1] : max4[1] + 1;
+        if (max5[1] - min5[1] === 0) {
+          min5[1] = oldMin ? oldMin[1] : min5[1] - 1;
+          max5[1] = oldMax ? oldMax[1] : max5[1] + 1;
         }
         var viewCoordSys = seriesModel.coordinateSystem = new View_default();
         viewCoordSys.zoomLimit = seriesModel.get("scaleLimit");
-        viewCoordSys.setBoundingRect(min4[0], min4[1], max4[0] - min4[0], max4[1] - min4[1]);
+        viewCoordSys.setBoundingRect(min5[0], min5[1], max5[0] - min5[0], max5[1] - min5[1]);
         viewCoordSys.setCenter(seriesModel.get("center"), api);
         viewCoordSys.setZoom(seriesModel.get("zoom"));
         this.group.attr({
@@ -45170,8 +45170,8 @@
           scaleX: viewCoordSys.scaleX,
           scaleY: viewCoordSys.scaleY
         });
-        this._min = min4;
-        this._max = max4;
+        this._min = min5;
+        this._max = max5;
       };
       TreeView2.prototype._updateController = function(seriesModel, ecModel, api) {
         var _this = this;
@@ -47538,7 +47538,7 @@
       };
       VisualMapping2.findPieceIndex = function(value, pieceList, findClosestWhenOutside) {
         var possibleI;
-        var abs3 = Infinity;
+        var abs4 = Infinity;
         for (var i = 0, len2 = pieceList.length; i < len2; i++) {
           var pieceValue = pieceList[i].value;
           if (pieceValue != null) {
@@ -47573,8 +47573,8 @@
         }
         function updatePossible(val, index) {
           var newAbs = Math.abs(val - value);
-          if (newAbs < abs3) {
-            abs3 = newAbs;
+          if (newAbs < abs4) {
+            abs4 = newAbs;
             possibleI = index;
           }
         }
@@ -49015,30 +49015,30 @@
           var itemModel = data_1.getItemModel(idx);
           return [+itemModel.get("x"), +itemModel.get("y")];
         });
-        var min4 = [];
-        var max4 = [];
-        fromPoints(positions, min4, max4);
-        if (max4[0] - min4[0] === 0) {
-          max4[0] += 1;
-          min4[0] -= 1;
+        var min5 = [];
+        var max5 = [];
+        fromPoints(positions, min5, max5);
+        if (max5[0] - min5[0] === 0) {
+          max5[0] += 1;
+          min5[0] -= 1;
         }
-        if (max4[1] - min4[1] === 0) {
-          max4[1] += 1;
-          min4[1] -= 1;
+        if (max5[1] - min5[1] === 0) {
+          max5[1] += 1;
+          min5[1] -= 1;
         }
-        var aspect = (max4[0] - min4[0]) / (max4[1] - min4[1]);
+        var aspect = (max5[0] - min5[0]) / (max5[1] - min5[1]);
         var viewRect2 = getViewRect3(seriesModel, api, aspect);
         if (isNaN(aspect)) {
-          min4 = [viewRect2.x, viewRect2.y];
-          max4 = [viewRect2.x + viewRect2.width, viewRect2.y + viewRect2.height];
+          min5 = [viewRect2.x, viewRect2.y];
+          max5 = [viewRect2.x + viewRect2.width, viewRect2.y + viewRect2.height];
         }
-        var bbWidth = max4[0] - min4[0];
-        var bbHeight = max4[1] - min4[1];
+        var bbWidth = max5[0] - min5[0];
+        var bbHeight = max5[1] - min5[1];
         var viewWidth = viewRect2.width;
         var viewHeight = viewRect2.height;
         var viewCoordSys = seriesModel.coordinateSystem = new View_default();
         viewCoordSys.zoomLimit = seriesModel.get("scaleLimit");
-        viewCoordSys.setBoundingRect(min4[0], min4[1], bbWidth, bbHeight);
+        viewCoordSys.setBoundingRect(min5[0], min5[1], bbWidth, bbHeight);
         viewCoordSys.setViewRect(viewRect2.x, viewRect2.y, viewWidth, viewHeight);
         viewCoordSys.setCenter(seriesModel.get("center"), api);
         viewCoordSys.setZoom(seriesModel.get("zoom"));
@@ -51678,13 +51678,13 @@
       var y = viewRect2.y;
       var sizeExtent = orient === "horizontal" ? [parsePercent2(seriesModel.get("minSize"), viewHeight), parsePercent2(seriesModel.get("maxSize"), viewHeight)] : [parsePercent2(seriesModel.get("minSize"), viewWidth), parsePercent2(seriesModel.get("maxSize"), viewWidth)];
       var dataExtent = data.getDataExtent(valueDim);
-      var min4 = seriesModel.get("min");
-      var max4 = seriesModel.get("max");
-      if (min4 == null) {
-        min4 = Math.min(dataExtent[0], 0);
+      var min5 = seriesModel.get("min");
+      var max5 = seriesModel.get("max");
+      if (min5 == null) {
+        min5 = Math.min(dataExtent[0], 0);
       }
-      if (max4 == null) {
-        max4 = dataExtent[1];
+      if (max5 == null) {
+        max5 = dataExtent[1];
       }
       var funnelAlign = seriesModel.get("funnelAlign");
       var gap = seriesModel.get("gap");
@@ -51693,7 +51693,7 @@
       var getLinePoints = function(idx2, offset) {
         if (orient === "horizontal") {
           var val_1 = data.get(valueDim, idx2) || 0;
-          var itemHeight = linearMap(val_1, [min4, max4], sizeExtent, true);
+          var itemHeight = linearMap(val_1, [min5, max5], sizeExtent, true);
           var y0 = void 0;
           switch (funnelAlign) {
             case "top":
@@ -51709,7 +51709,7 @@
           return [[offset, y0], [offset, y0 + itemHeight]];
         }
         var val = data.get(valueDim, idx2) || 0;
-        var itemWidth = linearMap(val, [min4, max4], sizeExtent, true);
+        var itemWidth = linearMap(val, [min5, max5], sizeExtent, true);
         var x0;
         switch (funnelAlign) {
           case "left":
@@ -53052,11 +53052,11 @@
     }, brushOption.brushStyle);
   }
   function formatRectRange(x, y, x2, y2) {
-    var min4 = [mathMin10(x, x2), mathMin10(y, y2)];
-    var max4 = [mathMax10(x, x2), mathMax10(y, y2)];
+    var min5 = [mathMin10(x, x2), mathMin10(y, y2)];
+    var max5 = [mathMax10(x, x2), mathMax10(y, y2)];
     return [
-      [min4[0], max4[0]],
-      [min4[1], max4[1]]
+      [min5[0], max5[0]],
+      [min5[1], max5[1]]
       // y range
     ];
   }
@@ -53325,9 +53325,9 @@
       },
       getCreatingRange: function(localTrack) {
         var ends = getTrackEnds(localTrack);
-        var min4 = mathMin10(ends[0][xyIndex], ends[1][xyIndex]);
-        var max4 = mathMax10(ends[0][xyIndex], ends[1][xyIndex]);
-        return [min4, max4];
+        var min5 = mathMin10(ends[0][xyIndex], ends[1][xyIndex]);
+        var max5 = mathMax10(ends[0][xyIndex], ends[1][xyIndex]);
+        return [min5, max5];
       },
       updateCoverShape: function(controller, cover, localRange, brushOption) {
         var otherExtent;
@@ -54842,11 +54842,11 @@
       var Q1 = quantile(ascList, 0.25);
       var Q2 = quantile(ascList, 0.5);
       var Q3 = quantile(ascList, 0.75);
-      var min4 = ascList[0];
-      var max4 = ascList[ascList.length - 1];
+      var min5 = ascList[0];
+      var max5 = ascList[ascList.length - 1];
       var bound = (boundIQR == null ? 1.5 : boundIQR) * (Q3 - Q1);
-      var low = useExtreme ? min4 : Math.max(min4, Q1 - bound);
-      var high = useExtreme ? max4 : Math.min(max4, Q3 + bound);
+      var low = useExtreme ? min5 : Math.max(min5, Q1 - bound);
+      var high = useExtreme ? max5 : Math.min(max5, Q3 + bound);
       var itemNameFormatter = opt.itemNameFormatter;
       var itemName = isFunction(itemNameFormatter) ? itemNameFormatter({
         value: i
@@ -58183,30 +58183,30 @@
     var pointNum = data[0].length;
     var sums = [];
     var y0 = [];
-    var max4 = 0;
+    var max5 = 0;
     for (var i = 0; i < pointNum; ++i) {
       var temp = 0;
       for (var j = 0; j < layerNum; ++j) {
         temp += data[j][i][1];
       }
-      if (temp > max4) {
-        max4 = temp;
+      if (temp > max5) {
+        max5 = temp;
       }
       sums.push(temp);
     }
     for (var k = 0; k < pointNum; ++k) {
-      y0[k] = (max4 - sums[k]) / 2;
+      y0[k] = (max5 - sums[k]) / 2;
     }
-    max4 = 0;
+    max5 = 0;
     for (var l = 0; l < pointNum; ++l) {
       var sum2 = sums[l] + y0[l];
-      if (sum2 > max4) {
-        max4 = sum2;
+      if (sum2 > max5) {
+        max5 = sum2;
       }
     }
     return {
       y0,
-      max: max4
+      max: max5
     };
   }
 
@@ -59162,8 +59162,8 @@
         }
       },
       api: {
-        coord: function(data, clamp3) {
-          return coordSys.dataToPoint(data, clamp3);
+        coord: function(data, clamp4) {
+          return coordSys.dataToPoint(data, clamp4);
         }
       }
     };
@@ -61738,8 +61738,8 @@
       function RadiusAxis2(scale4, radiusExtent) {
         return _super.call(this, "radius", scale4, radiusExtent) || this;
       }
-      RadiusAxis2.prototype.pointToData = function(point, clamp3) {
-        return this.polar.pointToData(point, clamp3)[this.dim === "radius" ? 0 : 1];
+      RadiusAxis2.prototype.pointToData = function(point, clamp4) {
+        return this.polar.pointToData(point, clamp4)[this.dim === "radius" ? 0 : 1];
       };
       return RadiusAxis2;
     }(Axis_default)
@@ -61758,8 +61758,8 @@
       function AngleAxis2(scale4, angleExtent) {
         return _super.call(this, "angle", scale4, angleExtent || [0, 360]) || this;
       }
-      AngleAxis2.prototype.pointToData = function(point, clamp3) {
-        return this.polar.pointToData(point, clamp3)[this.dim === "radius" ? 0 : 1];
+      AngleAxis2.prototype.pointToData = function(point, clamp4) {
+        return this.polar.pointToData(point, clamp4)[this.dim === "radius" ? 0 : 1];
       };
       AngleAxis2.prototype.calculateCategoryInterval = function() {
         var axis = this;
@@ -61854,12 +61854,12 @@
           otherAxes: [this.getOtherAxis(baseAxis)]
         };
       };
-      Polar2.prototype.dataToPoint = function(data, clamp3) {
-        return this.coordToPoint([this._radiusAxis.dataToRadius(data[0], clamp3), this._angleAxis.dataToAngle(data[1], clamp3)]);
+      Polar2.prototype.dataToPoint = function(data, clamp4) {
+        return this.coordToPoint([this._radiusAxis.dataToRadius(data[0], clamp4), this._angleAxis.dataToAngle(data[1], clamp4)]);
       };
-      Polar2.prototype.pointToData = function(point, clamp3) {
+      Polar2.prototype.pointToData = function(point, clamp4) {
         var coord = this.pointToCoord(point);
-        return [this._radiusAxis.radiusToData(coord[0], clamp3), this._angleAxis.angleToData(coord[1], clamp3)];
+        return [this._radiusAxis.radiusToData(coord[0], clamp4), this._angleAxis.angleToData(coord[1], clamp4)];
       };
       Polar2.prototype.pointToCoord = function(point) {
         var dx = point[0] - this.cx;
@@ -62904,7 +62904,7 @@
         var position2 = this.position;
         return position2 === "top" || position2 === "bottom";
       };
-      SingleAxis2.prototype.pointToData = function(point, clamp3) {
+      SingleAxis2.prototype.pointToData = function(point, clamp4) {
         return this.coordinateSystem.pointToData(point)[0];
       };
       return SingleAxis2;
@@ -63729,13 +63729,13 @@
         this._sw = cellSize[0];
         this._sh = cellSize[1];
       };
-      Calendar2.prototype.dataToPoint = function(data, clamp3) {
+      Calendar2.prototype.dataToPoint = function(data, clamp4) {
         isArray(data) && (data = data[0]);
-        clamp3 == null && (clamp3 = true);
+        clamp4 == null && (clamp4 = true);
         var dayInfo = this.getDateInfo(data);
         var range = this._rangeInfo;
         var date = dayInfo.formatedDate;
-        if (clamp3 && !(dayInfo.time >= range.start.time && dayInfo.time < range.end.time + PROXIMATE_ONE_DAY)) {
+        if (clamp4 && !(dayInfo.time >= range.start.time && dayInfo.time < range.end.time + PROXIMATE_ONE_DAY)) {
           return [NaN, NaN];
         }
         var week = dayInfo.day;
@@ -63749,8 +63749,8 @@
         var date = this.pointToDate(point);
         return date && date.time;
       };
-      Calendar2.prototype.dataToRect = function(data, clamp3) {
-        var point = this.dataToPoint(data, clamp3);
+      Calendar2.prototype.dataToRect = function(data, clamp4) {
+        var point = this.dataToPoint(data, clamp4);
         return {
           contentShape: {
             x: point[0] - (this._sw - this._lineWidth) / 2,
@@ -66388,19 +66388,19 @@
   var coordConvert = {
     lineX: curry(axisConvert, 0),
     lineY: curry(axisConvert, 1),
-    rect: function(to, coordSys, rangeOrCoordRange, clamp3) {
-      var xminymin = to ? coordSys.pointToData([rangeOrCoordRange[0][0], rangeOrCoordRange[1][0]], clamp3) : coordSys.dataToPoint([rangeOrCoordRange[0][0], rangeOrCoordRange[1][0]], clamp3);
-      var xmaxymax = to ? coordSys.pointToData([rangeOrCoordRange[0][1], rangeOrCoordRange[1][1]], clamp3) : coordSys.dataToPoint([rangeOrCoordRange[0][1], rangeOrCoordRange[1][1]], clamp3);
+    rect: function(to, coordSys, rangeOrCoordRange, clamp4) {
+      var xminymin = to ? coordSys.pointToData([rangeOrCoordRange[0][0], rangeOrCoordRange[1][0]], clamp4) : coordSys.dataToPoint([rangeOrCoordRange[0][0], rangeOrCoordRange[1][0]], clamp4);
+      var xmaxymax = to ? coordSys.pointToData([rangeOrCoordRange[0][1], rangeOrCoordRange[1][1]], clamp4) : coordSys.dataToPoint([rangeOrCoordRange[0][1], rangeOrCoordRange[1][1]], clamp4);
       var values = [formatMinMax([xminymin[0], xmaxymax[0]]), formatMinMax([xminymin[1], xmaxymax[1]])];
       return {
         values,
         xyMinMax: values
       };
     },
-    polygon: function(to, coordSys, rangeOrCoordRange, clamp3) {
+    polygon: function(to, coordSys, rangeOrCoordRange, clamp4) {
       var xyMinMax = [[Infinity, -Infinity], [Infinity, -Infinity]];
       var values = map(rangeOrCoordRange, function(item) {
-        var p = to ? coordSys.pointToData(item, clamp3) : coordSys.dataToPoint(item, clamp3);
+        var p = to ? coordSys.pointToData(item, clamp4) : coordSys.dataToPoint(item, clamp4);
         xyMinMax[0][0] = Math.min(xyMinMax[0][0], p[0]);
         xyMinMax[1][0] = Math.min(xyMinMax[1][0], p[1]);
         xyMinMax[0][1] = Math.max(xyMinMax[0][1], p[0]);
@@ -74681,9 +74681,9 @@
         });
       }
       for (var index = 0, curr = dataExtent[0]; index < splitNumber; curr += splitStep, index++) {
-        var max4 = index === splitNumber - 1 ? dataExtent[1] : curr + splitStep;
+        var max5 = index === splitNumber - 1 ? dataExtent[1] : curr + splitStep;
         outPieceList.push({
-          interval: [curr, max4],
+          interval: [curr, max5],
           close: [1, 1]
         });
       }
@@ -75978,10 +75978,10 @@
   }
   function binaryDividePolygon(polygonShape) {
     var points4 = polygonShape.points;
-    var min4 = [];
-    var max4 = [];
-    fromPoints(points4, min4, max4);
-    var boundingRect = new BoundingRect_default(min4[0], min4[1], max4[0] - min4[0], max4[1] - min4[1]);
+    var min5 = [];
+    var max5 = [];
+    fromPoints(points4, min5, max5);
+    var boundingRect = new BoundingRect_default(min5[0], min5[1], max5[0] - min5[0], max5[1] - min5[1]);
     var width = boundingRect.width;
     var height = boundingRect.height;
     var x = boundingRect.x;
@@ -76074,10 +76074,10 @@
         } else {
           var totalArea_1 = 0;
           var items = map(polygons, function(poly) {
-            var min4 = [];
-            var max4 = [];
-            fromPoints(poly, min4, max4);
-            var area = (max4[1] - min4[1]) * (max4[0] - min4[0]);
+            var min5 = [];
+            var max5 = [];
+            fromPoints(poly, min5, max5);
+            var area = (max5[1] - min5[1]) * (max5[0] - min5[0]);
             totalArea_1 += area;
             return { poly, area };
           });
@@ -78968,13 +78968,13 @@
       });
     }
     function destroy() {
-      forEach$1(function(Slide2) {
+      forEach$12(function(Slide2) {
         Slide2.destroy();
       });
       empty(Slides2);
     }
     function update() {
-      forEach$1(function(Slide2) {
+      forEach$12(function(Slide2) {
         Slide2.update();
       });
     }
@@ -78994,9 +78994,9 @@
     function getIn(page) {
       var Controller2 = Components2.Controller;
       var index = Controller2.toIndex(page);
-      var max4 = Controller2.hasFocus() ? 1 : options.perPage;
+      var max5 = Controller2.hasFocus() ? 1 : options.perPage;
       return filter2(function(Slide2) {
-        return between(Slide2.index, index, index + max4 - 1);
+        return between(Slide2.index, index, index + max5 - 1);
       });
     }
     function getAt(index) {
@@ -79022,7 +79022,7 @@
       }));
       emit(EVENT_REFRESH);
     }
-    function forEach$1(iteratee, excludeClones) {
+    function forEach$12(iteratee, excludeClones) {
       get2(excludeClones).forEach(iteratee);
     }
     function filter2(matcher) {
@@ -79031,7 +79031,7 @@
       });
     }
     function style2(prop, value, useContainer) {
-      forEach$1(function(Slide2) {
+      forEach$12(function(Slide2) {
         Slide2.style(prop, value, useContainer);
       });
     }
@@ -79066,7 +79066,7 @@
       getAt,
       add: add2,
       remove: remove$1,
-      forEach: forEach$1,
+      forEach: forEach$12,
       filter: filter2,
       style: style2,
       getLength,
@@ -79344,17 +79344,17 @@
       var focus2 = options.focus;
       return focus2 === "center" ? (listSize() - slideSize(index, true)) / 2 : +focus2 * slideSize(index) || 0;
     }
-    function getLimit(max4) {
-      return toPosition(max4 ? Components2.Controller.getEnd() : 0, !!options.trimSpace);
+    function getLimit(max5) {
+      return toPosition(max5 ? Components2.Controller.getEnd() : 0, !!options.trimSpace);
     }
     function canShift(backwards) {
       var shifted = orient(shift(getPosition(), backwards));
       return backwards ? shifted >= 0 : shifted <= list[resolve("scrollWidth")] - rect(track)[resolve("width")];
     }
-    function exceededLimit(max4, position2) {
+    function exceededLimit(max5, position2) {
       position2 = isUndefined(position2) ? getPosition() : position2;
-      var exceededMin = max4 !== true && orient(position2) < orient(getLimit(false));
-      var exceededMax = max4 !== false && orient(position2) > orient(getLimit(true));
+      var exceededMin = max5 !== true && orient(position2) < orient(getLimit(false));
+      var exceededMax = max5 !== false && orient(position2) > orient(getLimit(true));
       return exceededMin || exceededMax;
     }
     return {
@@ -80169,13 +80169,13 @@
     function createPagination() {
       var length = Splide2.length;
       var classes = options.classes, i18n = options.i18n, perPage = options.perPage;
-      var max4 = hasFocus() ? Controller2.getEnd() + 1 : ceil(length / perPage);
+      var max5 = hasFocus() ? Controller2.getEnd() + 1 : ceil(length / perPage);
       list = placeholder || create4("ul", classes.pagination, Elements2.track.parentElement);
       addClass(list, paginationClasses = CLASS_PAGINATION + "--" + getDirection());
       setAttribute2(list, ROLE, "tablist");
       setAttribute2(list, ARIA_LABEL, i18n.select);
       setAttribute2(list, ARIA_ORIENTATION, getDirection() === TTB ? "vertical" : "");
-      for (var i = 0; i < max4; i++) {
+      for (var i = 0; i < max5; i++) {
         var li = create4("li", null, list);
         var button = create4("button", {
           class: classes.page,
@@ -80663,6 +80663,475 @@
   Splide.defaults = {};
   Splide.STATES = STATES2;
 
+  // node_modules/.pnpm/@splidejs+splide-extension-auto-scroll@0.5.3/node_modules/@splidejs/splide-extension-auto-scroll/dist/js/splide-extension-auto-scroll.esm.js
+  init_live_reload();
+  function empty2(array) {
+    array.length = 0;
+  }
+  function slice$1(arrayLike, start2, end2) {
+    return Array.prototype.slice.call(arrayLike, start2, end2);
+  }
+  function apply$1(func) {
+    return func.bind.apply(func, [null].concat(slice$1(arguments, 1)));
+  }
+  function raf2(func) {
+    return requestAnimationFrame(func);
+  }
+  function typeOf$1(type, subject) {
+    return typeof subject === type;
+  }
+  var isArray$1 = Array.isArray;
+  apply$1(typeOf$1, "function");
+  apply$1(typeOf$1, "string");
+  apply$1(typeOf$1, "undefined");
+  function toArray$1(value) {
+    return isArray$1(value) ? value : [value];
+  }
+  function forEach$1(values, iteratee) {
+    toArray$1(values).forEach(iteratee);
+  }
+  var ownKeys$1 = Object.keys;
+  function forOwn$1(object, iteratee, right) {
+    if (object) {
+      var keys2 = ownKeys$1(object);
+      keys2 = right ? keys2.reverse() : keys2;
+      for (var i = 0; i < keys2.length; i++) {
+        var key = keys2[i];
+        if (key !== "__proto__") {
+          if (iteratee(object[key], key) === false) {
+            break;
+          }
+        }
+      }
+    }
+    return object;
+  }
+  function assign$1(object) {
+    slice$1(arguments, 1).forEach(function(source) {
+      forOwn$1(source, function(value, key) {
+        object[key] = source[key];
+      });
+    });
+    return object;
+  }
+  var min$1 = Math.min;
+  function EventBinder2() {
+    var listeners = [];
+    function bind3(targets, events, callback, options) {
+      forEachEvent(targets, events, function(target, event, namespace) {
+        var isEventTarget = "addEventListener" in target;
+        var remover = isEventTarget ? target.removeEventListener.bind(target, event, callback, options) : target["removeListener"].bind(target, callback);
+        isEventTarget ? target.addEventListener(event, callback, options) : target["addListener"](callback);
+        listeners.push([target, event, namespace, callback, remover]);
+      });
+    }
+    function unbind(targets, events, callback) {
+      forEachEvent(targets, events, function(target, event, namespace) {
+        listeners = listeners.filter(function(listener) {
+          if (listener[0] === target && listener[1] === event && listener[2] === namespace && (!callback || listener[3] === callback)) {
+            listener[4]();
+            return false;
+          }
+          return true;
+        });
+      });
+    }
+    function dispatch(target, type, detail) {
+      var e2;
+      var bubbles = true;
+      if (typeof CustomEvent === "function") {
+        e2 = new CustomEvent(type, {
+          bubbles,
+          detail
+        });
+      } else {
+        e2 = document.createEvent("CustomEvent");
+        e2.initCustomEvent(type, bubbles, false, detail);
+      }
+      target.dispatchEvent(e2);
+      return e2;
+    }
+    function forEachEvent(targets, events, iteratee) {
+      forEach$1(targets, function(target) {
+        target && forEach$1(events, function(events2) {
+          events2.split(" ").forEach(function(eventNS) {
+            var fragment = eventNS.split(".");
+            iteratee(target, fragment[0], fragment[1]);
+          });
+        });
+      });
+    }
+    function destroy() {
+      listeners.forEach(function(data) {
+        data[4]();
+      });
+      empty2(listeners);
+    }
+    return {
+      bind: bind3,
+      unbind,
+      dispatch,
+      destroy
+    };
+  }
+  var EVENT_MOVE2 = "move";
+  var EVENT_MOVED2 = "moved";
+  var EVENT_UPDATED2 = "updated";
+  var EVENT_DRAG2 = "drag";
+  var EVENT_DRAGGED2 = "dragged";
+  var EVENT_SCROLL2 = "scroll";
+  var EVENT_SCROLLED2 = "scrolled";
+  var EVENT_DESTROY2 = "destroy";
+  function EventInterface2(Splide2) {
+    var bus = Splide2 ? Splide2.event.bus : document.createDocumentFragment();
+    var binder = EventBinder2();
+    function on(events, callback) {
+      binder.bind(bus, toArray$1(events).join(" "), function(e2) {
+        callback.apply(callback, isArray$1(e2.detail) ? e2.detail : []);
+      });
+    }
+    function emit(event) {
+      binder.dispatch(bus, event, slice$1(arguments, 1));
+    }
+    if (Splide2) {
+      Splide2.event.on(EVENT_DESTROY2, binder.destroy);
+    }
+    return assign$1(binder, {
+      bus,
+      on,
+      off: apply$1(binder.unbind, bus),
+      emit
+    });
+  }
+  function RequestInterval2(interval, onInterval, onUpdate, limit) {
+    var now = Date.now;
+    var startTime;
+    var rate = 0;
+    var id;
+    var paused = true;
+    var count2 = 0;
+    function update() {
+      if (!paused) {
+        rate = interval ? min$1((now() - startTime) / interval, 1) : 1;
+        onUpdate && onUpdate(rate);
+        if (rate >= 1) {
+          onInterval();
+          startTime = now();
+          if (limit && ++count2 >= limit) {
+            return pause();
+          }
+        }
+        raf2(update);
+      }
+    }
+    function start2(resume) {
+      !resume && cancel();
+      startTime = now() - (resume ? rate * interval : 0);
+      paused = false;
+      raf2(update);
+    }
+    function pause() {
+      paused = true;
+    }
+    function rewind() {
+      startTime = now();
+      rate = 0;
+      if (onUpdate) {
+        onUpdate(rate);
+      }
+    }
+    function cancel() {
+      id && cancelAnimationFrame(id);
+      rate = 0;
+      id = 0;
+      paused = true;
+    }
+    function set3(time) {
+      interval = time;
+    }
+    function isPaused() {
+      return paused;
+    }
+    return {
+      start: start2,
+      rewind,
+      pause,
+      cancel,
+      set: set3,
+      isPaused
+    };
+  }
+  function Throttle2(func, duration) {
+    var interval;
+    function throttled() {
+      if (!interval) {
+        interval = RequestInterval2(duration || 0, function() {
+          func();
+          interval = null;
+        }, null, 1);
+        interval.start();
+      }
+    }
+    return throttled;
+  }
+  var CLASS_ACTIVE2 = "is-active";
+  var SLIDE2 = "slide";
+  var FADE2 = "fade";
+  function slice3(arrayLike, start2, end2) {
+    return Array.prototype.slice.call(arrayLike, start2, end2);
+  }
+  function apply2(func) {
+    return func.bind(null, ...slice3(arguments, 1));
+  }
+  function typeOf2(type, subject) {
+    return typeof subject === type;
+  }
+  function isObject6(subject) {
+    return !isNull2(subject) && typeOf2("object", subject);
+  }
+  var isArray4 = Array.isArray;
+  apply2(typeOf2, "function");
+  apply2(typeOf2, "string");
+  var isUndefined2 = apply2(typeOf2, "undefined");
+  function isNull2(subject) {
+    return subject === null;
+  }
+  function toArray2(value) {
+    return isArray4(value) ? value : [value];
+  }
+  function forEach2(values, iteratee) {
+    toArray2(values).forEach(iteratee);
+  }
+  function toggleClass2(elm, classes, add2) {
+    if (elm) {
+      forEach2(classes, (name) => {
+        if (name) {
+          elm.classList[add2 ? "add" : "remove"](name);
+        }
+      });
+    }
+  }
+  var ownKeys2 = Object.keys;
+  function forOwn2(object, iteratee, right) {
+    if (object) {
+      let keys2 = ownKeys2(object);
+      keys2 = right ? keys2.reverse() : keys2;
+      for (let i = 0; i < keys2.length; i++) {
+        const key = keys2[i];
+        if (key !== "__proto__") {
+          if (iteratee(object[key], key) === false) {
+            break;
+          }
+        }
+      }
+    }
+    return object;
+  }
+  function assign2(object) {
+    slice3(arguments, 1).forEach((source) => {
+      forOwn2(source, (value, key) => {
+        object[key] = source[key];
+      });
+    });
+    return object;
+  }
+  function removeAttribute2(elms, attrs) {
+    forEach2(elms, (elm) => {
+      forEach2(attrs, (attr) => {
+        elm && elm.removeAttribute(attr);
+      });
+    });
+  }
+  function setAttribute3(elms, attrs, value) {
+    if (isObject6(attrs)) {
+      forOwn2(attrs, (value2, name) => {
+        setAttribute3(elms, name, value2);
+      });
+    } else {
+      forEach2(elms, (elm) => {
+        isNull2(value) || value === "" ? removeAttribute2(elm, attrs) : elm.setAttribute(attrs, String(value));
+      });
+    }
+  }
+  var { min: min4, max: max4, floor: floor2, ceil: ceil2, abs: abs3 } = Math;
+  function clamp3(number, x, y) {
+    const minimum = min4(x, y);
+    const maximum = max4(x, y);
+    return min4(max4(minimum, number), maximum);
+  }
+  var DEFAULTS2 = {
+    speed: 1,
+    autoStart: true,
+    pauseOnHover: true,
+    pauseOnFocus: true
+  };
+  var I18N2 = {
+    startScroll: "Start auto scroll",
+    pauseScroll: "Pause auto scroll"
+  };
+  function AutoScroll(Splide2, Components2, options) {
+    const { on, off, bind: bind3, unbind } = EventInterface2(Splide2);
+    const { translate: translate2, getPosition, toIndex, getLimit } = Components2.Move;
+    const { setIndex, getIndex } = Components2.Controller;
+    const { orient } = Components2.Direction;
+    const { toggle } = Components2.Elements;
+    const { Live: Live2 } = Components2;
+    const { root } = Splide2;
+    const throttledUpdateArrows = Throttle2(Components2.Arrows.update, 500);
+    let autoScrollOptions = {};
+    let interval;
+    let stopped;
+    let hovered;
+    let focused;
+    let busy;
+    let currPosition;
+    function setup() {
+      const { autoScroll } = options;
+      autoScrollOptions = assign2({}, DEFAULTS2, isObject6(autoScroll) ? autoScroll : {});
+    }
+    function mount() {
+      if (!Splide2.is(FADE2)) {
+        if (!interval && options.autoScroll !== false) {
+          interval = RequestInterval2(0, move);
+          listen();
+          autoStart();
+        }
+      }
+    }
+    function destroy() {
+      if (interval) {
+        interval.cancel();
+        interval = null;
+        currPosition = void 0;
+        off([EVENT_MOVE2, EVENT_DRAG2, EVENT_SCROLL2, EVENT_MOVED2, EVENT_SCROLLED2]);
+        unbind(root, "mouseenter mouseleave focusin focusout");
+        unbind(toggle, "click");
+      }
+    }
+    function listen() {
+      if (autoScrollOptions.pauseOnHover) {
+        bind3(root, "mouseenter mouseleave", (e2) => {
+          hovered = e2.type === "mouseenter";
+          autoToggle();
+        });
+      }
+      if (autoScrollOptions.pauseOnFocus) {
+        bind3(root, "focusin focusout", (e2) => {
+          focused = e2.type === "focusin";
+          autoToggle();
+        });
+      }
+      if (autoScrollOptions.useToggleButton) {
+        bind3(toggle, "click", () => {
+          stopped ? play() : pause();
+        });
+      }
+      on(EVENT_UPDATED2, update);
+      on([EVENT_MOVE2, EVENT_DRAG2, EVENT_SCROLL2], () => {
+        busy = true;
+        pause(false);
+      });
+      on([EVENT_MOVED2, EVENT_DRAGGED2, EVENT_SCROLLED2], () => {
+        busy = false;
+        autoToggle();
+      });
+    }
+    function update() {
+      const { autoScroll } = options;
+      if (autoScroll !== false) {
+        autoScrollOptions = assign2({}, autoScrollOptions, isObject6(autoScroll) ? autoScroll : {});
+        mount();
+      } else {
+        destroy();
+      }
+      if (interval && !isUndefined2(currPosition)) {
+        translate2(currPosition);
+      }
+    }
+    function autoStart() {
+      if (autoScrollOptions.autoStart) {
+        if (document.readyState === "complete") {
+          play();
+        } else {
+          bind3(window, "load", play);
+        }
+      }
+    }
+    function play() {
+      if (isPaused()) {
+        interval.start(true);
+        Live2.disable(true);
+        focused = hovered = stopped = false;
+        updateButton();
+      }
+    }
+    function pause(stop2 = true) {
+      if (!stopped) {
+        stopped = stop2;
+        updateButton();
+        if (!isPaused()) {
+          interval.pause();
+          Live2.disable(false);
+        }
+      }
+    }
+    function autoToggle() {
+      if (!stopped) {
+        hovered || focused || busy ? pause(false) : play();
+      }
+    }
+    function move() {
+      const position2 = getPosition();
+      const destination = computeDestination(position2);
+      if (position2 !== destination) {
+        translate2(destination);
+        updateIndex(currPosition = getPosition());
+      } else {
+        pause(false);
+        if (autoScrollOptions.rewind) {
+          Splide2.go(autoScrollOptions.speed > 0 ? 0 : Components2.Controller.getEnd());
+        }
+      }
+      throttledUpdateArrows();
+    }
+    function computeDestination(position2) {
+      const speed = autoScrollOptions.speed || 1;
+      position2 += orient(speed);
+      if (Splide2.is(SLIDE2)) {
+        position2 = clamp3(position2, getLimit(false), getLimit(true));
+      }
+      return position2;
+    }
+    function updateIndex(position2) {
+      const { length } = Splide2;
+      const index = (toIndex(position2) + length) % length;
+      if (index !== getIndex()) {
+        setIndex(index);
+        Components2.Slides.update();
+        Components2.Pagination.update();
+        options.lazyLoad === "nearby" && Components2.LazyLoad.check();
+      }
+    }
+    function updateButton() {
+      if (toggle) {
+        const key = stopped ? "startScroll" : "pauseScroll";
+        toggleClass2(toggle, CLASS_ACTIVE2, !stopped);
+        setAttribute3(toggle, "aria-label", options.i18n[key] || I18N2[key]);
+      }
+    }
+    function isPaused() {
+      return !interval || interval.isPaused();
+    }
+    return {
+      setup,
+      mount,
+      destroy,
+      play,
+      pause,
+      isPaused
+    };
+  }
+
   // src/slider.ts
   var carouselImg = document.getElementById("splideImg");
   console.log(carouselImg);
@@ -80686,7 +81155,8 @@
       // for cards with differing widths
       //waitForTransition: false,
       //updateOnMove: true,
-      autoplay: true,
+      //autoplay: true,
+      autoScroll: { speed: 1 },
       //trimSpace: false, // true removes empty space from end of list
       breakpoints: {
         991: {
@@ -80698,7 +81168,7 @@
           perPage: 2
         }
       }
-    }).mount();
+    }).mount({ AutoScroll });
   }
 
   // src/radissonnewchartv1-4.ts
@@ -80879,6 +81349,14 @@ zrender/lib/zrender.js:
   (*!
    * Splide.js
    * Version  : 4.1.4
+   * License  : MIT
+   * Copyright: 2022 Naotoshi Fujita
+   *)
+
+@splidejs/splide-extension-auto-scroll/dist/js/splide-extension-auto-scroll.esm.js:
+  (*!
+   * @splidejs/splide-extension-auto-scroll
+   * Version  : 0.5.3
    * License  : MIT
    * Copyright: 2022 Naotoshi Fujita
    *)

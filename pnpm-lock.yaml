@@ -8,6 +8,7 @@ specifiers:
   '@finsweet/tsconfig': ^1.2.0
   '@playwright/test': ^1.31.2
   '@splidejs/splide': ^4.1.4
+  '@splidejs/splide-extension-auto-scroll': ^0.5.3
   '@typescript-eslint/eslint-plugin': ^5.54.1
   '@typescript-eslint/parser': ^5.54.1
   airtable: ^0.11.6
@@ -25,6 +26,7 @@ specifiers:
 dependencies:
   '@finsweet/ts-utils': 0.38.0
   '@splidejs/splide': 4.1.4
+  '@splidejs/splide-extension-auto-scroll': 0.5.3
   airtable: 0.11.6
   chart.js: 4.2.1
   echarts: 5.4.2
@@ -585,6 +587,10 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
+
+  /@splidejs/splide-extension-auto-scroll/0.5.3:
+    resolution: {integrity: sha512-vPJ8Tn4uebnHa6scBcIypW154HTDenkazX9Nw8T1na44n7OtLoz40R4RoirteV7taPWW7w7ZZPCiEpi2ReYFAQ==}
+    dev: false
 
   /@splidejs/splide/4.1.4:
     resolution: {integrity: sha512-5I30evTJcAJQXt6vJ26g2xEkG+l1nXcpEw4xpKh0/FWQ8ozmAeTbtniVtVmz2sH1Es3vgfC4SS8B2X4o5JMptA==}
