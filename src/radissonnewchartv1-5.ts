@@ -1,5 +1,6 @@
 import Airtable, { Record } from 'airtable';
 
+//import { getColumnData } from './appPageContentv1-2';
 //import { callback } from 'chart.js/dist/helpers/helpers.core';
 //import * as echarts from 'echarts';
 import {
@@ -12,9 +13,13 @@ import {
   overAllScorePieChart,
 } from './chartModule';
 import { imageCarousel } from './slider';
-
 window.Webflow ||= [];
 window.Webflow.push(() => {
+  ///helpers function
+  const getColumnData = function (nameOfField: string, records) {
+    return records.map((rec) => rec.get(nameOfField));
+  };
+
   //format thousand with commas
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -84,10 +89,6 @@ window.Webflow.push(() => {
       dataEnrollContainer.innerHTML = `<div id="dataEnrollWeb" class="data--card w-node-_5f0a5e8d-8b6e-ee41-62f3-883791714490-bc5f1a51"><div class="text-style bold-text ligth--text-grad">Total Enrollments Web & App</div><div class="text-value-style text-size--3rem bluegradient">${formatedNum}</div><div class="text-card-style bold-text"><span class="green-text">+64.9 </span>uplift vs Feb 2022</div></div>`;
     });
 
-  //  console.log(dataEnrollContainer, dataDownloadsContainer, dataRoomContainer, dataRevContainer);
-
-  // dataDownloadsContainer.innerHTML = `<div id="dataEnrollWeb" class="data--card w-node-_5f0a5e8d-8b6e-ee41-62f3-883791714490-bc5f1a51"><div class="text-style bold-text ligth--text-grad">Total Enrollments Web & App</div><div class="text-value-style text-size--3rem bluegradient">${totalDownloads}</div><div class="text-card-style bold-text"><span class="green-text">+64.9 </span>uplift vs Feb 2022</div></div>`;
-
   radiChartbase('tblLNvYTvvUXvs0K7')
     .select({
       view: 'Grid view',
@@ -135,6 +136,9 @@ window.Webflow.push(() => {
       chartOnlineShareApac(weeksData, chinaData, indiaData, seapData);
     });
 
+  ///////
+  ///////OMBT PERFORMANCE TABLE
+
   radiChartbase('tbl4ueTwB1q5I84F0')
     .select({ view: 'Grid view' })
     .eachPage(function page(records) {
@@ -149,7 +153,22 @@ window.Webflow.push(() => {
         .map((record) => record.get('Instant Bookings'))
         .filter((rec) => rec !== undefined);
 
-      bookingsLineChart(weeksData, rfBookingsData, instantBookingData);
+      const instantPercent = getColumnData('Instant Bookings (WoW)', records).map(
+        (el) => +(el * 100).toFixed(2)
+      );
+
+      const rfpPercentdata = getColumnData('RFP Bookings (WoW)', records).map(
+        (el) => +(el * 100).toFixed(2)
+      );
+      console.log(rfpPercentdata);
+
+      bookingsLineChart(
+        weeksData,
+        instantBookingData,
+        rfBookingsData,
+        instantPercent,
+        rfpPercentdata
+      );
     });
 
   //pie chart
@@ -240,7 +259,7 @@ window.Webflow.push(() => {
   const toggleBtn = document.querySelector<HTMLElement>('.tooglebtn-container');
   const logoImg = document.querySelector<HTMLImageElement>('.lognav--img');
   const footerLogoimg = document.querySelector<HTMLImageElement>('.footer--logo-img');
-  console.log(footerLogoimg);
+
   let clicked = true;
   if (
     !pageBody ||
@@ -302,5 +321,6 @@ window.Webflow.push(() => {
 //<script defer src='https://cdn.jsdelivr.net/gh/LoudFace/radisson-script/dist/appPageContent.js'> </script>
 // https://cdn.jsdelivr.net/gh/LoudFace/radisson-script/dist/appPageContent.js
 
-//<script defer src='https://cdn.jsdelivr.net/gh/LoudFace/radisson-script/dist/radissonnewchartv1-4.js'> </script>
+//<script defer src='https://cdn.jsdelivr.net/gh/LoudFace/radisson-script/dist/radissonnewchartv1-5.js'> </script>
 //<script defer src='https://cdn.jsdelivr.net/gh/LoudFace/radisson-script/dist/radissonnewchartv1-4.css'> </script>
+// <script defer src='https://cdn.jsdelivr.net/gh/LoudFace/radisson-script/dist/radissonnewchartv1-5.js'> </script>

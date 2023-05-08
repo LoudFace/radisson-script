@@ -2,6 +2,39 @@ import Airtable, { Record } from 'airtable';
 
 import { appAndInitChart, appDownloadPieChart, appIosChart, downLoadChart } from './appChart.js';
 
+export const formatMoMdata = function (data) {
+  return data
+    .map((el) => {
+      if (typeof el === 'object') el = 0;
+      return el;
+    })
+    .map((el) => {
+      return +(el * 100).toFixed(2);
+    });
+};
+
+///////////
+//helper functions
+const pieSecondValue = function (x) {
+  return 100 - x;
+};
+
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+export const downLoadYaxis = function (nameOfField: string, records) {
+  return records.map((rec) => rec.get(nameOfField));
+};
+
+export const getColumnData = function (nameOfField: string, records) {
+  return records.map((rec) => rec.get(nameOfField));
+};
+
+const changeToPercent = function (x) {
+  return +(x * 100).toFixed(1);
+};
+
 window.Webflow ||= [];
 window.Webflow.push(() => {
   const MILLION_DIVISION = 1000000;
@@ -39,27 +72,8 @@ window.Webflow.push(() => {
   )
     return;
 
-  const pieSecondValue = function (x) {
-    return 100 - x;
-  };
-
-  function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  }
-
-  const downLoadYaxis = function (nameOfField: string, records) {
-    return records.map((rec) => rec.get(nameOfField));
-  };
-
-  const getColumnData = function (nameOfField: string, records) {
-    return records.map((rec) => rec.get(nameOfField));
-  };
-
-  const getTableRecords = function (tableId) {
-    return radiChartbase(tableId).select({
-      view: 'Grid view',
-    });
-  };
+  //////////////
+  ////////////
 
   Airtable.configure({ apiKey: 'keyAk5slAmWBfaIoz' });
   const radiChartbase = new Airtable({ apiKey: 'keyAk5slAmWBfaIoz' }).base('appRQPFdsg8bGEHBO');
@@ -67,6 +81,11 @@ window.Webflow.push(() => {
   // getTableRecords('tblhxgDITpzlU0Nu4').eachPage(function page(records) {
   //   console.log(records);
   // });
+  const getTableRecords = function (tableId) {
+    return radiChartbase(tableId).select({
+      view: 'Grid view',
+    });
+  };
 
   radiChartbase('tblhxgDITpzlU0Nu4') // monthly downloads table
     .select({
@@ -84,9 +103,17 @@ window.Webflow.push(() => {
         const totalDownloadData = downLoadYaxis('Total downloads', records);
         const compaignDownloadData = downLoadYaxis('Campaigns downloads', records);
         const organicDownloadsData = downLoadYaxis('Organic downloads only', records);
+        const androidMoM = downLoadYaxis('Android DL (MoM)', records);
+        const iosMoM = downLoadYaxis('iOS DL (MoM)', records);
+        const totalDownloadMoM = downLoadYaxis('Total Downloads (MoM)', records);
+        const compaignDownloadsMoM = downLoadYaxis('Campaign Downloads (MoM)', records);
+        const organicDownloadsMoM = downLoadYaxis('Organic Downloads (MoM)', records);
 
-        const androidDataWow = downLoadYaxis('Android DL (MoM)', records);
-        console.log(androidDataWow);
+        const andDataMoMFormated = formatMoMdata(androidMoM);
+        const iosInfo = formatMoMdata(iosMoM);
+        const totalDownloadMoMPercent = formatMoMdata(totalDownloadMoM);
+        const compaignDownloadsMoMPercent = formatMoMdata(compaignDownloadsMoM);
+        const organicDownloadsMoMPercent = formatMoMdata(organicDownloadsMoM);
 
         downLoadChart(
           monthDataX,
@@ -94,7 +121,12 @@ window.Webflow.push(() => {
           iOsData,
           totalDownloadData,
           compaignDownloadData,
-          organicDownloadsData
+          organicDownloadsData,
+          andDataMoMFormated,
+          iosInfo,
+          totalDownloadMoMPercent,
+          organicDownloadsMoMPercent,
+          compaignDownloadsMoMPercent
         );
       },
       function done(err) {
@@ -260,21 +292,60 @@ window.Webflow.push(() => {
       //console.log(brands, launchDate, ratingSCore);
       //});
     });
+  /////////
+  //////// Single chart IOS and Android Data
 
+  const appChartinfoWrap = document.querySelector('.ios-data-rep-wrapper');
+  const androidLabelInfo = document.getElementById('androidInfo');
+  const androidTotalDownloadsWrap = document.querySelector('.android-downloads');
+  const iosTotalDownloadsWrap = document.querySelector('.ios-downloads');
+  if (
+    !appChartinfoWrap ||
+    !androidLabelInfo ||
+    !androidTotalDownloadsWrap ||
+    !iosTotalDownloadsWrap
+  )
+    return;
   radiChartbase('tblT1C7g9L0pJGYT5')
     .select({
       view: 'Grid view',
     })
     .eachPage(function page(records) {
-      console.log(records);
+      const lastRecordRoll = records.slice(-1);
+      const [datafields] = lastRecordRoll.map((el) => el.fields);
+      console.log(datafields);
+      ////the label tab on the ios chart
+      const updateUiFields = function (data) {
+        const iOsDownload = data['iOS RNs'];
+        const androidDownload = data['Android RNs'];
+        const iOspercent = data['iOS RNs (MoM)'];
+        const androidPercent = data['Android RNs (MoM)'];
+        const iOsdownloadesUpdate = numberWithCommas(iOsDownload);
+        const androidDownloadUpdate = numberWithCommas(androidDownload);
+        const iOspercentChange = changeToPercent(iOspercent);
+        const androidPercentChange = changeToPercent(androidPercent);
+
+        appChartinfoWrap.innerHTML = `<div class="ios-data-rep-wrapper"><div class="ios-recent-month">${
+          data['Month Year']
+        }</div><div class="ios-info-wrapper"><div class="ios_name"><div class="labe-color"></div><div>iOS :</div></div><div class="percent-wrapper"><div class="download--amount"> ${iOsdownloadesUpdate}</div><div class="percent--wrap"><div class="ios-percent ${
+          iOspercentChange > 0 ? 'green' : 'red'
+        }">${iOspercentChange}%</div><div class="mom">MoM</div></div></div></div></div>`;
+
+        androidLabelInfo.innerHTML = `<div id="androidInfo" class="android-data-rep-wrapper"><div class="ios-recent-month">${
+          data['Month Year']
+        }</div><div class="ios-info-wrapper"><div class="ios_name"><div class="labe-color android"></div><div>Android :</div></div><div class="percent-wrapper"><div class="download--amount">${androidDownloadUpdate}</div><div class="percent--wrap"><div class="ios-percent ${
+          androidPercentChange > 0 ? 'green' : 'red'
+        }">${androidPercentChange}%</div><div class="mom">MoM</div></div></div></div></div>`;
+        androidTotalDownloadsWrap.textContent = androidDownloadUpdate;
+        iosTotalDownloadsWrap.textContent = iOsdownloadesUpdate;
+      };
+      updateUiFields(datafields);
 
       const iosData = getColumnData('iOS RNs', records);
-      console.log(iosData);
       const xAxis = getColumnData('Month', records);
       const iosDataMoM = getColumnData('iOS RNs (MoM)', records);
       const andData = getColumnData('Android RNs', records);
       const andDataMoM = getColumnData('Android RNs (MoM)', records);
-      console.log(andData);
       const correctedAndData = andDataMoM
         .map((el) => {
           if (typeof el === 'object') el = 0;
@@ -282,14 +353,6 @@ window.Webflow.push(() => {
         })
         .map((el) => Math.round(el * 100));
 
-      console.log(correctedAndData);
-      // const removeNaNandInfinityValue = function (data:ar) {
-      //   data.map((el) => {
-      //     if (typeof el === 'object') el = 0;
-      //     return el;
-      //   });
-      // };
-      // const correctedData = removeNaNandInfinityValue(iosDataMoM);
       const correctedData = iosDataMoM
         .map((el) => {
           if (typeof el === 'object') el = 0;
@@ -302,13 +365,12 @@ window.Webflow.push(() => {
         if (el === 0) el = '-';
         return el;
       });
-      //console.log(newData);
+
       //Scroll into view
       const callFunction = function (entries) {
         entries.forEach((el) => {
           if (el.isIntersecting) {
             appIosChart(xAxis, iosData, newData);
-
             appAndInitChart(xAxis, andData, correctedAndData);
           }
         });
@@ -345,3 +407,5 @@ window.Webflow.push(() => {
 // <script defer src='https://cdn.jsdelivr.net/gh/LoudFace/radisson-script/dist/appPageContentv1-2.js'> </script>
 
 // <div class="testimonial-flx-wrapper"><div class="test-image-wrapper"><img loading="lazy" width="240" src="https://assets.website-files.com/63ee41b9862db4b9345f1a50/643ea53e2793f42c0cb4f44b_BG.png" id="testiImage1" alt="" class="testi-img"></div><div class="rating-container"><img src="https://assets.website-files.com/63ee41b9862db4b9345f1a50/640e31d12f96962207a18fdf_Review.svg" loading="lazy" id="testiStarRating1" alt=""><div id="testiContent1" class="text-style">Feugiat faucibus amet rhoncus felis neque orci magna ac. Lacus a bibendum leo quam risus dui laoreet lacus sagittis. Nam gravida enim pellentesque quis eu in est.</div></div><img src="https://assets.website-files.com/63ee41b9862db4b9345f1a50/643ea2571829124442e529e1_Frame%201000001756.png" loading="lazy" width="52" height="52" id="testiFlag1" alt="" class="country--flag"></div>
+
+// <script defer src='https://cdn.jsdelivr.net/gh/LoudFace/radisson-script/dist/appPageContentv1-2.js'> </script>

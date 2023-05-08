@@ -610,13 +610,19 @@ export const chartOnlineShareApac = function (xAxis: 0, yAxis: 0, yAxis2: 0, yAx
 };
 
 //third chart  rfp bookings and instant bookings
-export const bookingsLineChart = function (xAxis: 0, yAxis: 0, yAxis2: 0, yAxis3: 0) {
+export const bookingsLineChart = function (
+  xAxis: 0,
+  yAxis: 0,
+  yAxis2: 0,
+  instatPercent: 0,
+  rfpPercent: 0
+) {
   bookingsLine.setOption({
     grid: {
       width: '80%',
       left: 40,
     },
-    color: ['#C0EA5F', '#7C74EB', '#DADADA'],
+    color: ['#C0EA5F', '#7C74EB', 'transparent', 'transparent'],
     title: {
       show: false,
       text: 'ECharts Getting Started Example',
@@ -642,13 +648,26 @@ export const bookingsLineChart = function (xAxis: 0, yAxis: 0, yAxis2: 0, yAxis3
         const ic2 = `<span data-tooltip="minimum" style="border-radius:2px; text-align: left; background-color:${params[1].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
 
         const title = `<span style=" text-align: left; color: white; border-bottom: 1px solid #4D4D4D; margin-bottom: 10px; padding-bottom:5px; display: inline-block; width:100%;"> ${params[0].name} </span>`;
-        const spacing = `<span style=" display: inline-block; width:10px;" ></span>`;
-        const percentincrease1 = ` <span><span style="color:#5DE91C; ">+157.80%</span> Wow</span> `;
-        const percentincrease2 = ` <span><span style="color:#F65340; ">-32.50%</span> Wow</span> `;
+
+        const [, , instantPercent, rfpbookings] = params;
+        console.log(instantPercent);
+
+        const percentInstant = ` <span><span style="color:${
+          instantPercent.data > 0 ? '#17B96B' : '#FE4B36'
+        }; ">${instantPercent.data}% </span> WoW</span> `;
+
+        const percentRfp = ` <span><span style="color:${
+          rfpbookings.data > 0 ? '#17B96B' : '#FE4B36'
+        }; ">${rfpbookings.data}% </span> WoW</span> `;
+
+        // const formatedTooltip = `<div style= "display: flex; align-items: center; justify-content: space-between; gap: 1rem;"> <div> ${ic1} ${params[0].seriesName}</div> : ${params[0].data} ${percentincrease1} </div>`;
+
+        const formatedTooltip = ` <div  style= "display: flex; align-items: center; justify-content: space-between; gap: 1rem;"> <div> ${ic1} ${params[0].seriesName}</div> : ${params[0].data}% ${percentInstant} </div>`;
+        const formatedTooltipRfp = `<div style= "display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;" > <div> ${ic2} ${params[1].seriesName}</div> : ${params[1].data}%  ${percentRfp} </div>`;
 
         return `${title} <br />
-                ${ic1} ${params[0].seriesName} ${spacing} : ${params[0].data}% ${spacing}  ${percentincrease1} <br/>  
-                ${ic2}${params[1].seriesName} ${spacing} : ${params[1].data}% ${spacing}  ${percentincrease2}`;
+               ${formatedTooltip}  
+                ${formatedTooltipRfp}`;
       },
     },
     xAxis: {
@@ -697,7 +716,7 @@ export const bookingsLineChart = function (xAxis: 0, yAxis: 0, yAxis2: 0, yAxis3
         },
       },
       min: 10,
-      // max: 50,
+      max: 200,
     },
     series: [
       {
@@ -743,23 +762,16 @@ export const bookingsLineChart = function (xAxis: 0, yAxis: 0, yAxis2: 0, yAxis3
         data: yAxis2,
       },
       {
-        name: 'SEAP',
+        name: 'instantPercent',
         type: 'line',
         showSymbol: false,
-        areaStyle: {
-          opacity: 0.2,
-          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            {
-              offset: 0,
-              color: '#DADADA',
-            },
-            {
-              offset: 1,
-              color: 'transparent',
-            },
-          ]),
-        },
-        data: yAxis3,
+        data: instatPercent,
+      },
+      {
+        name: 'rfpPercent',
+        type: 'scatter',
+        showSymbol: false,
+        data: rfpPercent,
       },
     ],
     dataZoom: [

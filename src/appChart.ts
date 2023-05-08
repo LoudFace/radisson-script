@@ -96,13 +96,15 @@ export const appAndInitChart = function (xAxis: 0, yAxis: 0, yAxis2: 0) {
         const ic1 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[0].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
 
         const title = `<span style=" color: white; border-bottom: 1px solid #4D4D4D; margin-bottom: 10px; padding-bottom:5px; display: inline-block; width:100%;"> ${params[0].name} </span>`;
-        const spacing = `<span style=" display: inline-block; width:10px;" ></span>`;
+        //const spacing = `<span style=" display: inline-block; width:10px;" ></span>`;
         const percentincrease1 = ` <span><span style="color:${
           params[1].data > 0 ? '#17B96B' : '#FE4B36'
         }; ">${params[1].data}% </span> MoM</span> `;
 
+        const formatedTooltip = `<div style= "display: flex; align-items: center; justify-content: space-between; gap: 1rem;"> <div> ${ic1} ${params[0].seriesName}</div> : ${params[0].data} ${percentincrease1} </div>`;
+
         return `${title} <br />
-                    ${ic1} ${params[0].seriesName} ${spacing} : ${params[0].data}%  ${spacing}  ${percentincrease1} <br/>
+                    ${formatedTooltip}<br/>
                  `;
       },
     },
@@ -227,13 +229,14 @@ export const appIosChart = function (xAxis: 0, yAxis: 0, yAxis2: 0) {
         const ic1 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[0].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
 
         const title = `<span style=" color: white; border-bottom: 1px solid #4D4D4D; margin-bottom: 10px; padding-bottom:5px; display: inline-block; width:100%;"> ${params[0].name} </span>`;
-        const spacing = `<span style=" display: inline-block; width:10px;" ></span>`;
         const percentincrease1 = ` <span><span style="color:${
           params[1].data > 0 ? '#17B96B' : '#FE4B36'
         }; ">${params[1].data}% </span> MoM</span> `;
 
-        return `${title} <br />
-                    ${ic1} ${params[0].seriesName} ${spacing} : ${params[0].data}%  ${spacing}  ${percentincrease1} <br/>
+        const formatedTooltip = `<div style= "display: flex; align-items: center; justify-content: space-between; gap: 1rem;"> <div> ${ic1} ${params[0].seriesName}</div> : ${params[0].data} ${percentincrease1} </div>`;
+
+        return `${title} <br/>
+                    ${formatedTooltip} <br/>
                  `;
       },
     },
@@ -336,7 +339,12 @@ export const downLoadChart = function (
   yAxis2: 0,
   yAxis3: 0,
   yAxis4: 0,
-  yAxis5: 0
+  yAxis5: 0,
+  andInfo: 0,
+  iosInfo: 0,
+  totalPercent: 0,
+  campPercent: 0,
+  organicPercent: 0
 ) {
   appDownloadchartInit.setOption({
     grid: {
@@ -344,7 +352,18 @@ export const downLoadChart = function (
       left: '5%',
       //height: '80%',
     },
-    color: ['#DADADA', '#9EEDFE', '#7C74EB', '#C0EA5F', '#FBD881'],
+    color: [
+      '#DADADA',
+      '#9EEDFE',
+      '#7C74EB',
+      '#C0EA5F',
+      '#FBD881',
+      'transparent',
+      'transparent',
+      'transparent',
+      'transparent',
+      'transparent',
+    ],
     title: {
       show: false,
       text: 'ECharts Getting Started Example',
@@ -366,6 +385,11 @@ export const downLoadChart = function (
       },
 
       formatter: function (params) {
+        //console.log(params);
+
+        function numberWithCommas(x) {
+          return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
         const ic1 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[0].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
         const ic2 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[1].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
         const ic3 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[2].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
@@ -373,19 +397,45 @@ export const downLoadChart = function (
         const ic5 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[4].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
 
         const title = `<span style=" color: white; border-bottom: 1px solid #4D4D4D; margin-bottom: 10px; padding-bottom:5px; display: inline-block; width:100%;"> ${params[0].name} </span>`;
-        const spacing = `<span style=" display: inline-block; width:10px;" ></span>`;
-        const percentincrease1 = ` <span><span style="color:#17B96B; ">+21.76%</span> Wow</span> `;
-        const percentincrease2 = ` <span><span style="color:#17B96B; ">+18.06%</span> Wow</span> `;
-        const percentincrease3 = ` <span><span style="color:#17B96B; ">+19.33%</span> Wow</span> `;
-        const percentincrease4 = ` <span><span style="color:#17B96B; ">+9.90%</span> Wow</span> `;
-        const percentincrease5 = ` <span><span style="color:#17B96B; ">+6.60%</span> Wow</span> `;
+        const formatedNumParam = params.map((el) => numberWithCommas(el.data));
+        console.log(formatedNumParam);
+
+        const percentAndroid = ` <span><span style="color:${
+          formatedNumParam[5] > 0 ? '#17B96B' : '#FE4B36'
+        }; ">${formatedNumParam[5]}% </span> MoM</span> `;
+
+        const percentiOs = ` <span><span style="color:${
+          formatedNumParam[6] > 0 ? '#17B96B' : '#FE4B36'
+        }; ">${formatedNumParam[6]}% </span> MoM</span> `;
+
+        const percent3 = ` <span><span style="color:${
+          formatedNumParam[7] > 0 ? '#17B96B' : '#FE4B36'
+        }; ">${formatedNumParam[7]}% </span> MoM</span> `;
+
+        const percent4 = ` <span><span style="color:${
+          formatedNumParam[8] > 0 ? '#17B96B' : '#FE4B36'
+        }; ">${formatedNumParam[8]}% </span> MoM</span> `;
+
+        const percent5 = ` <span><span style="color:${
+          formatedNumParam[9] > 0 ? '#17B96B' : '#FE4B36'
+        }; ">${formatedNumParam[9]}% </span> MoM</span> `;
+
+        const formatedTooltip1 = `  <div style= "display: flex; align-items: center; justify-content: space-between; gap: 1rem;" > <div> ${ic1} ${params[0].seriesName}</div> <div style= "display: flex; align-items: center; gap: 23px"> : ${formatedNumParam[0]} ${percentAndroid} </div> </div> `;
+
+        const formatedTooltip2 = `  <div style= "display: flex; align-items: center; justify-content: space-between; gap: 1rem;" > <div> ${ic2} ${params[1].seriesName}</div> <div style= "display: flex; align-items: center; gap: 23px"> : ${formatedNumParam[1]} ${percentiOs} </div> </div> `;
+
+        const formatedTooltip3 = `  <div style= "display: flex; align-items: center; justify-content: space-between; gap: 1rem;" > <div> ${ic3} ${params[2].seriesName}</div> <div style= "display: flex; align-items: center; gap: 23px"> : ${formatedNumParam[2]} ${percent3} </div> </div> `;
+
+        const formatedTooltip4 = `  <div style= "display: flex; align-items: center; justify-content: space-between; gap: 1rem;" > <div> ${ic4} ${params[3].seriesName}</div> <div style= "display: flex; align-items: center; gap: 23px"> : ${formatedNumParam[3]} ${percent4} </div> </div> `;
+
+        const formatedTooltip5 = `  <div style= "display: flex; align-items: center; justify-content: space-between; gap: 1rem;" > <div> ${ic5} ${params[4].seriesName}</div> <div style= "display: flex; align-items: center; gap: 23px"> : ${formatedNumParam[4]} ${percent5} </div> </div> `;
 
         return `${title} <br />
-                    ${ic1} ${params[0].seriesName} ${spacing} : ${params[0].data}%  ${spacing}  ${percentincrease1} <br/>
-                    ${ic2} ${params[1].seriesName} ${spacing} : ${params[1].data}% ${spacing}  ${percentincrease2} <br/>
-                    ${ic3} ${params[2].seriesName} ${spacing} : ${params[2].data}% ${spacing}  ${percentincrease3} <br/>
-                    ${ic4} ${params[3].seriesName} ${spacing} : ${params[3].data}%  ${spacing}  ${percentincrease4}<br/>
-                    ${ic5} ${params[4].seriesName} ${spacing} : ${params[4].data}% ${spacing}  ${percentincrease5}  `;
+                    ${formatedTooltip1}
+                    ${formatedTooltip2}
+                    ${formatedTooltip3}
+                    ${formatedTooltip4}
+                    ${formatedTooltip5}`;
       },
     },
     xAxis: {
@@ -436,7 +486,7 @@ export const downLoadChart = function (
           cap: 'round',
         },
       },
-      // min: 0,
+      min: 0,
       //max: 400,
     },
     series: [
@@ -540,14 +590,51 @@ export const downLoadChart = function (
         },
         data: yAxis5,
       },
+      {
+        name: 'percentInfo',
+        type: 'line',
+        showSymbol: false,
+        data: andInfo,
+      },
+      {
+        name: 'percentInfo',
+        type: 'line',
+        showSymbol: false,
+        data: iosInfo,
+      },
+      {
+        name: 'percentInfo',
+        type: 'line',
+        showSymbol: false,
+        data: totalPercent,
+      },
+      {
+        name: 'percentInfo',
+        type: 'line',
+        showSymbol: false,
+        data: campPercent,
+      },
+      {
+        name: 'percentInfo',
+        type: 'line',
+        showSymbol: false,
+        data: organicPercent,
+      },
     ],
     dataZoom: [
       {
-        type: 'inside',
+        type: 'slider',
         xAxisIndex: [0, 1],
         start: 10,
         end: 100,
         minSpan: 20,
+        height: 15,
+        bottom: '4%',
+        dataBackground: {
+          areaStyle: {
+            color: 'transparent',
+          },
+        },
       },
     ],
   });
