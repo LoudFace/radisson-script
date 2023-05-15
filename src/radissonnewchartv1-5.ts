@@ -19,7 +19,6 @@ window.Webflow.push(() => {
   const getColumnData = function (nameOfField: string, records) {
     return records.map((rec) => rec.get(nameOfField));
   };
-
   //format thousand with commas
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -35,7 +34,6 @@ window.Webflow.push(() => {
 
   Airtable.configure({ apiKey: 'keyAk5slAmWBfaIoz' });
   const radiChartbase = new Airtable({ apiKey: 'keyAk5slAmWBfaIoz' }).base('appRQPFdsg8bGEHBO');
-
   radiChartbase('Monthly Downloads')
     .select({
       // Selecting the first 3 records in Grid view:
@@ -67,7 +65,6 @@ window.Webflow.push(() => {
   const apacScore = document.querySelector('.apac__score--number');
   const downloadScore = document.getElementById('downloadPercent');
   //dataRevCard dataRoomBook dataDownloads dataEnrollWeb
-
   if (
     !dataRevContainer ||
     !dataRoomContainer ||
@@ -80,7 +77,6 @@ window.Webflow.push(() => {
   )
     return;
   //let totalDownloads;
-
   radiChartbase('tbl8Ye0eoBXdPGyL5') //table ID
     .select({ view: 'Grid view' })
     .eachPage(function page(records) {
@@ -88,7 +84,7 @@ window.Webflow.push(() => {
       const formatedNum = numberWithCommas(totalDownloads);
       dataEnrollContainer.innerHTML = `<div id="dataEnrollWeb" class="data--card w-node-_5f0a5e8d-8b6e-ee41-62f3-883791714490-bc5f1a51"><div class="text-style bold-text ligth--text-grad">Total Enrollments Web & App</div><div class="text-value-style text-size--3rem bluegradient">${formatedNum}</div><div class="text-card-style bold-text"><span class="green-text">+64.9 </span>uplift vs Feb 2022</div></div>`;
     });
-
+  ////////
   radiChartbase('tblLNvYTvvUXvs0K7')
     .select({
       view: 'Grid view',

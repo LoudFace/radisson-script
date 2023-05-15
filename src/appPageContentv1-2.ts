@@ -30,15 +30,12 @@ export const downLoadYaxis = function (nameOfField: string, records) {
 export const getColumnData = function (nameOfField: string, records) {
   return records.map((rec) => rec.get(nameOfField));
 };
-
 const changeToPercent = function (x) {
   return +(x * 100).toFixed(1);
 };
-
 window.Webflow ||= [];
 window.Webflow.push(() => {
   const MILLION_DIVISION = 1000000;
-
   const appSect = document.querySelector('.graph-tab-wrapper');
   const totalAppCount = document.querySelectorAll('.app__download-num');
   const targetValue = document.querySelector('.target--num');
