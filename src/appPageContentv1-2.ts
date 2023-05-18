@@ -41,7 +41,6 @@ window.Webflow.push(() => {
   const targetValue = document.querySelector('.target--num');
   const iOsBtn = document.getElementById('iosTab');
   const appTargetPerc = document.querySelectorAll('.content--heading');
-  console.log(appTargetPerc);
 
   //UI elements changes
   const revGenerated = document.getElementById('revGenerated');
@@ -68,13 +67,10 @@ window.Webflow.push(() => {
     !downloadsYoy
   )
     return;
-
   //////////////
   ////////////
-
   Airtable.configure({ apiKey: 'keyAk5slAmWBfaIoz' });
   const radiChartbase = new Airtable({ apiKey: 'keyAk5slAmWBfaIoz' }).base('appRQPFdsg8bGEHBO');
-
   // getTableRecords('tblhxgDITpzlU0Nu4').eachPage(function page(records) {
   //   console.log(records);
   // });
@@ -83,7 +79,6 @@ window.Webflow.push(() => {
       view: 'Grid view',
     });
   };
-
   radiChartbase('tblhxgDITpzlU0Nu4') // monthly downloads table
     .select({
       view: 'Grid view',

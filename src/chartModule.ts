@@ -7,11 +7,7 @@ const emeaPie = document.getElementById('pieChart2');
 const apacPie = document.getElementById('pieChart3');
 const appDownload2 = document.getElementById('appDownload');
 const bookings = document.getElementById('bookingsChart');
-console.log(appDownload2);
 
-// if (!chartTest || !chartApac || !overAllScore || !emeaPie || !apacPie || !appDownload) {
-//   return;
-// }
 // Create the echarts instance
 const myChart = echarts.init(chartTest);
 const apacChart = echarts.init(chartApac);
@@ -231,7 +227,12 @@ export const chartOnlineShareEmea = function (
   yAxis2: 0,
   yAxis3: 0,
   yAxis4: 0,
-  yAxis5: 0
+  yAxis5: 0,
+  yWoW1: 0,
+  yWoW2: 0,
+  yWoW3: 0,
+  yWoW4: 0,
+  yWoW5: 0
 ) {
   myChart.setOption({
     grid: {
@@ -239,7 +240,18 @@ export const chartOnlineShareEmea = function (
       left: 40,
       //height: '80%',
     },
-    color: ['#DADADA', '#C0EA5F', '#F65340', '#7C74EB', '#9EEDFE'],
+    color: [
+      '#DADADA',
+      '#C0EA5F',
+      '#F65340',
+      '#7C74EB',
+      '#9EEDFE',
+      'transparent',
+      'transparent',
+      'transparent',
+      'transparent',
+      'transparent',
+    ],
     title: {
       show: false,
       text: 'ECharts Getting Started Example',
@@ -260,26 +272,39 @@ export const chartOnlineShareEmea = function (
         },
       },
       formatter: function (params) {
-        const ic1 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[0].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
-        const ic2 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[1].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
-        const ic3 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[2].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
-        const ic4 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[3].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
-        const ic5 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[4].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
+        const [eerut, nob, ukirwe, cese, mea, eerutWow, nobWow, ukiWow, ceseWow, meaWow] = params;
+        const renderLabel = function (item) {
+          return `<span data-tooltip="minimum" style="border-radius:2px; background-color:${item.color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
+        };
+        const ic1 = renderLabel(eerut);
+        const ic2 = renderLabel(nob);
+        const ic3 = renderLabel(ukirwe);
+        const ic4 = renderLabel(cese);
+        const ic5 = renderLabel(mea);
+        const title = `<span style=" color: white; border-bottom: 1px solid #4D4D4D; margin-bottom: 10px; padding-bottom:5px; display: inline-block; width:100%;"> ${eerut.name} </span>`;
+        /////tooltip styling functions
+        const wowPercentStyle = function (item) {
+          return `<span><span style="color: ${item.data > 0 ? '#17b96b' : '#F65340'}; ">${
+            item.data > 0 ? '+' : ''
+          }${item.data}%</span> Wow</span> `;
+        };
+        const eerutPercent = wowPercentStyle(eerutWow);
+        const nobPercent = wowPercentStyle(nobWow);
+        const ukiPercent = wowPercentStyle(ukiWow);
+        const cesePercent = wowPercentStyle(ceseWow);
+        const meaPercent = wowPercentStyle(meaWow);
 
-        const title = `<span style=" color: white; border-bottom: 1px solid #4D4D4D; margin-bottom: 10px; padding-bottom:5px; display: inline-block; width:100%;"> ${params[0].name} </span>`;
-        const spacing = `<span style=" display: inline-block; width:10px;" ></span>`;
-        const percentincrease1 = ` <span><span style="color:#17B96B; ">+21.76%</span> Wow</span> `;
-        const percentincrease2 = ` <span><span style="color:#17B96B; ">+18.06%</span> Wow</span> `;
-        const percentincrease3 = ` <span><span style="color:#17B96B; ">+19.33%</span> Wow</span> `;
-        const percentincrease4 = ` <span><span style="color:#17B96B; ">+9.90%</span> Wow</span> `;
-        const percentincrease5 = ` <span><span style="color:#17B96B; ">+6.60%</span> Wow</span> `;
-
+        const formatedTooltipEerut = `<div style="display:flex; align-items:center; justify-content: space-between; gap: 2rem;"> <div> ${ic1}${eerut.seriesName}</div>: ${eerut.data}% ${eerutPercent} </div>`;
+        const formatedTooltipNob = `<div style="display:flex; align-items:center; justify-content: space-between; gap: 2rem;"> <div> ${ic2}${nob.seriesName}</div>: ${nob.data}% ${nobPercent} </div>`;
+        const formatedTooltipUki = `<div style="display:flex; align-items:center; justify-content: space-between; gap: 2rem;"> <div> ${ic3}${ukirwe.seriesName}</div>: ${ukirwe.data}% ${ukiPercent} </div>`;
+        const formatedTooltipCese = `<div style="display:flex; align-items:center; justify-content: space-between; gap: 2rem;"> <div> ${ic4}${cese.seriesName}</div>: ${cese.data}% ${cesePercent} </div>`;
+        const formatedTooltipMea = `<div style="display:flex; align-items:center; justify-content: space-between; gap: 2rem;"> <div> ${ic5}${mea.seriesName}</div>: ${mea.data}% ${meaPercent} </div>`;
         return `${title} <br />
-                ${ic1} ${params[0].seriesName} ${spacing} : ${params[0].data}%  ${spacing}  ${percentincrease1} <br/>  
-                ${ic2} ${params[1].seriesName} ${spacing}  : ${params[1].data}% ${spacing}  ${percentincrease2} <br/>
-                ${ic3} ${params[2].seriesName} ${spacing}  : ${params[2].data}% ${spacing}  ${percentincrease3} <br/>  
-                ${ic4} ${params[3].seriesName} ${spacing}  : ${params[3].data}%  ${spacing}  ${percentincrease4}<br/> 
-                ${ic5} ${params[4].seriesName} ${spacing}  : ${params[4].data}% ${spacing}  ${percentincrease5}  `;
+               ${formatedTooltipEerut}
+              ${formatedTooltipNob}
+              ${formatedTooltipUki}
+              ${formatedTooltipCese}
+              ${formatedTooltipMea}  `;
       },
     },
     xAxis: {
@@ -429,6 +454,36 @@ export const chartOnlineShareEmea = function (
         },
         data: yAxis5,
       },
+      {
+        name: 'eerutWow',
+        type: 'line',
+        showSymbol: false,
+        data: yWoW1,
+      },
+      {
+        name: 'nobWow',
+        type: 'line',
+        showSymbol: false,
+        data: yWoW2,
+      },
+      {
+        name: 'ukrWow',
+        type: 'line',
+        showSymbol: false,
+        data: yWoW3,
+      },
+      {
+        name: 'ceseWow',
+        type: 'line',
+        showSymbol: false,
+        data: yWoW4,
+      },
+      {
+        name: 'meaWow',
+        type: 'line',
+        showSymbol: false,
+        data: yWoW5,
+      },
     ],
     dataZoom: [
       {
@@ -442,14 +497,22 @@ export const chartOnlineShareEmea = function (
   });
 };
 ////////second Chart APAC
-export const chartOnlineShareApac = function (xAxis: 0, yAxis: 0, yAxis2: 0, yAxis3: 0) {
+export const chartOnlineShareApac = function (
+  xAxis: 0,
+  yAxis: 0,
+  yAxis2: 0,
+  yAxis3: 0,
+  yWow1: 0,
+  yWoW2: 0,
+  yWoW3: 0
+) {
   apacChart.setOption({
     grid: {
       width: '90%',
       left: 35,
       //height: '80%',
     },
-    color: ['#C0EA5F', '#7C74EB', '#DADADA'],
+    color: ['#C0EA5F', '#7C74EB', '#DADADA', 'transparent', 'transparent', 'transparent'],
     title: {
       show: false,
       text: 'ECharts Getting Started Example',
@@ -470,20 +533,28 @@ export const chartOnlineShareApac = function (xAxis: 0, yAxis: 0, yAxis2: 0, yAx
         },
       },
       formatter: function (params) {
+        const [, , , chinaWow, inWOW, seapWoW] = params;
         const ic1 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[0].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
         const ic2 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[1].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
         const ic3 = `<span data-tooltip="minimum" style="border-radius:2px; background-color:${params[2].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
-
         const title = `<span style=" color: white; border-bottom: 1px solid #4D4D4D; margin-bottom: 10px; padding-bottom:5px; display: inline-block; width:100%;"> ${params[0].name} </span>`;
-        const spacing = `<span style=" display: inline-block; width:10px;" ></span>`;
-        const percentincrease1 = ` <span><span style="color:#F65340; ">-17.34%</span> Wow</span> `;
-        const percentincrease2 = ` <span><span style="color:#F65340; ">-19.23%</span> Wow</span> `;
-        const percentincrease3 = ` <span><span style="color:#F65340; ">-16.40%</span> Wow</span> `;
 
+        const wowPercentStyle = function (item) {
+          return `<span><span style="color: ${item.data > 0 ? '#17b96b' : '#F65340'}; ">${
+            item.data > 0 ? '+' : ''
+          }${item.data}%</span> Wow</span> `;
+        };
+        const chinaWoWPercent = wowPercentStyle(chinaWow);
+        const inWOWPercent = wowPercentStyle(inWOW);
+        const seapWoWPercent = wowPercentStyle(seapWoW);
+
+        const formatedToopTipChina = ` <div style="display:flex; align-items:center; justify-content:space-between; gap: 2rem;"> <div>${ic1} ${params[0].seriesName}</div>: ${params[0].data}% ${chinaWoWPercent}  </div>`;
+        const formatedToopTipIN = ` <div style="display:flex; align-items:center; justify-content:space-between; "> <div>${ic2} ${params[1].seriesName}</div>: ${params[1].data}% ${inWOWPercent}  </div>`;
+        const formatedToopTipSeap = ` <div style="display:flex; align-items:center; justify-content:space-between; gap: 2rem;"> <div>${ic3} ${params[2].seriesName}</div>: ${params[2].data}% ${seapWoWPercent}  </div>`;
         return `${title} <br />
-                ${ic1} ${params[0].seriesName} ${spacing} : ${params[0].data}%  ${spacing}  ${percentincrease1} <br/>  
-                ${ic2} ${params[1].seriesName} ${spacing}  : ${params[1].data}% ${spacing}  ${percentincrease2} <br/>
-                ${ic3} ${params[2].seriesName} ${spacing}  : ${params[2].data}% ${spacing}  ${percentincrease3}  `;
+                ${formatedToopTipChina}
+                ${formatedToopTipIN}
+               ${formatedToopTipSeap}  `;
       },
     },
     xAxis: {
@@ -596,6 +667,24 @@ export const chartOnlineShareApac = function (xAxis: 0, yAxis: 0, yAxis2: 0, yAx
         },
         data: yAxis3,
       },
+      {
+        name: 'chinaWow',
+        type: 'line',
+        showSymbol: false,
+        data: yWow1,
+      },
+      {
+        name: 'inWOW',
+        type: 'line',
+        showSymbol: false,
+        data: yWoW2,
+      },
+      {
+        name: 'seapWoW',
+        type: 'line',
+        showSymbol: false,
+        data: yWoW3,
+      },
     ],
     dataZoom: [
       {
@@ -643,19 +732,14 @@ export const bookingsLineChart = function (
         },
       },
       formatter: function (params) {
-        console.log(params);
         const ic1 = `<span data-tooltip="minimum" style="border-radius:2px; text-align: left; background-color:${params[0].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
         const ic2 = `<span data-tooltip="minimum" style="border-radius:2px; text-align: left; background-color:${params[1].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
-
         const title = `<span style=" text-align: left; color: white; border-bottom: 1px solid #4D4D4D; margin-bottom: 10px; padding-bottom:5px; display: inline-block; width:100%;"> ${params[0].name} </span>`;
 
         const [, , instantPercent, rfpbookings] = params;
-        console.log(instantPercent);
-
         const percentInstant = ` <span><span style="color:${
           instantPercent.data > 0 ? '#17B96B' : '#FE4B36'
         }; ">${instantPercent.data}% </span> WoW</span> `;
-
         const percentRfp = ` <span><span style="color:${
           rfpbookings.data > 0 ? '#17B96B' : '#FE4B36'
         }; ">${rfpbookings.data}% </span> WoW</span> `;

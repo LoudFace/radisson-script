@@ -16,8 +16,22 @@ import { imageCarousel } from './slider';
 window.Webflow ||= [];
 window.Webflow.push(() => {
   ///helpers function
+  //////
   const getColumnData = function (nameOfField: string, records) {
     return records.map((rec) => rec.get(nameOfField));
+  };
+
+  /// formated column data with percent and change NaN and infinity to Zero
+  const formatColumnsTOPercent = function (arr) {
+    const formatedArr = arr
+      .map((el) => {
+        if (typeof el === 'object') el = 0;
+        return el;
+      })
+      .map((el) => {
+        return +(el * 100).toFixed(1);
+      });
+    return formatedArr;
   };
   //format thousand with commas
   function numberWithCommas(x) {
@@ -27,6 +41,7 @@ window.Webflow.push(() => {
   const pieSecondValue = function (x) {
     return 100 - x;
   };
+  ////////
   // section scroll into view
   const hotelAppSect = document.querySelector('.hotel-app--section');
   const imageQualitySection = document.querySelector('.image-quality--section');
@@ -114,8 +129,32 @@ window.Webflow.push(() => {
       const meaData = records
         .map((record) => record.get('MEA OS'))
         .map((mea) => Math.floor(mea * 100));
+
+      const eerutWow = getColumnData('EERUT (WoW)', records);
+      const nobWow = getColumnData('NOB (WoW)', records);
+      const ukrWow = getColumnData('UKIRWE (WoW)', records);
+      const ceseWow = getColumnData('CESE (WoW)', records);
+      const meaWow = getColumnData('MEA (WoW)', records);
+      const eerutWowFormated = formatColumnsTOPercent(eerutWow);
+      const nobWowFormated = formatColumnsTOPercent(nobWow);
+      const ukrWowFormated = formatColumnsTOPercent(ukrWow);
+      const ceseWowFormated = formatColumnsTOPercent(ceseWow);
+      const meaWowFormated = formatColumnsTOPercent(meaWow);
+
       //function calling the chart on the pageLoad
-      chartOnlineShareEmea(weeksData, eerutData, nobData, ukrwData, ceseData, meaData);
+      chartOnlineShareEmea(
+        weeksData,
+        eerutData,
+        nobData,
+        ukrwData,
+        ceseData,
+        meaData,
+        eerutWowFormated,
+        nobWowFormated,
+        ukrWowFormated,
+        ceseWowFormated,
+        meaWowFormated
+      );
 
       const chinaData = records
         .map((record) => record.get('CN OS'))
@@ -128,8 +167,25 @@ window.Webflow.push(() => {
       const seapData = records
         .map((record) => record.get('SEAP OS'))
         .map((x) => (x * 100).toFixed(2));
+
+      const chinaWoW = getColumnData('CN (WoW)', records);
+      const inWOW = getColumnData('IN (WoW)', records);
+      const seapWoW = getColumnData('SEAP (WoW)', records);
+      const chinaWoWFormated2 = formatColumnsTOPercent(chinaWoW);
+      const inWOWFormated = formatColumnsTOPercent(inWOW);
+      const seapWoWFormated = formatColumnsTOPercent(seapWoW);
+      console.log(chinaWoWFormated2, inWOWFormated, seapWoWFormated);
+
       //function calling the chart on the pageLoad
-      chartOnlineShareApac(weeksData, chinaData, indiaData, seapData);
+      chartOnlineShareApac(
+        weeksData,
+        chinaData,
+        indiaData,
+        seapData,
+        chinaWoWFormated2,
+        inWOWFormated,
+        seapWoWFormated
+      );
     });
 
   ///////

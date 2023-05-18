@@ -77959,7 +77959,6 @@
     const targetValue = document.querySelector(".target--num");
     const iOsBtn = document.getElementById("iosTab");
     const appTargetPerc = document.querySelectorAll(".content--heading");
-    console.log(appTargetPerc);
     const revGenerated = document.getElementById("revGenerated");
     const totalDownloads = document.getElementById("totalDownload");
     const roomNight = document.getElementById("roomNight");
