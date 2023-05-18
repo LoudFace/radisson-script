@@ -698,6 +698,26 @@ export const chartOnlineShareApac = function (
   });
 };
 
+// const scrollbar = apacChart.createSlider({
+//   id: 'scrollbar',
+//   x: 'right',
+//   y: 'bottom',
+//   width: 200,
+//   height: 20,
+//   min: 0,
+//   max: 100,
+//   value: 50,
+//   onChange: function (value) {
+//     // Update the chart's xAxis with the new value
+//     apacChart.setOption({
+//       xAxis: {
+//         min: value,
+//         max: value + 100,
+//       },
+//     });
+//   },
+// });
+
 //third chart  rfp bookings and instant bookings
 export const bookingsLineChart = function (
   xAxis: 0,

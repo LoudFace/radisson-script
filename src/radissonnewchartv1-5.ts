@@ -20,6 +20,9 @@ window.Webflow.push(() => {
   const getColumnData = function (nameOfField: string, records) {
     return records.map((rec) => rec.get(nameOfField));
   };
+  const changeToPercent = function (x) {
+    return +(x * 100).toFixed(1);
+  };
 
   /// formated column data with percent and change NaN and infinity to Zero
   const formatColumnsTOPercent = function (arr) {
@@ -29,7 +32,7 @@ window.Webflow.push(() => {
         return el;
       })
       .map((el) => {
-        return +(el * 100).toFixed(1);
+        return +(el * 100).toFixed(2);
       });
     return formatedArr;
   };
@@ -129,7 +132,6 @@ window.Webflow.push(() => {
       const meaData = records
         .map((record) => record.get('MEA OS'))
         .map((mea) => Math.floor(mea * 100));
-
       const eerutWow = getColumnData('EERUT (WoW)', records);
       const nobWow = getColumnData('NOB (WoW)', records);
       const ukrWow = getColumnData('UKIRWE (WoW)', records);
@@ -140,7 +142,47 @@ window.Webflow.push(() => {
       const ukrWowFormated = formatColumnsTOPercent(ukrWow);
       const ceseWowFormated = formatColumnsTOPercent(ceseWow);
       const meaWowFormated = formatColumnsTOPercent(meaWow);
+      //////
+      ///UI UPDATES
+      const eerutKey = document.getElementById('eerutKey');
+      const nobKey = document.getElementById('nobKey');
+      const ukrwKey = document.getElementById('ukrwKey');
+      const ceseKey = document.getElementById('ceseKey');
+      const meaKey = document.getElementById('meaKey');
+      if (!eerutData || !nobKey || !ukrwKey || !ceseKey || !meaKey) return;
+      //getting the last data for eerut,nob, ukr, cese, mea
+      const [recentEerutData] = eerutData.slice(-1);
+      const [recentNobData] = nobData.slice(-1);
+      const [recentUkrData] = ukrwData.slice(-1);
+      const [recentCeseData] = ceseData.slice(-1);
+      const [recentMeaData] = meaData.slice(-1);
+      //getting the last WoW data for eerut nob ukrw cese and mea
+      const [eerutWowRecentData] = eerutWowFormated.slice(-1);
+      const [nobWowRecentData] = nobWowFormated.slice(-1);
+      const [ukrwWowRecentdata] = ukrWowFormated.slice(-1);
+      const [ceseWowRecentData] = ceseWowFormated.slice(-1);
+      const [meaWowRecentData] = meaWowFormated.slice(-1);
+      ///////////
+      eerutKey.innerHTML = `<div id="eerutKey" class="key__percent--container"><div class="key--percent-value ligth--text-grad">${recentEerutData}%</div><div class="key--percent"><span class="key__span--text ${
+        eerutWowRecentData > 0 ? 'green' : 'red'
+      }">${eerutWowRecentData}% </span>WoW</div></div>`;
 
+      nobKey.innerHTML = `<div id="nobKey" class="key__percent--container"><div class="key--percent-value ligth--text-grad">${recentNobData}%</div><div class="key--percent"><span class="key__span--text ${
+        nobWowRecentData > 0 ? 'green' : 'red'
+      }">${nobWowRecentData}% </span>WoW</div></div>`;
+
+      ukrwKey.innerHTML = `<div id="nobKey" class="key__percent--container"><div class="key--percent-value ligth--text-grad">${recentUkrData}%</div><div class="key--percent"><span class="key__span--text ${
+        ukrwWowRecentdata > 0 ? 'green' : 'red'
+      }">${ukrwWowRecentdata}% </span>WoW</div></div>`;
+
+      ceseKey.innerHTML = `<div id="nobKey" class="key__percent--container"><div class="key--percent-value ligth--text-grad">${recentCeseData}%</div><div class="key--percent"><span class="key__span--text ${
+        ceseWowRecentData > 0 ? 'green' : 'red'
+      }">${ceseWowRecentData}% </span>WoW</div></div>`;
+
+      meaKey.innerHTML = `<div id="nobKey" class="key__percent--container"><div class="key--percent-value ligth--text-grad">${recentMeaData}%</div><div class="key--percent"><span class="key__span--text ${
+        meaWowRecentData > 0 ? 'green' : 'red'
+      }">${meaWowRecentData}% </span>WoW</div></div>`;
+      /////////
       //function calling the chart on the pageLoad
       chartOnlineShareEmea(
         weeksData,
@@ -155,6 +197,22 @@ window.Webflow.push(() => {
         ceseWowFormated,
         meaWowFormated
       );
+      //////
+      ///UI UPDATES
+      ////////// APAC table update
+      const apacReport = document.querySelector('.apac_report-time');
+      const chinaKeyWrap = document.getElementById('chinaKeyWrap');
+      const inKeys = document.getElementById('inKeys');
+      const seapKey = document.getElementById('seapKey');
+      const emeaReportTime = document.querySelector('.emea_report-time');
+
+      if (!apacReport || !chinaKeyWrap || !inKeys || !seapKey || !emeaReportTime) return;
+      const [apacWeekData] = getColumnData('Week', records)
+        .filter((el) => el !== undefined)
+        .slice(-1);
+
+      apacReport.textContent = `${apacWeekData}`;
+      emeaReportTime.textContent = `${apacWeekData}`;
 
       const chinaData = records
         .map((record) => record.get('CN OS'))
@@ -174,9 +232,32 @@ window.Webflow.push(() => {
       const chinaWoWFormated2 = formatColumnsTOPercent(chinaWoW);
       const inWOWFormated = formatColumnsTOPercent(inWOW);
       const seapWoWFormated = formatColumnsTOPercent(seapWoW);
-      console.log(chinaWoWFormated2, inWOWFormated, seapWoWFormated);
+      const [chinaWowRecentValue] = chinaWoWFormated2.slice(-1);
+      const [inWowRecentformatedValue] = inWOWFormated.slice(-1);
+      const [seapWowRecentValue] = seapWoWFormated.slice(-1);
+      const [recentChinaData] = chinaData.filter((el) => el !== 'NaN').slice(-1);
+      const [recentIndiaData] = indiaData.filter((el) => el !== 'NaN').slice(-1);
+      const [recentseapData] = seapData.filter((el) => el !== 'NaN').slice(-1);
 
+      const chinaStringUpdate = `<div id="chinaKeyWrap" class="key__percent--container"><div id="chinaPercent" class="key--percent-value ligth--text-grad">${recentChinaData}%</div><div class="key--percent white-text"><span id="chinaWow" class="key__span--text ${
+        chinaWowRecentValue > 0 ? 'green' : 'red'
+      }">${chinaWowRecentValue}%</span> WoW</div></div>`;
+
+      const inHtmlUpdate = `<div id="inKeys" class="key__percent--container"><div id="inPercent" class="key--percent-value ligth--text-grad">${recentIndiaData}%</div><div class="key--percent white-text"><span id="inWow" class="key__span--text ${
+        inWowRecentformatedValue > 0 ? 'green' : 'red'
+      }">${inWowRecentformatedValue}% </span> WoW</div></div>`;
+
+      const seapHtmlUpdate = `<div id="seapKey" class="key__percent--container"><div id="seapPercent" class="key--percent-value ligth--text-grad">${recentseapData}%</div><div class="key--percent white-text"><span id="seapWow" class="key__span--text ${
+        seapWowRecentValue > 0 ? 'green' : 'red'
+      }">${seapWowRecentValue}%</span> WoW</div></div>`;
+
+      chinaKeyWrap.innerHTML = chinaStringUpdate;
+      inKeys.innerHTML = inHtmlUpdate;
+      seapKey.innerHTML = seapHtmlUpdate;
+      // <div id="seapKey" class="key__percent--container"><div id="seapPercent" class="key--percent-value ligth--text-grad">15.46%</div><div class="key--percent white-text"><span id="seapWow" class="key__span--text red">-16.40%</span> WoW</div></div>
+      // <div id="seapPercent" class="key--percent-value ligth--text-grad">15.46%</div>
       //function calling the chart on the pageLoad
+
       chartOnlineShareApac(
         weeksData,
         chinaData,
@@ -364,7 +445,6 @@ window.Webflow.push(() => {
     clicked = !clicked;
   };
   toggleBtn.addEventListener('click', handleMode);
-
   imageCarousel();
 });
 
