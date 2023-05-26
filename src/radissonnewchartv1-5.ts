@@ -359,15 +359,16 @@ window.Webflow.push(() => {
     .select({ view: 'Grid view' })
     .eachPage(function page(records) {
       const [downloadsData] = records
-        .map((record) => record.get('Progress Percent'))
+        .map((record) => record.get('Achieved Percentage'))
         .filter((rec) => rec !== undefined)
         .map((rec) => Math.floor(rec * 100))
         .slice(-1);
       const secondValue = pieSecondValue(downloadsData);
-
+      console.log(downloadsData);
       const pieintoView = function (entries) {
         entries.forEach((el) => {
           if (el.isIntersecting) {
+            //console.log(downloadsData, secondValue);
             downloadScore.textContent = `${downloadsData}%`;
             appDownloadPieChart(downloadsData, secondValue);
           }
