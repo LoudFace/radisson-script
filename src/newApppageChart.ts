@@ -2,10 +2,18 @@ import * as echarts from 'echarts';
 
 const monthlyChartWrapper = document.getElementById('monthChart');
 const appRatingWrap = document.getElementById('appRating');
+const roomBooked = document.getElementById('roomBookInstance');
+
+/////////////////
+//////////Barchart wrapper
 
 //Initialize monthly chart
 const monthlyChart = echarts.init(monthlyChartWrapper);
 const appRating = echarts.init(appRatingWrap);
+const roomBookedInstance = echarts.init(roomBooked);
+
+//////////////
+//////////// Bar chart
 
 /////Monthly Downloads chart
 export const appMonthlyChart = function (
@@ -286,7 +294,7 @@ export const appMonthlyChart = function (
   });
 };
 
-/////
+///// App rating chart
 export const appRatingChart = function (
   xAxis: 0,
   yAxis: 0,
@@ -296,7 +304,7 @@ export const appRatingChart = function (
 ) {
   appRating.setOption({
     grid: {
-      width: '80%',
+      width: '90%',
       left: 40,
     },
     color: ['#FAACA8', '#9EEDFE', 'transparent', 'transparent'],
@@ -453,6 +461,180 @@ export const appRatingChart = function (
         start: 5,
         end: 100,
         minSpan: 20,
+      },
+    ],
+  });
+};
+
+///// roomBookedChart
+export const roomBookedChart = function (
+  xAxis: 0,
+  yAxis: 0,
+  yAxis2: 0,
+  yaxisPercent: 0,
+  yaxisPercent2: 0
+) {
+  roomBookedInstance.setOption({
+    grid: {
+      width: '90%',
+      left: 40,
+    },
+    color: ['#FAACA8', '#9EEDFE', 'transparent', 'transparent'],
+    title: {
+      show: false,
+      text: 'Radisson Playbook chart instance',
+    },
+    tooltip: {
+      trigger: 'axis',
+      backgroundColor: '#333333',
+      borderColor: '#333333',
+      padding: 20,
+      textStyle: {
+        color: ' #CCCCCC',
+        fontSize: 10,
+      },
+      axisPointer: {
+        // type: 'cross',
+        label: {
+          backgroundColor: 'red',
+        },
+      },
+      formatter: function (params) {
+        const ic1 = `<span data-tooltip="minimum" style="border-radius:2px; text-align: left; background-color:${params[0].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
+        const ic2 = `<span data-tooltip="minimum" style="border-radius:2px; text-align: left; background-color:${params[1].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
+        const title = `<span style=" text-align: left; color: white; border-bottom: 1px solid #4D4D4D; margin-bottom: 10px; padding-bottom:5px; display: inline-block; width:100%;"> ${params[0].name} </span>`;
+
+        const [, , instantPercent, rfpbookings] = params;
+        const percentInstant = ` <span><span style="color:${
+          instantPercent.data > 0 ? '#17B96B' : '#FE4B36'
+        }; ">${instantPercent.data}% </span> MoM</span> `;
+        const percentRfp = ` <span><span style="color:${
+          rfpbookings.data > 0 ? '#17B96B' : '#FE4B36'
+        }; ">${rfpbookings.data}% </span> MoM</span> `;
+
+        // const formatedTooltip = `<div style= "display: flex; align-items: center; justify-content: space-between; gap: 1rem;"> <div> ${ic1} ${params[0].seriesName}</div> : ${params[0].data} ${percentincrease1} </div>`;
+
+        const formatedTooltip = ` <div  style= "display: flex; align-items: center; justify-content: space-between; gap: 1rem;"> <div> ${ic1} ${params[0].seriesName}</div> : ${params[0].data} ${percentInstant} </div>`;
+        const formatedTooltipRfp = `<div style= "display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;" > <div> ${ic2} ${params[1].seriesName}</div> : ${params[1].data} ${percentRfp} </div>`;
+
+        return `${title} <br />
+                 ${formatedTooltip}  
+                  ${formatedTooltipRfp}`;
+      },
+    },
+    xAxis: {
+      // gridIndex: 1,
+
+      type: 'category',
+      boundaryGap: false,
+      axisLine: {
+        //show: true,
+        onZero: false,
+        show: true,
+
+        lineStyle: {
+          color: 'white',
+          width: 2,
+        },
+      },
+      axisLabel: {
+        color: 'white',
+        //interval: 1,
+        padding: [10, 0, 0, 0],
+      },
+      data: xAxis,
+    },
+    yAxis: {
+      splitLine: {
+        show: true,
+        lineStyle: {
+          width: 0.5,
+          color: '#262626',
+        },
+      },
+      type: 'value',
+      axisLabel: {
+        formatter: function (value) {
+          const num = value / 1000;
+          return `${num}k`;
+        },
+      },
+      axisLine: {
+        show: true,
+        color: 'white',
+        width: 2,
+        lineStyle: {
+          color: 'white',
+          width: 2,
+          cap: 'round',
+        },
+      },
+      min: 0,
+      // max: 0,
+    },
+    series: [
+      {
+        name: 'Android',
+        type: 'line',
+        lineStyle: {
+          //width: 0.5,
+          // color: 'red',
+        },
+        areaStyle: {
+          opacity: 0.8,
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            {
+              offset: 0,
+              color: '#FAACA8',
+            },
+            {
+              offset: 0.6,
+              color: 'transparent',
+            },
+          ]),
+        },
+        showSymbol: false,
+        data: yAxis,
+      },
+      {
+        name: 'iOs',
+        type: 'line',
+        showSymbol: false,
+        areaStyle: {
+          opacity: 0.2,
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            {
+              offset: 0,
+              color: '#9EEDFE',
+            },
+            {
+              offset: 1,
+              color: 'transparent',
+            },
+          ]),
+        },
+        data: yAxis2,
+      },
+      {
+        name: 'androidPercent',
+        type: 'line',
+        showSymbol: false,
+        data: yaxisPercent,
+      },
+      {
+        name: 'iosPercent',
+        type: 'scatter',
+        showSymbol: false,
+        data: yaxisPercent2,
+      },
+    ],
+    dataZoom: [
+      {
+        type: 'inside',
+        xAxisIndex: [0, 1],
+        start: 5,
+        end: 100,
+        minSpan: 10,
       },
     ],
   });

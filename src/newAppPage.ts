@@ -2,8 +2,9 @@
 //import fetch from 'node-fetch';
 //import Webflow from 'webflow-api';
 import Airtable from 'airtable';
+import * as echarts from 'echarts';
 
-import { appMonthlyChart, appRatingChart } from './newApppageChart';
+import { appMonthlyChart, appRatingChart, roomBookedChart } from './newApppageChart';
 //const webflowApi = process.env.API_KEY;
 
 const getColumnData = function (nameOfField: string, records) {
@@ -29,6 +30,11 @@ function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
+const convertoSingleValue = function (itemarray) {
+  const [a] = itemarray.slice(-1);
+  return numberWithCommas(a);
+};
+
 window.Webflow ||= [];
 window.Webflow.push(() => {
   console.log('samuel');
@@ -41,10 +47,33 @@ window.Webflow.push(() => {
     });
   };
 
+  ////////test bar chart
+
+  const active = document.getElementById('activeUsers');
+  const activeInit = echarts.init(active);
+
+  activeInit.setOption({
+    xAxis: {
+      type: 'category',
+      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    },
+    yAxis: {
+      type: 'value',
+    },
+    series: [
+      {
+        data: [120, 200, 150, 80, 70, 110, 130],
+        type: 'bar',
+        showBackground: true,
+        backgroundStyle: {
+          color: 'rgba(180, 180, 180, 0.2)',
+        },
+      },
+    ],
+  });
+
   //////////////////////////airtable variables
-
   const tableMonthlyDownload = 'tblhxgDITpzlU0Nu4';
-
   getTableRecords(tableMonthlyDownload).eachPage(function page(records) {
     console.log(records);
     const months = getColumnData('Month', records);
@@ -84,11 +113,6 @@ window.Webflow.push(() => {
     );
     //getting the last item of the arrays
 
-    const convertoSingleValue = function (itemarray) {
-      const [a] = itemarray.slice(-1);
-      return numberWithCommas(a);
-    };
-
     const tDownload = convertoSingleValue(totalDownloads);
     const iOsLatest = convertoSingleValue(iOs);
     const androidLatest = convertoSingleValue(android);
@@ -113,6 +137,7 @@ window.Webflow.push(() => {
         Wowvalue > 0 ? 'green' : 'red'
       }"> ${Wowvalue}% </span>MoM</div>`;
     };
+
     updateKey(totalDownloadsKeyWrap, tDownload, tDownloadWoW);
     updateKey(iosKeyWrap, iOsLatest, iOsLatestMoM);
     updateKey(androidKeyWrap, androidLatest, androidMomLatest);
@@ -138,12 +163,60 @@ window.Webflow.push(() => {
     /////////passing Data to the imported function
     appRatingChart(months, android, ios, androidYoYFormated, iosYoyFormated);
 
-    //////// UI update
+    //////// UI update for the
     const [iosYoyLatest] = iosYoyFormated.slice(-1);
     const [androidYoyLatest] = androidYoYFormated.slice(-1);
     const iosWrap = (document.querySelector('[rd-element="iosData"]').textContent = iosYoyLatest);
     const androidWrap = (document.querySelector('[rd-element="androidData"]').textContent =
       androidYoyLatest);
+  });
+
+  /////////////Room night Chart
+  /// Room Nights iOS Android
+  const revenueTable = 'tblT1C7g9L0pJGYT5';
+  getTableRecords(revenueTable).eachPage(function page(records) {
+    console.log(records);
+    const months = getColumnData('Month', records);
+    const androidRns = getColumnData('Android RNs', records);
+    const iosRns = getColumnData('iOS RNs', records);
+
+    //////get MoM data
+    const androidRnsMoM = getColumnData('Android RNs (MoM)', records);
+    const iosRnsMoM = getColumnData('iOS RNs (MoM)', records);
+    const androidRnsMoMFormated = formatColumnsTOPercent(androidRnsMoM);
+    const iosRnsMoMFormated = formatColumnsTOPercent(iosRnsMoM);
+    //console.log(androidRnsMoMFormated, iosRnsMoMFormated);
+
+    roomBookedChart(months, androidRns, iosRns, androidRnsMoMFormated, iosRnsMoMFormated);
+
+    ////Update the UI Keys
+    const [androidMomFormatedLatest] = androidRnsMoMFormated.slice(-1);
+    const [iosRnsMoMFormatedLatest] = iosRnsMoMFormated.slice(-1);
+
+    const iosRnsLatest = convertoSingleValue(iosRns);
+    const androidRnsLatest = convertoSingleValue(androidRns);
+    console.log(androidRnsLatest);
+
+    const androidWrap = document.querySelector('[rd-element="androidRoomnight"]');
+    const iosWrap = document.querySelector('[rd-element="iosRoomnight"]');
+    console.log(iosWrap);
+
+    const updateKey = function (contWrap, amount, Wowvalue) {
+      contWrap.innerHTML = `<div class="bookings-number-text ligth--text-grad">${amount}</div><div class="key--percent"><span class="key__span--text ${
+        Wowvalue > 0 ? 'green' : 'red'
+      }"> ${Wowvalue}% </span>MoM</div>`;
+    };
+
+    updateKey(iosWrap, iosRnsLatest, iosRnsMoMFormatedLatest);
+    updateKey(androidWrap, androidRnsLatest, androidMomFormatedLatest);
+  });
+
+  /////////////////
+  //////////Bar chart
+  ////Active users Benchmark tabele
+  const activeTableId = 'tblBB9s2JT4wbCYAP';
+  getTableRecords(activeTableId).eachPage(function page(records) {
+    console.log(records);
   });
 
   //Working method Querry
