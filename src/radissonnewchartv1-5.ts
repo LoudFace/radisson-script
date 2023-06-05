@@ -50,6 +50,7 @@ window.Webflow.push(() => {
   const imageQualitySection = document.querySelector('.image-quality--section');
   if (!imageQualitySection || !hotelAppSect) return;
 
+  /////airtable API
   Airtable.configure({ apiKey: 'keyAk5slAmWBfaIoz' });
   const radiChartbase = new Airtable({ apiKey: 'keyAk5slAmWBfaIoz' }).base('appRQPFdsg8bGEHBO');
   radiChartbase('Monthly Downloads')
@@ -63,7 +64,6 @@ window.Webflow.push(() => {
         // This function (`page`) will get called for each page of records.
         const monthData = records.map((record) => record.get('Month'));
         const androidPer = records.map((record) => record.get('Android Percentage (MoM)'));
-
         fetchNextPage();
       },
       function done(err) {
@@ -73,6 +73,12 @@ window.Webflow.push(() => {
         }
       }
     );
+  //getting table Records data
+  const getTableRecords = function (tableId) {
+    return radiChartbase(tableId).select({
+      view: 'Grid view',
+    });
+  };
   //// UI update from airtable
   const dataRevContainer = document.getElementById('dataRevCard');
   const dataRoomContainer = document.getElementById('dataRoomBook');
@@ -94,15 +100,8 @@ window.Webflow.push(() => {
     !downloadScore
   )
     return;
-  //let totalDownloads;
-  radiChartbase('tbl8Ye0eoBXdPGyL5') //table ID
-    .select({ view: 'Grid view' })
-    .eachPage(function page(records) {
-      const [totalDownloads] = records.map((record) => record.get('Total downloads'));
-      const formatedNum = numberWithCommas(totalDownloads);
-      dataEnrollContainer.innerHTML = `<div id="dataEnrollWeb" class="data--card w-node-_5f0a5e8d-8b6e-ee41-62f3-883791714490-bc5f1a51"><div class="text-style bold-text ligth--text-grad">Total Enrollments Web & App</div><div class="text-value-style text-size--3rem bluegradient">${formatedNum}</div><div class="text-card-style bold-text"><span class="green-text">+64.9 </span>uplift vs Feb 2022</div></div>`;
-    });
-  ////////
+
+  ////////  First Chart instance
   radiChartbase('tblLNvYTvvUXvs0K7')
     .select({
       view: 'Grid view',
@@ -149,7 +148,7 @@ window.Webflow.push(() => {
       const ukrwKey = document.getElementById('ukrwKey');
       const ceseKey = document.getElementById('ceseKey');
       const meaKey = document.getElementById('meaKey');
-      if (!eerutData || !nobKey || !ukrwKey || !ceseKey || !meaKey) return;
+      if (!eerutData || !nobKey || !ukrwKey || !ceseKey || !meaKey || !eerutKey) return;
       //getting the last data for eerut,nob, ukr, cese, mea
       const [recentEerutData] = eerutData.slice(-1);
       const [recentNobData] = nobData.slice(-1);
@@ -163,6 +162,7 @@ window.Webflow.push(() => {
       const [ceseWowRecentData] = ceseWowFormated.slice(-1);
       const [meaWowRecentData] = meaWowFormated.slice(-1);
       ///////////
+      //
       eerutKey.innerHTML = `<div id="eerutKey" class="key__percent--container"><div class="key--percent-value ligth--text-grad">${recentEerutData}%</div><div class="key--percent"><span class="key__span--text ${
         eerutWowRecentData > 0 ? 'green' : 'red'
       }">${eerutWowRecentData}% </span>WoW</div></div>`;
@@ -183,7 +183,33 @@ window.Webflow.push(() => {
         meaWowRecentData > 0 ? 'green' : 'red'
       }">${meaWowRecentData}% </span>WoW</div></div>`;
       /////////
-      //function calling the chart on the pageLoad
+      //New UI updates on Home page
+      ///////////updating UI interface for homepage
+      const totalRevenueCard = document.querySelector('[rd-element="totalRevenue"]');
+      const bookNightCard = document.querySelector('[rd-element="booknight"]');
+      const appDownloadCard = document.querySelector('[rd-element="appDownload"]');
+      const enrollWebAppCard = document.querySelector('[rd-element="wepApp"]');
+      if (!totalRevenueCard || !bookNightCard || !appDownloadCard || !enrollWebAppCard) return;
+
+      const updateCardContent = function (
+        cardcontainer: HTMLElement,
+        bigData: string,
+        wowData: number
+      ) {
+        cardcontainer.innerHTML = `<div rd-element="totalRevenue" class="performance_card-wrap"><div class="text-style-18px text-color-white">Total revenue</div><div id="totalRev" class="text-style-3rem gradienttext">${bigData}</div><div><span class="green">+${wowData}%</span> uplift vs Feb 2022</div></div>`;
+      };
+      //////////////////////////////App Anual Target base on Airtable
+      getTableRecords('tblCxvDHIID3Z8ncV').eachPage(function page(records) {
+        const appDownloadPercent = getColumnData('Progress Percent', records).slice(-1);
+        const [appTotalDownload] = getColumnData('Total downloads (Combined)', records).slice(-1);
+        const [month] = getColumnData('Month', records).slice(-1);
+        const appTotalDownloadFormated = numberWithCommas(appTotalDownload);
+        const appDownloadPercentformated = changeToPercent(appDownloadPercent);
+        console.log(month);
+        updateCardContent(appDownloadCard, appTotalDownloadFormated, appDownloadPercentformated);
+      });
+
+      //function calling the chart on pageLoad
       chartOnlineShareEmea(
         weeksData,
         eerutData,
@@ -352,17 +378,18 @@ window.Webflow.push(() => {
       const observer = new IntersectionObserver(callbackFunction, callbackOptions);
       observer.observe(imageQualitySection);
 
-      //// e
+      ////
     });
   ///// Pie Chart
   radiChartbase('tblCxvDHIID3Z8ncV')
     .select({ view: 'Grid view' })
     .eachPage(function page(records) {
       const [downloadsData] = records
-        .map((record) => record.get('Achieved Percentage'))
+        .map((record) => record.get('Progress Percent'))
         .filter((rec) => rec !== undefined)
         .map((rec) => Math.floor(rec * 100))
         .slice(-1);
+
       const secondValue = pieSecondValue(downloadsData);
       console.log(downloadsData);
       const pieintoView = function (entries) {

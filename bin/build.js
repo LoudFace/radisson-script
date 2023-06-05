@@ -13,6 +13,7 @@ const ENTRY_POINTS = [
   'src/radissonnewchartv1-5.ts',
   'src/appPageContentv1-2.ts',
   'src/personalizatnSwiper.ts',
+  'src/newAppPage.ts',
 ];
 
 // Config dev serving

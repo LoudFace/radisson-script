@@ -21,7 +21,6 @@ const bookingsLine = echarts.init(bookings);
 //console.log(overAllScoreChart, emeaPieChart, apacPieChart);
 
 //Draw pie chart
-
 export const appDownloadPieChart = function (value1, value2) {
   downloadPie.setOption({
     // tooltip: {},

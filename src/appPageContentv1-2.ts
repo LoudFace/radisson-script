@@ -18,7 +18,6 @@ export const formatMoMdata = function (data) {
 const pieSecondValue = function (x) {
   return 100 - x;
 };
-
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }

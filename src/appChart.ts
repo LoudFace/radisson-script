@@ -474,7 +474,6 @@ export const downLoadChart = function (
           const num = value / 1000;
           return `${num}k`;
         },
-        color: clicked ? 'white' : 'black',
       },
       axisLine: {
         show: true,

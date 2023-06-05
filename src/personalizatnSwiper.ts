@@ -2,22 +2,43 @@ window.Webflow ||= [];
 window.Webflow.push(() => {
   console.log('samuel');
 
-  const sliderWrapper = document.querySelector('.slide-component-wrap');
-  const sliderControl = document.getElementById('myRange');
+  new Swiper('.image-swiper-wrap', {
+    grabCursor: true,
+    effect: 'creative',
+    pagination: {
+      el: '.cnt-pagination',
+      type: 'bullets',
+    },
+    navigation: {
+      nextEl: '.next-btn',
+      prevEl: '.prev-btn',
+    },
+    creativeEffect: {
+      prev: {
+        shadow: true,
+        translate: ['-100%', 0, -1],
+      },
+      next: {
+        translate: ['100%', 0, -1],
+      },
+    },
+  });
+  // const sliderWrapper = document.querySelector('.slide-component-wrap');
+  // const sliderControl = document.getElementById('myRange');
 
-  if (!sliderControl || !sliderWrapper) return;
-  console.log(sliderWrapper.scrollWidth);
-  //   const sliderWidth = sliderWrapper.scrollWidth;
-  //   sliderControl.setAttribute('max', sliderWidth);
-  // console.log(sliderControl);
-  const handleMovement = function () {
-    const valueP = -this.value * 24;
-    console.log(valueP);
-    sliderWrapper.style.transform = `translateX(${valueP}px)`;
-  };
+  // if (!sliderControl || !sliderWrapper) return;
+  // console.log(sliderWrapper.scrollWidth);
+  // //   const sliderWidth = sliderWrapper.scrollWidth;
+  // //   sliderControl.setAttribute('max', sliderWidth);
+  // // console.log(sliderControl);
+  // const handleMovement = function () {
+  //   const valueP = -this.value * 24;
+  //   console.log(valueP);
+  //   sliderWrapper.style.transform = `translateX(${valueP}px)`;
+  // };
 
-  sliderControl.addEventListener('change', handleMovement);
-  sliderControl.addEventListener('mousemove', handleMovement);
+  // sliderControl.addEventListener('change', handleMovement);
+  // sliderControl.addEventListener('mousemove', handleMovement);
 
   // const arrowDown = document.querySelector('.arrow-down-comp');
   // const arrowUp = document.querySelector('.up-arrow');
@@ -116,6 +137,12 @@ window.Webflow.push(() => {
   //     slideShadows: false,
   //   },
   //   //loop: true,
+  // });
+
+  // areaAllText.forEach((areatext) => {
+  //   areatext.addEventListener('change', function (e) {
+  //     console.log(this.textContent);
+  //   });
   // });
 });
 //<script defer src="http://localhost:3000/personalizatnSwiper.js"></script>
