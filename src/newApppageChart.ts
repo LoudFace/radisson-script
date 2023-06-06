@@ -6,11 +6,15 @@ const roomBooked = document.getElementById('roomBookInstance');
 
 /////////////////
 //////////Barchart wrapper
+const active = document.getElementById('activeUsers');
 
 //Initialize monthly chart
 const monthlyChart = echarts.init(monthlyChartWrapper);
 const appRating = echarts.init(appRatingWrap);
 const roomBookedInstance = echarts.init(roomBooked);
+/////////////
+//////////initialize bar chart
+const activeInit = echarts.init(active);
 
 //////////////
 //////////// Bar chart
@@ -635,6 +639,116 @@ export const roomBookedChart = function (
         start: 5,
         end: 100,
         minSpan: 10,
+      },
+    ],
+  });
+};
+
+export const actvieUserchart = function (xAxis: 0, bar1: 0, bar2: 0, changMoM: 0) {
+  activeInit.setOption({
+    color: ['#4D4D4D', '#1FA2FF', 'red'],
+    xAxis: {
+      type: 'category',
+      data: xAxis,
+      axisLabel: {
+        interval: 0,
+        margin: 16,
+      },
+      axisTick: {
+        alignWithLabel: true,
+        lineStyle: {
+          width: 2,
+          color: 'white',
+        },
+      },
+      axisLine: {
+        show: true,
+        color: 'white',
+        width: 2,
+        lineStyle: {
+          color: 'white',
+          width: 2,
+          cap: 'round',
+        },
+      },
+    },
+    tooltip: {},
+    grid: {
+      // width: 3000,
+      left: 60,
+      right: '1%',
+      bottom: '5%',
+    },
+    yAxis: {
+      splitLine: {
+        show: true,
+        lineStyle: {
+          width: 0.5,
+          color: '#262626',
+        },
+      },
+      type: 'value',
+      // axisLabel: {
+      //   formatter: function (value) {
+      //     const num = value / 1000;
+      //     return `${num}k`;
+      //   },
+      // },
+      axisLabel: {
+        margin: 10,
+        fontStyle: 16,
+      },
+      axisLine: {
+        show: true,
+        color: 'white',
+        width: 2,
+        lineStyle: {
+          color: 'white',
+          width: 2,
+          cap: 'round',
+        },
+      },
+      min: 0,
+      // max: 0,
+    },
+    series: [
+      {
+        data: bar1,
+        type: 'bar',
+        itemStyle: {
+          borderRadius: [10, 10, 0, 0],
+        },
+        barWidth: 40,
+      },
+      {
+        //Active users
+        data: bar2,
+        type: 'bar',
+        stack: 'active',
+        barWidth: 40,
+        emphasis: {
+          focus: 'series',
+        },
+        itemStyle: {
+          borderRadius: [10, 10, 0, 0],
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: '#A6FFCB' },
+            { offset: 0.5, color: '#12D8FA' },
+            { offset: 1, color: '#1FA2FF' },
+          ]),
+        },
+      },
+      {
+        data: changMoM,
+        type: 'bar',
+        stack: 'active',
+        emphasis: {
+          focus: 'series',
+        },
+        // itemStyle: {
+        //   borderRadius: [10, 10, 0, 0],
+        // },
+        barWidth: 40,
       },
     ],
   });
