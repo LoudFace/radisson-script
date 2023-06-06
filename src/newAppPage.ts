@@ -202,6 +202,25 @@ window.Webflow.push(() => {
     actvieUserchart(brands, prevMonthUsers, currentMonthUsers, changeMoMFormated);
   });
 
+  /////////
+  ////////Fixing the y-axis to the chart
+  const scrollContainer = document.querySelector('[rd-element="scrollcontainer"]');
+  const yAxisWrap = document.querySelector('[rd-element="y-axiswrap"]');
+  console.log(yAxisWrap);
+  // console.log(scrollContainer);
+  if (!scrollContainer || !yAxisWrap) return;
+  scrollContainer.addEventListener('scroll', function (e) {
+    const pxScrolled = scrollContainer.scrollLeft;
+    if (pxScrolled > 89) {
+      yAxisWrap.classList.add('show-y');
+      yAxisWrap.style.backgroundColor = '#121214';
+    } else {
+      yAxisWrap.classList.remove('show-y');
+      yAxisWrap.style.backgroundColor = '#0d0d0d';
+    }
+    // console.log(pxScrolled > 89);
+  });
+
   ////////test bar chart
 
   //Working method Querry

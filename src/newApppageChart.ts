@@ -646,7 +646,7 @@ export const roomBookedChart = function (
 
 export const actvieUserchart = function (xAxis: 0, bar1: 0, bar2: 0, changMoM: 0) {
   activeInit.setOption({
-    color: ['#4D4D4D', '#1FA2FF', 'red'],
+    color: ['#4D4D4D', '#1FA2FF', 'transparent'],
     xAxis: {
       type: 'category',
       data: xAxis,
@@ -672,7 +672,61 @@ export const actvieUserchart = function (xAxis: 0, bar1: 0, bar2: 0, changMoM: 0
         },
       },
     },
-    tooltip: {},
+    tooltip: {
+      trigger: 'axis',
+      backgroundColor: '#333333',
+      borderColor: '#333333',
+      padding: 20,
+      textStyle: {
+        color: ' #CCCCCC',
+        fontSize: 12,
+      },
+      axisPointer: {
+        // type: 'cross',
+        label: {
+          backgroundColor: 'red',
+        },
+      },
+      formatter: function (params) {
+        //console.log(params);
+        ////helper function
+        function numberWithCommas(x) {
+          return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+        const [prevUser, activeUser, percentChange] = params;
+
+        const prevUserDataformat = numberWithCommas(prevUser.data);
+        const activeUserDataformat = numberWithCommas(activeUser.data);
+
+        const ic1 = `<span data-tooltip="minimum" style="border-radius:2px; text-align: left; background-color:${prevUser.color}; display:inline-block; height: 12px; width:12px; margin-right: 5px; margin-bottom: -2px;"></span>`;
+
+        const ic2 = `<span data-tooltip="minimum" style="border-radius:2px; text-align: left; background: linear-gradient(90deg, #1FA2FF 0%, #12D8FA 50%, #A6FFCB 100%); display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
+
+        const title = `<div style="display:flex; gap:4rem; border-bottom: 1px solid #4D4D4D; margin-bottom: 10px; padding-bottom:5px;" > <span style=" text-align: left; color: white;  display: inline-block; width:100%;"> ${
+          prevUser.axisValue
+        }</span><span><span style="display:inline-block; color: ${
+          percentChange.value > 0 ? '#17B96B' : '#FE4B36'
+        }"> ${percentChange.value}% </span> MoM</span></div>`;
+
+        // const [, , instantPercent, rfpbookings] = params;
+        // const percentInstant = ` <span><span style="color:${
+        //   instantPercent.data > 0 ? '#17B96B' : '#FE4B36'
+        // }; ">${instantPercent.data}% </span> MoM</span> `;
+        // const percentRfp = ` <span><span style="color:${
+        //   rfpbookings.data > 0 ? '#17B96B' : '#FE4B36'
+        // }; ">${rfpbookings.data}% </span> MoM</span> `;
+
+        const prevUsertoolTip = `<div style= "display: flex; align-items: center; justify-content: space-between; gap: 4rem;"> <div style="width: 150px"> ${ic1} ${prevUser.seriesName}</div> : ${prevUserDataformat}</div>`;
+        const activeUserTooltip = `<div style= "display: flex; align-items: center; justify-content: space-between; gap: 4rem;"> <div style="width: 150px"> ${ic2} ${activeUser.seriesName}</div> : ${activeUserDataformat}</div>`;
+
+        // const formatedTooltip = ` <div  style= "display: flex; align-items: center; justify-content: space-between; gap: 1rem;"> <div> ${ic1} ${params[0].seriesName}</div> : ${params[0].data} ${percentInstant} </div>`;
+        // const formatedTooltipRfp = `<div style= "display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;" > <div> ${ic2} ${params[1].seriesName}</div> : ${params[1].data} ${percentRfp} </div>`;
+
+        return `${title}
+                ${activeUserTooltip}
+                ${prevUsertoolTip}`;
+      },
+    },
     grid: {
       // width: 3000,
       left: 60,
@@ -713,15 +767,20 @@ export const actvieUserchart = function (xAxis: 0, bar1: 0, bar2: 0, changMoM: 0
     },
     series: [
       {
+        name: 'Previous active Users',
         data: bar1,
         type: 'bar',
         itemStyle: {
           borderRadius: [10, 10, 0, 0],
         },
         barWidth: 40,
+        emphasis: {
+          focus: 'series',
+        },
       },
       {
         //Active users
+        name: 'Current active users',
         data: bar2,
         type: 'bar',
         stack: 'active',
@@ -740,8 +799,24 @@ export const actvieUserchart = function (xAxis: 0, bar1: 0, bar2: 0, changMoM: 0
       },
       {
         data: changMoM,
+        name: 'changeMoM',
         type: 'bar',
         stack: 'active',
+
+        label: {
+          show: true,
+          position: 'top',
+          //fontStyle: 'italic',
+          fontSize: 16,
+          color: '#5DE91C',
+          fontWeight: 'normal',
+          formatter: function (e) {
+            const labeltext = e.data;
+            return labeltext > 0 ? `${labeltext}%` : '';
+          },
+        },
+        barMinHeight: 5,
+        color: 'transparent',
         emphasis: {
           focus: 'series',
         },
