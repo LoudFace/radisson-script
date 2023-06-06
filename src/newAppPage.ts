@@ -8,6 +8,8 @@ import {
   actvieUserchart,
   appMonthlyChart,
   appRatingChart,
+  convertRateChart,
+  revChart,
   roomBookedChart,
 } from './newApppageChart';
 //const webflowApi = process.env.API_KEY;
@@ -221,7 +223,52 @@ window.Webflow.push(() => {
     // console.log(pxScrolled > 89);
   });
 
-  ////////test bar chart
+  ////////
+  ////// Conversion rate and revenue genrated Bar chart
+  /////Table name App Revenue + Conversion
+  const revTableId = 'tblW36AI9FXg7LcoD';
+  getTableRecords(revTableId).eachPage(function page(records) {
+    const month = getColumnData('Month', records);
+    const androidConversion = getColumnData('Android Conversion', records);
+    const iosConversion = getColumnData('iOS Conversion', records);
+    const androidconversionYoy = getColumnData('Android Conversion (YoY)', records);
+    const iosConverionYoy = getColumnData('iOS Conversion (YoY)', records);
+
+    const androidRev = getColumnData('Android Revenue', records);
+    const iosRev = getColumnData('iOS Revenue', records);
+    const androidRevYoy = getColumnData('Prev Android Rev (YoY)', records);
+    const iosRevYoy = getColumnData('Prev iOS Rev (YoY)', records);
+
+    ///////
+    /////
+    const androidConversionFormated = formatColumnsTOPercent(androidConversion);
+    const iosConversionFormated = formatColumnsTOPercent(iosConversion);
+    const androidconversionYoyFormated = formatColumnsTOPercent(androidconversionYoy);
+    const iosConverionYoyFormated = formatColumnsTOPercent(iosConverionYoy);
+    //  console.log(androidConversionFormated);
+    // formatColumnsTOPercent()
+    //////////////
+    //////////Pass data to chart function
+    convertRateChart(
+      month,
+      androidConversionFormated,
+      iosConversionFormated,
+      androidconversionYoyFormated,
+      iosConverionYoyFormated
+    );
+
+    revChart(month, androidRev, iosRev, androidRevYoy, iosRevYoy);
+  });
+
+  //////
+  //////Passsinf data to the chart
+  /////Format values to %
+  // const androidConversionFormated = formatColumnsTOPercent(androidConversion);
+  // const iosConversionFormated = formatColumnsTOPercent(iosConversion);
+  // const androidconversionYoyFormated = formatColumnsTOPercent(androidconversionYoy);
+  // const iosConverionYoyFormated = formatColumnsTOPercent(iosConverionYoy);
+  //  console.log(androidConversionFormated);
+  // formatColumnsTOPercent()
 
   //Working method Querry
   //const API_KEY = 'f647046cc46a758c81c2af41f9c649d938597ca0385a10256a084a5d0ca5fd0f';

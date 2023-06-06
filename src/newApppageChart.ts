@@ -3,7 +3,8 @@ import * as echarts from 'echarts';
 const monthlyChartWrapper = document.getElementById('monthChart');
 const appRatingWrap = document.getElementById('appRating');
 const roomBooked = document.getElementById('roomBookInstance');
-
+const conversionChartWrap = document.getElementById('conversionChart');
+const revChartWrap = document.getElementById('revenueChart');
 /////////////////
 //////////Barchart wrapper
 const active = document.getElementById('activeUsers');
@@ -15,6 +16,8 @@ const roomBookedInstance = echarts.init(roomBooked);
 /////////////
 //////////initialize bar chart
 const activeInit = echarts.init(active);
+const conversionChartWrapInit = echarts.init(conversionChartWrap);
+const revInit = echarts.init(revChartWrap);
 
 //////////////
 //////////// Bar chart
@@ -708,19 +711,8 @@ export const actvieUserchart = function (xAxis: 0, bar1: 0, bar2: 0, changMoM: 0
           percentChange.value > 0 ? '#17B96B' : '#FE4B36'
         }"> ${percentChange.value}% </span> MoM</span></div>`;
 
-        // const [, , instantPercent, rfpbookings] = params;
-        // const percentInstant = ` <span><span style="color:${
-        //   instantPercent.data > 0 ? '#17B96B' : '#FE4B36'
-        // }; ">${instantPercent.data}% </span> MoM</span> `;
-        // const percentRfp = ` <span><span style="color:${
-        //   rfpbookings.data > 0 ? '#17B96B' : '#FE4B36'
-        // }; ">${rfpbookings.data}% </span> MoM</span> `;
-
         const prevUsertoolTip = `<div style= "display: flex; align-items: center; justify-content: space-between; gap: 4rem;"> <div style="width: 150px"> ${ic1} ${prevUser.seriesName}</div> : ${prevUserDataformat}</div>`;
         const activeUserTooltip = `<div style= "display: flex; align-items: center; justify-content: space-between; gap: 4rem;"> <div style="width: 150px"> ${ic2} ${activeUser.seriesName}</div> : ${activeUserDataformat}</div>`;
-
-        // const formatedTooltip = ` <div  style= "display: flex; align-items: center; justify-content: space-between; gap: 1rem;"> <div> ${ic1} ${params[0].seriesName}</div> : ${params[0].data} ${percentInstant} </div>`;
-        // const formatedTooltipRfp = `<div style= "display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;" > <div> ${ic2} ${params[1].seriesName}</div> : ${params[1].data} ${percentRfp} </div>`;
 
         return `${title}
                 ${activeUserTooltip}
@@ -742,12 +734,6 @@ export const actvieUserchart = function (xAxis: 0, bar1: 0, bar2: 0, changMoM: 0
         },
       },
       type: 'value',
-      // axisLabel: {
-      //   formatter: function (value) {
-      //     const num = value / 1000;
-      //     return `${num}k`;
-      //   },
-      // },
       axisLabel: {
         margin: 10,
         fontStyle: 16,
@@ -767,6 +753,7 @@ export const actvieUserchart = function (xAxis: 0, bar1: 0, bar2: 0, changMoM: 0
     },
     series: [
       {
+        ///Previous Active Users
         name: 'Previous active Users',
         data: bar1,
         type: 'bar',
@@ -820,9 +807,350 @@ export const actvieUserchart = function (xAxis: 0, bar1: 0, bar2: 0, changMoM: 0
         emphasis: {
           focus: 'series',
         },
-        // itemStyle: {
-        //   borderRadius: [10, 10, 0, 0],
-        // },
+        barWidth: 40,
+      },
+    ],
+  });
+};
+
+export const convertRateChart = function (
+  xAxis: 0,
+  bar1: 0,
+  bar2: 0,
+  andChangeYoy: 0,
+  iosChangeYoY: 0
+) {
+  conversionChartWrapInit.setOption({
+    color: ['#4D4D4D', '#1FA2FF', 'transparent'],
+    xAxis: {
+      type: 'category',
+      data: xAxis,
+      axisLabel: {
+        interval: 0,
+        margin: 16,
+      },
+      axisTick: {
+        alignWithLabel: true,
+        lineStyle: {
+          width: 2,
+          color: 'white',
+        },
+      },
+      axisLine: {
+        show: true,
+        color: 'white',
+        width: 2,
+        lineStyle: {
+          color: 'white',
+          width: 2,
+          cap: 'round',
+        },
+      },
+    },
+    tooltip: {
+      trigger: 'axis',
+      backgroundColor: '#333333',
+      borderColor: '#333333',
+      padding: 20,
+      textStyle: {
+        color: ' #CCCCCC',
+        fontSize: 12,
+      },
+      axisPointer: {
+        // type: 'cross',
+        label: {
+          backgroundColor: 'red',
+        },
+      },
+      formatter: function (params) {
+        console.log(params);
+        ////helper function
+        function numberWithCommas(x) {
+          return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+        const [android, ios, androidYoy, iosYoy] = params;
+        //android, ios, androidYoy, iosYoy
+
+        // const prevUserDataformat = numberWithCommas(prevUser.data);
+        // const activeUserDataformat = numberWithCommas(activeUser.data);
+
+        const ic1 = `<span data-tooltip="minimum" style="border-radius:2px; text-align: left; background: linear-gradient(90deg, #0089A7 0%, #9EEDFE 100%); display:inline-block; height: 12px; width:12px; margin-right: 5px; margin-bottom: -2px;"></span>`;
+
+        const ic2 = `<span data-tooltip="minimum" style="border-radius:2px; text-align: left; background: linear-gradient(90deg, #C45953 0%, #F3A183 100%); display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
+
+        const title = `<div style="display:flex; gap:1rem; justify-content:left; border-bottom: 1px solid #4D4D4D; margin-bottom: 10px; padding-bottom:5px;" > <span style=" text-align: left; color: white;  display: inline-block;"> ${
+          ios.axisValue
+        }</span><span><span style="display:inline-block; color: ${
+          androidYoy.value > 0 ? '#fff' : '#fff'
+        }"> ${androidYoy.value}% </span> ${iosYoy.value}%</span></div>`;
+
+        const androidTooltip = `<div style= "display: flex; align-items: gap:4rem; center; justify-content: space-between; gap: 4rem;"> <div> ${ic2} ${android.seriesName}</div> : ${android.data}</div>`;
+        const iosTooltip = `<div style= "display: flex; align-items: gap:4rem; center; justify-content: space-between; gap: 4rem;"> <div> ${ic1} ${ios.seriesName}</div> : ${ios.data}</div>`;
+
+        return `${title}
+                ${androidTooltip}
+                ${iosTooltip}`;
+      },
+    },
+    grid: {
+      // width: 3000,
+      left: 40,
+      right: '1%',
+      bottom: '8%',
+    },
+    yAxis: {
+      splitLine: {
+        show: true,
+        lineStyle: {
+          width: 0.5,
+          color: '#262626',
+        },
+      },
+      type: 'value',
+      axisLabel: {
+        margin: 10,
+        fontStyle: 16,
+      },
+      axisLine: {
+        show: true,
+        color: 'white',
+        width: 2,
+        lineStyle: {
+          color: 'white',
+          width: 2,
+          cap: 'round',
+        },
+      },
+      min: 0,
+      max: 5,
+    },
+    series: [
+      {
+        ///android conversion
+        name: 'android',
+        data: bar1,
+        type: 'bar',
+        stack: 'active',
+        itemStyle: {
+          borderRadius: [10, 10, 0, 0],
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: '#F3A183' },
+            { offset: 1, color: '#C35953' },
+          ]),
+        },
+        barWidth: 25,
+        emphasis: {
+          focus: 'series',
+        },
+      },
+      {
+        //iOS
+        name: 'iOS',
+        data: bar2,
+        type: 'bar',
+
+        stack: 'iosactive',
+        barWidth: 25,
+        emphasis: {
+          focus: 'series',
+        },
+        itemStyle: {
+          borderRadius: [10, 10, 0, 0],
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: '#9EEDFE' },
+            { offset: 1, color: '#0089A7' },
+          ]),
+        },
+      },
+      {
+        data: andChangeYoy,
+        name: 'androidYoY',
+        type: 'bar',
+        stack: 'active',
+        color: 'transparent',
+        emphasis: {
+          focus: 'series',
+        },
+        barWidth: 40,
+      },
+      {
+        data: iosChangeYoY,
+        name: 'iosChangeYoy',
+        type: 'bar',
+        stack: 'iosactive',
+        color: 'transparent',
+        emphasis: {
+          focus: 'series',
+        },
+        barWidth: 40,
+      },
+    ],
+  });
+};
+
+export const revChart = function (xAxis: 0, bar1: 0, bar2: 0, andChangeYoy: 0, iosChangeYoY: 0) {
+  revInit.setOption({
+    color: ['#4D4D4D', '#1FA2FF', 'transparent'],
+    xAxis: {
+      type: 'category',
+      data: xAxis,
+      axisLabel: {
+        interval: 0,
+        margin: 16,
+      },
+      axisTick: {
+        alignWithLabel: true,
+        lineStyle: {
+          width: 2,
+          color: 'white',
+        },
+      },
+      axisLine: {
+        show: true,
+        color: 'white',
+        width: 2,
+        lineStyle: {
+          color: 'white',
+          width: 2,
+          cap: 'round',
+        },
+      },
+    },
+    tooltip: {
+      trigger: 'axis',
+      backgroundColor: '#333333',
+      borderColor: '#333333',
+      padding: 20,
+      textStyle: {
+        color: ' #CCCCCC',
+        fontSize: 12,
+      },
+      axisPointer: {
+        // type: 'cross',
+        label: {
+          backgroundColor: 'red',
+        },
+      },
+      formatter: function (params) {
+        console.log(params);
+        ////helper function
+        function numberWithCommas(x) {
+          return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+        const [android, ios, androidYoy, iosYoy] = params;
+        //android, ios, androidYoy, iosYoy
+
+        // const prevUserDataformat = numberWithCommas(prevUser.data);
+        // const activeUserDataformat = numberWithCommas(activeUser.data);
+
+        const ic1 = `<span data-tooltip="minimum" style="border-radius:2px; text-align: left; background: linear-gradient(90deg, #0089A7 0%, #9EEDFE 100%); display:inline-block; height: 12px; width:12px; margin-right: 5px; margin-bottom: -2px;"></span>`;
+
+        const ic2 = `<span data-tooltip="minimum" style="border-radius:2px; text-align: left; background: linear-gradient(90deg, #C45953 0%, #F3A183 100%); display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
+
+        const title = `<div style="display:flex; gap:1rem; justify-content:left; border-bottom: 1px solid #4D4D4D; margin-bottom: 10px; padding-bottom:5px;" > <span style=" text-align: left; color: white;  display: inline-block;"> ${
+          ios.axisValue
+        }</span><span><span style="display:inline-block; color: ${
+          androidYoy.value > 0 ? '#fff' : '#fff'
+        }"> ${androidYoy.value}% </span> ${iosYoy.value}%</span></div>`;
+
+        const androidTooltip = `<div style= "display: flex; align-items: gap:4rem; center; justify-content: space-between; gap: 4rem;"> <div> ${ic2} ${android.seriesName}</div> : ${android.data}</div>`;
+        const iosTooltip = `<div style= "display: flex; align-items: gap:4rem; center; justify-content: space-between; gap: 4rem;"> <div> ${ic1} ${ios.seriesName}</div> : ${ios.data}</div>`;
+
+        return `${title}
+                ${androidTooltip}
+                ${iosTooltip}`;
+      },
+    },
+    grid: {
+      // width: 3000,
+      left: 80,
+      right: '1%',
+      bottom: '8%',
+    },
+    yAxis: {
+      splitLine: {
+        show: true,
+        lineStyle: {
+          width: 0.5,
+          color: '#262626',
+        },
+      },
+      type: 'value',
+      axisLabel: {
+        margin: 10,
+        fontStyle: 16,
+      },
+      axisLine: {
+        show: true,
+        color: 'white',
+        width: 2,
+        lineStyle: {
+          color: 'white',
+          width: 2,
+          cap: 'round',
+        },
+      },
+      min: 0,
+      // max: 5,
+    },
+    series: [
+      {
+        ///android conversion
+        name: 'android',
+        data: bar1,
+        type: 'bar',
+        stack: 'active',
+        itemStyle: {
+          borderRadius: [0, 0, 0, 0],
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: '#F3A183' },
+            { offset: 1, color: '#C35953' },
+          ]),
+        },
+        barWidth: 25,
+        emphasis: {
+          focus: 'series',
+        },
+      },
+      {
+        //iOS
+        name: 'iOS',
+        data: bar2,
+        type: 'bar',
+
+        stack: 'active',
+        barWidth: 25,
+        emphasis: {
+          focus: 'series',
+        },
+        itemStyle: {
+          borderRadius: [10, 10, 0, 0],
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: '#9EEDFE' },
+            { offset: 1, color: '#0089A7' },
+          ]),
+        },
+      },
+      {
+        data: andChangeYoy,
+        name: 'androidYoY',
+        type: 'bar',
+        stack: 'active',
+        color: 'transparent',
+        emphasis: {
+          focus: 'series',
+        },
+        barWidth: 40,
+      },
+      {
+        data: iosChangeYoY,
+        name: 'iosChangeYoy',
+        type: 'bar',
+        stack: 'active',
+        color: 'transparent',
+        emphasis: {
+          focus: 'series',
+        },
         barWidth: 40,
       },
     ],
