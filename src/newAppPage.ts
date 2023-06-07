@@ -24,12 +24,20 @@ const changeToPercent = function (x) {
 const formatColumnsTOPercent = function (arr) {
   const formatedArr = arr
     .map((el) => {
-      if (typeof el === 'object') el = 0;
+      if (typeof el === 'object' || typeof el === 'undefined') el = 0;
       return el;
     })
     .map((el) => {
       return +(el * 100).toFixed(2);
     });
+  return formatedArr;
+};
+
+const convertUnsetValueToZero = function (arr) {
+  const formatedArr = arr.map((el) => {
+    if (typeof el === 'object' || typeof el === 'undefined') el = 0;
+    return el;
+  });
   return formatedArr;
 };
 //format thousand with commas
@@ -41,6 +49,8 @@ const convertoSingleValue = function (itemarray) {
   const [a] = itemarray.slice(-1);
   return numberWithCommas(a);
 };
+
+const convertToPercent = (x) => +(x * 100).toFixed(2);
 
 window.Webflow ||= [];
 window.Webflow.push(() => {
@@ -205,10 +215,9 @@ window.Webflow.push(() => {
   });
 
   /////////
-  ////////Fixing the y-axis to the chart
+  ////////fix the y-axis to the chart
   const scrollContainer = document.querySelector('[rd-element="scrollcontainer"]');
   const yAxisWrap = document.querySelector('[rd-element="y-axiswrap"]');
-  console.log(yAxisWrap);
   // console.log(scrollContainer);
   if (!scrollContainer || !yAxisWrap) return;
   scrollContainer.addEventListener('scroll', function (e) {
@@ -220,7 +229,6 @@ window.Webflow.push(() => {
       yAxisWrap.classList.remove('show-y');
       yAxisWrap.style.backgroundColor = '#0d0d0d';
     }
-    // console.log(pxScrolled > 89);
   });
 
   ////////
@@ -233,21 +241,24 @@ window.Webflow.push(() => {
     const iosConversion = getColumnData('iOS Conversion', records);
     const androidconversionYoy = getColumnData('Android Conversion (YoY)', records);
     const iosConverionYoy = getColumnData('iOS Conversion (YoY)', records);
-
+    //console.log(iosConversion);
+    ///////////////
     const androidRev = getColumnData('Android Revenue', records);
     const iosRev = getColumnData('iOS Revenue', records);
     const androidRevYoy = getColumnData('Prev Android Rev (YoY)', records);
     const iosRevYoy = getColumnData('Prev iOS Rev (YoY)', records);
 
+    const androidRevFormated = convertUnsetValueToZero(androidRev);
+    const iosRevFormated = convertUnsetValueToZero(iosRev);
+    //console.log(iosRevFormated, 'thisnew');
     ///////
-    /////
     const androidConversionFormated = formatColumnsTOPercent(androidConversion);
     const iosConversionFormated = formatColumnsTOPercent(iosConversion);
     const androidconversionYoyFormated = formatColumnsTOPercent(androidconversionYoy);
     const iosConverionYoyFormated = formatColumnsTOPercent(iosConverionYoy);
-    //  console.log(androidConversionFormated);
-    // formatColumnsTOPercent()
-    //////////////
+    const androidRevYoyFormated = formatColumnsTOPercent(androidRevYoy);
+    const iosRevYoyFormated = formatColumnsTOPercent(iosRevYoy);
+    // console.log(iosConversionFormated, 'this');
     //////////Pass data to chart function
     convertRateChart(
       month,
@@ -256,19 +267,102 @@ window.Webflow.push(() => {
       androidconversionYoyFormated,
       iosConverionYoyFormated
     );
+    revChart(month, androidRevFormated, iosRevFormated, androidRevYoyFormated, iosRevYoyFormated);
+    ///////////////////
+    ////////Update the UI of the key
+    const androidWrapCon = document.querySelector('[rd-element="androidKey-conversion"]');
+    const iosWrapCon = document.querySelector('[rd-element="iosKey-conversion"]');
+    const androidWrapRev = document.querySelector('[rd-element="androidkey-rev"]');
+    const iosWrapRev = document.querySelector('[rd-element="iosKey-rev"]');
 
-    revChart(month, androidRev, iosRev, androidRevYoy, iosRevYoy);
+    /////Latest items from the array
+    const [androidLatestConValue] = androidConversionFormated.slice(-1);
+    const [iOsLatestConValue] = iosConversionFormated.slice(-1);
+    const [androidYoYlatestConValue] = androidconversionYoyFormated.slice(-1);
+    const [iosYoyLatestValue] = iosConverionYoyFormated.slice(-1);
+
+    const [androidRevLatestValue] = androidRevFormated.slice(-1);
+    const [iosRevLatestValue] = iosRevFormated.slice(-1);
+    const [androidRevYoyLatest] = androidRevYoyFormated.slice(-1);
+    const [iosRevYoyLatest] = iosRevYoyFormated.splice(-1);
+
+    //console.log(iosRevLatestValue);
+
+    const updateUi = function (container, value, percentChange) {
+      container.innerHTML = `<div id="totalDownloads" class="key--percent-value ligth--text-grad">${value}</div><div class="key--percent"><span class="key__span--text ${
+        percentChange > 0 ? 'green' : 'red'
+      }">-${percentChange}% </span>YoY</div>`;
+    };
+    updateUi(androidWrapCon, androidLatestConValue, androidYoYlatestConValue);
+    updateUi(iosWrapCon, iOsLatestConValue, iosYoyLatestValue);
+    updateUi(androidWrapRev, androidRevLatestValue, iosRevLatestValue);
+    updateUi(iosWrapRev, androidRevYoyLatest, iosRevYoyLatest);
   });
 
-  //////
-  //////Passsinf data to the chart
-  /////Format values to %
-  // const androidConversionFormated = formatColumnsTOPercent(androidConversion);
-  // const iosConversionFormated = formatColumnsTOPercent(iosConversion);
-  // const androidconversionYoyFormated = formatColumnsTOPercent(androidconversionYoy);
-  // const iosConverionYoyFormated = formatColumnsTOPercent(iosConverionYoy);
-  //  console.log(androidConversionFormated);
-  // formatColumnsTOPercent()
+  /////////////////
+  /////////////App Reviews UI update tabel name = App Reviews and Ratings
+  const appReviewTableid = 'tblI1hnEh9PoFsu0Y';
+  getTableRecords(appReviewTableid).eachPage(function page(records) {
+    const [appReviewsRecords] = records.slice(-1);
+    const appInfo = appReviewsRecords.fields;
+
+    const iosReviews = appInfo['iOS Reviews'];
+    const androidReviews = appInfo['Android Reviews'];
+    const iosRating = appInfo['iOS Ratings'];
+    const androidRating = appInfo['Android Ratings'];
+    const combineReviews = appInfo['Combined Reviews'];
+    const combineRating = appInfo['Combined Ratings'];
+
+    const androidAppreviewWrap = document.querySelector('[rd-element="appreviews-android"]');
+    const combinesReviewWrap = document.querySelector('[rd-element="appreviews-combined"]');
+    const iosReviewsWrap = document.querySelector('[rd-element="appreviews-ios"]');
+
+    const updataAppreviewsUI = function (container, reviews, rating) {
+      const ratingFormated = numberWithCommas(rating);
+      const reviewsFormated = numberWithCommas(reviews);
+      container.innerHTML = `<div class="text-style-normal-20px grey">${reviewsFormated} reviews</div><div class="text-style-normal-20px grey">${ratingFormated} ratings</div>`;
+    };
+    updataAppreviewsUI(androidAppreviewWrap, androidReviews, androidRating);
+    updataAppreviewsUI(combinesReviewWrap, combineReviews, combineRating);
+    updataAppreviewsUI(iosReviewsWrap, iosReviews, iosRating);
+
+    /////Syntax to find an ELement in an array
+    // eslint-disable-next-line no-return-assign
+    // const userId = records.find((el) => (el.fields.id = '"recVgHJEZaIhFA4WX"'));
+  });
+  ////////////////
+  //////////APP hero UI update
+  //table name: App Annual Target
+  const appTargetId = 'tblCxvDHIID3Z8ncV';
+  getTableRecords(appTargetId).eachPage(function page(records) {
+    console.log(records);
+    const [lastROle] = records.slice(-1);
+    const appAt = lastROle.fields;
+    //console.log(appAt);
+    const projectedTaget = appAt['Projected Target'];
+    const progressPercent = appAt['Progress Percent'];
+    const month = appAt.Month;
+    const annualTarget = appAt['Annual Target'];
+    const totalDownloadsCombined = appAt['Total downloads (Combined)'];
+    const progressPercentFormat = convertToPercent(progressPercent);
+    const projectedTagetFormat = convertToPercent(projectedTaget);
+    console.log(totalDownloadsCombined);
+    const tdownloadsFormat = numberWithCommas(totalDownloadsCombined);
+    /////Update the UI
+    const appDownloadInfoWrap = document.querySelector('[rd-element="appDownload-info"]');
+    const currentDownload = document.querySelector('[rd-element="current-download"]');
+    if (!appDownloadInfoWrap || !currentDownload) return;
+
+    currentDownload.textContent = tdownloadsFormat;
+    appDownloadInfoWrap.innerHTML = `<div class="estimated_downloads-col"><div class="estimated_downloads-wrap"><div rd-element="achieved" class="text-style-24px-bold gradienttext">${progressPercentFormat}%</div><div class="text-style-16px white-text">Achieved to date</div></div><div class="estimated_downloads-wrap"><div rd-element="projected-target" class="text-style-24px-bold gradienttext">${projectedTagetFormat}%</div><div class="text-style-16px white-text">Projected target year to date</div></div></div><div class="app_target-wrap"><div rd-element="download-target" class="text-style-32px bold-text gradienttext">1.3 M</div><div class="text-style-14px-medium">Downloads target for 2023</div></div>`;
+    //<div class="estimated_downloads-col"><div class="estimated_downloads-wrap"><div rd-element="achieved" class="text-style-24px-bold gradienttext">40%</div><div class="text-style-16px white-text">Achieved to date</div></div><div class="estimated_downloads-wrap"><div rd-element="projected-target" class="text-style-24px-bold gradienttext">33%</div><div class="text-style-16px white-text">Projected target year to date</div></div></div><div class="app_target-wrap"><div rd-element="download-target" class="text-style-32px bold-text gradienttext">1.3 M</div><div class="text-style-14px-medium">Downloads target for 2023</div></div>
+  });
+
+  // const getLastRoleofRecord = function(tableId){
+  //   getTableRecords(tableId).eachPage(function page(records) {
+  //     const [recordRole] = records.slice(-1);
+  //     return recordRole.fields;
+  // })
 
   //Working method Querry
   //const API_KEY = 'f647046cc46a758c81c2af41f9c649d938597ca0385a10256a084a5d0ca5fd0f';

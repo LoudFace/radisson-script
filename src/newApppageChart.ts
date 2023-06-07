@@ -922,7 +922,7 @@ export const convertRateChart = function (
         },
       },
       min: 0,
-      max: 5,
+      max: 6,
     },
     series: [
       {
@@ -1091,7 +1091,7 @@ export const revChart = function (xAxis: 0, bar1: 0, bar2: 0, andChangeYoy: 0, i
         },
       },
       min: 0,
-      // max: 5,
+      max: 15000000,
     },
     series: [
       {
