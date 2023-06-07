@@ -299,6 +299,38 @@ window.Webflow.push(() => {
     updateUi(iosWrapRev, androidRevYoyLatest, iosRevYoyLatest);
   });
 
+  ////////fix the y-axis to the chart
+  const barScrollContainer = document.querySelector('[rd-element="bar-scroll-wrap"]');
+  const barYAxisWrap = document.querySelector('[rd-element="barY-axiswrap"]');
+  // console.log(scrollContainer); //////CONVERT THIS TO A FUNCTION
+  if (!barScrollContainer || !barYAxisWrap) return;
+
+  barScrollContainer.addEventListener('scroll', function (e) {
+    const pxScrolled = barScrollContainer.scrollLeft;
+    console.log(pxScrolled);
+    if (pxScrolled > 35) {
+      barYAxisWrap.classList.add('show-y');
+      barYAxisWrap.style.backgroundColor = '#0d0d0d';
+    } else {
+      barYAxisWrap.classList.remove('show-y');
+      barYAxisWrap.style.backgroundColor = 'transparent';
+    }
+  });
+
+  const fixYaxis = function (scrollCont, yAxisContainer) {
+    scrollCont.addEventListener('scroll', function (e) {
+      const pxScrolled = scrollCont.scrollLeft;
+      console.log(pxScrolled);
+      if (pxScrolled > yAxisContainer.innerWidth) {
+        yAxisContainer.classList.add('show-y');
+        yAxisContainer.style.backgroundColor = '#0d0d0d';
+      } else {
+        yAxisContainer.classList.remove('show-y');
+        yAxisContainer.style.backgroundColor = 'transparent';
+      }
+    });
+  };
+
   /////////////////
   /////////////App Reviews UI update tabel name = App Reviews and Ratings
   const appReviewTableid = 'tblI1hnEh9PoFsu0Y';
@@ -350,19 +382,64 @@ window.Webflow.push(() => {
     const tdownloadsFormat = numberWithCommas(totalDownloadsCombined);
     /////Update the UI
     const appDownloadInfoWrap = document.querySelector('[rd-element="appDownload-info"]');
+    const toolTipDownload = document.querySelector('[rd-element="download-num"]');
     const currentDownload = document.querySelector('[rd-element="current-download"]');
-    if (!appDownloadInfoWrap || !currentDownload) return;
-
+    const downloadRange = document.querySelector('[rd-element="download-range"]');
+    if (!appDownloadInfoWrap || !currentDownload || !toolTipDownload || !downloadRange) return;
+    console.log(progressPercentFormat);
+    downloadRange.style.width = `${progressPercentFormat}%`;
+    toolTipDownload.textContent = tdownloadsFormat;
     currentDownload.textContent = tdownloadsFormat;
     appDownloadInfoWrap.innerHTML = `<div class="estimated_downloads-col"><div class="estimated_downloads-wrap"><div rd-element="achieved" class="text-style-24px-bold gradienttext">${progressPercentFormat}%</div><div class="text-style-16px white-text">Achieved to date</div></div><div class="estimated_downloads-wrap"><div rd-element="projected-target" class="text-style-24px-bold gradienttext">${projectedTagetFormat}%</div><div class="text-style-16px white-text">Projected target year to date</div></div></div><div class="app_target-wrap"><div rd-element="download-target" class="text-style-32px bold-text gradienttext">1.3 M</div><div class="text-style-14px-medium">Downloads target for 2023</div></div>`;
     //<div class="estimated_downloads-col"><div class="estimated_downloads-wrap"><div rd-element="achieved" class="text-style-24px-bold gradienttext">40%</div><div class="text-style-16px white-text">Achieved to date</div></div><div class="estimated_downloads-wrap"><div rd-element="projected-target" class="text-style-24px-bold gradienttext">33%</div><div class="text-style-16px white-text">Projected target year to date</div></div></div><div class="app_target-wrap"><div rd-element="download-target" class="text-style-32px bold-text gradienttext">1.3 M</div><div class="text-style-14px-medium">Downloads target for 2023</div></div>
   });
 
-  // const getLastRoleofRecord = function(tableId){
-  //   getTableRecords(tableId).eachPage(function page(records) {
-  //     const [recordRole] = records.slice(-1);
-  //     return recordRole.fields;
-  // })
+  ////////////?APP Reviews
+  const reviewID = 'tblLkbATwP3Os0oF7';
+  getTableRecords(reviewID).eachPage(function page(records) {
+    const reviewFields = records.map((el) => el.fields);
+    console.log(reviewFields);
+
+    //Working method Querry
+    //const API_KEY = 'f647046cc46a758c81c2af41f9c649d938597ca0385a10256a084a5d0ca5fd0f';
+    // const url = `https://api.webflow.com/collections/647a48349d710f24028849ca/items?access_token=${API_KEY}`;
+    // const options = { method: 'GET', headers: { accept: 'application/json' } };
+    // fetch(url, options)
+    //   .then((res) => res.json())
+    //   .then((json) => console.log(json))
+    //   .catch((err) => console.error('error:' + err));
+
+    //const siteId = '63ee41b9862db4b9345f1a50';
+    //const collectionId = '647a48349d710f24028849ca';
+    // const url = `https://api.webflow.com/collections/${collectionId}/items?access_token=${API_KEY}`;
+
+    // const url = `https://api.webflow.com/collections/${collectionId}/items?access_token=${API_KEY}`;
+    //this code runs everytime the page load and ot creates lot of the dublicate items.
+    ////Updating the cms from airtable.
+    // reviewFields.map((el) => {
+    //   const options = {
+    //     method: 'POST',
+    //     headers: { accept: 'application/json', 'content-type': 'application/json' },
+    //     body: JSON.stringify({
+    //       fields: {
+    //         slug: el.Device,
+    //         name: el.Device,
+    //         _archived: false,
+    //         _draft: false,
+    //         // 'testimonial text': el.Review,
+    //         // 'phone brand icon': el['Device icon'],
+    //       },
+    //     }),
+    //   };
+    //   const updateCMS = async function () {
+    // try{
+    //const res = await fetch(url, options);
+    //     const data = await res.json();
+    // } catch(err) {console.log(err)}
+    //   };
+    //collection ID : 647a48349d710f24028849ca
+    //site ID: 63ee41b9862db4b9345f1a50
+  });
 
   //Working method Querry
   //const API_KEY = 'f647046cc46a758c81c2af41f9c649d938597ca0385a10256a084a5d0ca5fd0f';
