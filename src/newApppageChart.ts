@@ -951,9 +951,9 @@ export const convertRateChart = function (
 
         stack: 'iosactive',
         barWidth: 25,
-        emphasis: {
-          focus: 'series',
-        },
+        // emphasis: {
+        //   focus: 'series',
+        // },
         itemStyle: {
           borderRadius: [10, 10, 0, 0],
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
@@ -1120,9 +1120,9 @@ export const revChart = function (xAxis: 0, bar1: 0, bar2: 0, andChangeYoy: 0, i
 
         stack: 'active',
         barWidth: 25,
-        emphasis: {
-          focus: 'series',
-        },
+        // emphasis: {
+        //   focus: 'series',
+        // },
         itemStyle: {
           borderRadius: [10, 10, 0, 0],
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [

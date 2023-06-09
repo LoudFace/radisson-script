@@ -358,7 +358,7 @@ window.Webflow.push(() => {
     updataAppreviewsUI(combinesReviewWrap, combineReviews, combineRating);
     updataAppreviewsUI(iosReviewsWrap, iosReviews, iosRating);
 
-    /////Syntax to find an ELement in an array
+    /////Syntax to find an ELement in airtable array
     // eslint-disable-next-line no-return-assign
     // const userId = records.find((el) => (el.fields.id = '"recVgHJEZaIhFA4WX"'));
   });
@@ -391,54 +391,69 @@ window.Webflow.push(() => {
     toolTipDownload.textContent = tdownloadsFormat;
     currentDownload.textContent = tdownloadsFormat;
     appDownloadInfoWrap.innerHTML = `<div class="estimated_downloads-col"><div class="estimated_downloads-wrap"><div rd-element="achieved" class="text-style-24px-bold gradienttext">${progressPercentFormat}%</div><div class="text-style-16px white-text">Achieved to date</div></div><div class="estimated_downloads-wrap"><div rd-element="projected-target" class="text-style-24px-bold gradienttext">${projectedTagetFormat}%</div><div class="text-style-16px white-text">Projected target year to date</div></div></div><div class="app_target-wrap"><div rd-element="download-target" class="text-style-32px bold-text gradienttext">1.3 M</div><div class="text-style-14px-medium">Downloads target for 2023</div></div>`;
-    //<div class="estimated_downloads-col"><div class="estimated_downloads-wrap"><div rd-element="achieved" class="text-style-24px-bold gradienttext">40%</div><div class="text-style-16px white-text">Achieved to date</div></div><div class="estimated_downloads-wrap"><div rd-element="projected-target" class="text-style-24px-bold gradienttext">33%</div><div class="text-style-16px white-text">Projected target year to date</div></div></div><div class="app_target-wrap"><div rd-element="download-target" class="text-style-32px bold-text gradienttext">1.3 M</div><div class="text-style-14px-medium">Downloads target for 2023</div></div>
   });
 
-  ////////////?APP Reviews
-  const reviewID = 'tblLkbATwP3Os0oF7';
-  getTableRecords(reviewID).eachPage(function page(records) {
-    const reviewFields = records.map((el) => el.fields);
-    console.log(reviewFields);
+  ////////////APP Reviews
+  // const reviewID = 'tblLkbATwP3Os0oF7';
+  // getTableRecords(reviewID).eachPage(function page(records) {
+  //   const reviewFields = records.map((el) => el.fields);
+  //   console.log(reviewFields);
 
-    //Working method Querry
-    //const API_KEY = 'f647046cc46a758c81c2af41f9c649d938597ca0385a10256a084a5d0ca5fd0f';
-    // const url = `https://api.webflow.com/collections/647a48349d710f24028849ca/items?access_token=${API_KEY}`;
-    // const options = { method: 'GET', headers: { accept: 'application/json' } };
-    // fetch(url, options)
-    //   .then((res) => res.json())
-    //   .then((json) => console.log(json))
-    //   .catch((err) => console.error('error:' + err));
+  //  // Working method Querry
+  //   const API_KEY = 'f647046cc46a758c81c2af41f9c649d938597ca0385a10256a084a5d0ca5fd0f';
+  //  // const url = `https://api.webflow.com/collections/647a48349d710f24028849ca/items?access_token=${API_KEY}`;
+  //   const options = { method: 'GET', headers: { accept: 'application/json' } };
+  //   fetch(url, options)
+  //     .then((res) => res.json())
+  //     .then((json) => console.log(json))
+  //     .catch((err) => console.error('error:' + err));
 
-    //const siteId = '63ee41b9862db4b9345f1a50';
-    //const collectionId = '647a48349d710f24028849ca';
-    // const url = `https://api.webflow.com/collections/${collectionId}/items?access_token=${API_KEY}`;
+  //   const siteId = '63ee41b9862db4b9345f1a50';
+  //   const collectionId = '647a48349d710f24028849ca';
+  //   const url = `https://api.webflow.com/collections/${collectionId}/items?access_token=${API_KEY}`;
 
-    // const url = `https://api.webflow.com/collections/${collectionId}/items?access_token=${API_KEY}`;
-    //this code runs everytime the page load and ot creates lot of the dublicate items.
-    ////Updating the cms from airtable.
-    // reviewFields.map((el) => {
-    //   const options = {
-    //     method: 'POST',
-    //     headers: { accept: 'application/json', 'content-type': 'application/json' },
-    //     body: JSON.stringify({
-    //       fields: {
-    //         slug: el.Device,
-    //         name: el.Device,
-    //         _archived: false,
-    //         _draft: false,
-    //         // 'testimonial text': el.Review,
-    //         // 'phone brand icon': el['Device icon'],
-    //       },
-    //     }),
-    //   };
-    //   const updateCMS = async function () {
-    // try{
-    //const res = await fetch(url, options);
-    //     const data = await res.json();
-    // } catch(err) {console.log(err)}
-    //   };
-    //collection ID : 647a48349d710f24028849ca
-    //site ID: 63ee41b9862db4b9345f1a50
+  //   //const url = `https://api.webflow.com/collections/${collectionId}/items?access_token=${API_KEY}`;
+  //   //this code runs everytime the page load and ot creates lot of the dublicate items.
+  //   //Updating the cms from airtable.
+  //   reviewFields.map((el) => {
+  //     const options = {
+  //       method: 'POST',
+  //       headers: { accept: 'application/json', 'content-type': 'application/json' },
+  //       body: JSON.stringify({
+  //         fields: {
+  //           slug: el.Device,
+  //           name: el.Device,
+  //           _archived: false,
+  //           _draft: false,
+  //          // 'testimonial text': el.Review,
+  //           // 'phone brand icon': el['Device icon'],
+  //         },
+  //       }),
+  //     };
+  //     const updateCMS = async function () {
+  //   try{
+  //   const res = await fetch(url, options);
+  //       const data = await res.json();
+  //   } catch(err) {console.log(err)}
+  //     };
+  // collection ID : 647a48349d710f24028849ca
+  // site ID: 63ee41b9862db4b9345f1a50
+  //});
+
+  ///////
+  /////App Revenue + Conversion
+  const appRevConversion = 'tblW36AI9FXg7LcoD';
+  const appheroTotalDownloads = document.querySelector('[rd-element="downloads-2023"]');
+  const heroMonthlyActive = document.querySelector('[rd-element="month-active-users"]');
+  const heroAppRating = document.querySelector('[rd-element="average-rating"]');
+  const appHeroAppRating = document.querySelector('[rd-element="total-rev"]');
+  const appHeroRoomnight = document.querySelector('[rd-element="roomnight-booked"]');
+  const appHeroConversionRate = document.querySelector('[rd-element="conversion-rate"]');
+
+  getTableRecords(appRevConversion).eachPage(function page(records) {
+    const [lastRole] = records.slice(-1);
+    const lastroleitem = lastRole.fields;
+    console.log(lastroleitem);
   });
 
   //Working method Querry

@@ -28,7 +28,7 @@ window.Webflow.push(() => {
   const formatColumnsTOPercent = function (arr) {
     const formatedArr = arr
       .map((el) => {
-        if (typeof el === 'object') el = 0;
+        if (typeof el === 'object' || typeof el === 'undefined') el = 0;
         return el;
       })
       .map((el) => {
@@ -101,7 +101,8 @@ window.Webflow.push(() => {
   )
     return;
 
-  ////////  First Chart instance
+  ////////  First Chart instance /////
+  /////Weekly Chart Airtable table name = Online Share : WEEKLY
   radiChartbase('tblLNvYTvvUXvs0K7')
     .select({
       view: 'Grid view',
@@ -223,6 +224,48 @@ window.Webflow.push(() => {
         ceseWowFormated,
         meaWowFormated
       );
+
+      //////////////
+      //////////// MOnthly Data
+      const btnClick = document.querySelector('.w-button');
+      getTableRecords('tblHtSQ3Evr2lgwWu').eachPage(function page(records) {
+        console.log(records);
+        const month = getColumnData('Month', records);
+        const ceseMonthData = getColumnData('CESE (MoM)', records).flat();
+        const eerutMonthData = getColumnData('EERUT (MoM)', records).flat();
+        const nobMonthData = getColumnData('NOB OS  (MoM)', records).flat();
+        const ukirMonthData = getColumnData(
+          'UKIRWE OS (Monthly Average) (from Online Share: Monthly)',
+          records
+        ).flat();
+        const meaMonthData = getColumnData(
+          'CN OS (Monthly Average) (from Online Share: Monthly)',
+          records
+        ).flat();
+        ///convert to percent
+        const ceseMonthDataPercent = formatColumnsTOPercent(ceseMonthData);
+        const eerutMonthDataPercent = formatColumnsTOPercent(eerutMonthData);
+        const nobMonthDataPercent = formatColumnsTOPercent(nobMonthData);
+        const ukirMonthDataPercent = formatColumnsTOPercent(ukirMonthData);
+        const meaMonthDataPercent = formatColumnsTOPercent(meaMonthData);
+
+        // btnClick.addEventListener('click', function (e) {
+        //   console.log('demc clic me');
+        //   chartOnlineShareEmea(
+        //     month,
+        //     eerutMonthDataPercent,
+        //     nobMonthDataPercent,
+        //     ukirMonthDataPercent,
+        //     ceseMonthDataPercent,
+        //     meaMonthDataPercent
+        //   );
+        // });
+        // console.log(formatColumnsTOPercent(ukirMonthData));
+      });
+
+      ////////////
+      ///////////
+
       //////
       ///UI UPDATES
       ////////// APAC table update
@@ -280,9 +323,6 @@ window.Webflow.push(() => {
       chinaKeyWrap.innerHTML = chinaStringUpdate;
       inKeys.innerHTML = inHtmlUpdate;
       seapKey.innerHTML = seapHtmlUpdate;
-      // <div id="seapKey" class="key__percent--container"><div id="seapPercent" class="key--percent-value ligth--text-grad">15.46%</div><div class="key--percent white-text"><span id="seapWow" class="key__span--text red">-16.40%</span> WoW</div></div>
-      // <div id="seapPercent" class="key--percent-value ligth--text-grad">15.46%</div>
-      //function calling the chart on the pageLoad
 
       chartOnlineShareApac(
         weeksData,
@@ -380,6 +420,7 @@ window.Webflow.push(() => {
 
       ////
     });
+  const conversionRate = document.getElementById('conversionRate');
   ///// Pie Chart
   radiChartbase('tblCxvDHIID3Z8ncV')
     .select({ view: 'Grid view' })
