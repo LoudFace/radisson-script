@@ -342,15 +342,15 @@ export const appRatingChart = function (
         const [, , instantPercent, rfpbookings] = params;
         const percentInstant = ` <span><span style="color:${
           instantPercent.data > 0 ? '#17B96B' : '#FE4B36'
-        }; ">${instantPercent.data}% </span> YoY</span> `;
+        }; ">${instantPercent.data > 0 ? '+' : ''} ${instantPercent.data}% </span> YoY</span> `;
         const percentRfp = ` <span><span style="color:${
           rfpbookings.data > 0 ? '#17B96B' : '#FE4B36'
-        }; ">${rfpbookings.data}% </span> YoY</span> `;
+        }; ">${rfpbookings.data > 0 ? '+' : ''} ${rfpbookings.data}% </span> YoY</span> `;
 
         // const formatedTooltip = `<div style= "display: flex; align-items: center; justify-content: space-between; gap: 1rem;"> <div> ${ic1} ${params[0].seriesName}</div> : ${params[0].data} ${percentincrease1} </div>`;
 
-        const formatedTooltip = ` <div  style= "display: flex; align-items: center; justify-content: space-between; gap: 1rem;"> <div> ${ic1} ${params[0].seriesName}</div> : ${params[0].data} rating ${percentInstant} </div>`;
-        const formatedTooltipRfp = `<div style= "display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;" > <div> ${ic2} ${params[1].seriesName}</div> : ${params[1].data} rating  ${percentRfp} </div>`;
+        const formatedTooltip = ` <div  style= "display: flex; align-items: center; justify-content: space-between; gap: 1rem;"> <div> ${ic1} ${params[0].seriesName}</div> <divstyle="display: flex; gap:10px;"> : ${params[0].data}rating ${percentInstant}</div></div>`;
+        const formatedTooltipRfp = `<div style= "display: flex; align-items: center; justify-content: space-between; gap: 2rem;" > <div> ${ic2} ${params[1].seriesName}</div><div style="display: flex; gap:5px;"> : ${params[1].data}rating ${percentRfp}</div> </div>`;
 
         return `${title} <br />
                  ${formatedTooltip}  
@@ -511,18 +511,25 @@ export const roomBookedChart = function (
         const ic2 = `<span data-tooltip="minimum" style="border-radius:2px; text-align: left; background-color:${params[1].color}; display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
         const title = `<span style=" text-align: left; color: white; border-bottom: 1px solid #4D4D4D; margin-bottom: 10px; padding-bottom:5px; display: inline-block; width:100%;"> ${params[0].name} </span>`;
 
+        function numberWithCommas(x) {
+          return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+        const number1format = numberWithCommas(params[0].data);
+        const number2format = numberWithCommas(params[1].data);
+
         const [, , instantPercent, rfpbookings] = params;
-        const percentInstant = ` <span><span style="color:${
+        console.log(instantPercent);
+        const percentInstant = ` <span><span style="color: ${
           instantPercent.data > 0 ? '#17B96B' : '#FE4B36'
-        }; ">${instantPercent.data}% </span> MoM</span> `;
+        };"> ${instantPercent.data > 0 ? '+' : ''} ${instantPercent.data}% </span> MoM</span> `;
         const percentRfp = ` <span><span style="color:${
           rfpbookings.data > 0 ? '#17B96B' : '#FE4B36'
-        }; ">${rfpbookings.data}% </span> MoM</span> `;
+        }; "> ${rfpbookings.data > 0 ? '+' : ''} ${rfpbookings.data}% </span> MoM</span> `;
 
         // const formatedTooltip = `<div style= "display: flex; align-items: center; justify-content: space-between; gap: 1rem;"> <div> ${ic1} ${params[0].seriesName}</div> : ${params[0].data} ${percentincrease1} </div>`;
 
-        const formatedTooltip = ` <div  style= "display: flex; align-items: center; justify-content: space-between; gap: 1rem;"> <div> ${ic1} ${params[0].seriesName}</div> : ${params[0].data} ${percentInstant} </div>`;
-        const formatedTooltipRfp = `<div style= "display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;" > <div> ${ic2} ${params[1].seriesName}</div> : ${params[1].data} ${percentRfp} </div>`;
+        const formatedTooltip = ` <div  style= "display: flex; align-items: center; justify-content: space-between; gap: 1rem;"> <div> ${ic1} ${params[0].seriesName}</div><div style:"display:flex; gap:10px;"> : ${number1format} ${percentInstant}</div> </div>`;
+        const formatedTooltipRfp = `<div style= "display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;" > <div> ${ic2} ${params[1].seriesName}</div><div style: "display:flex; gap:10px;"> : ${number2format} ${percentRfp} </div></div>`;
 
         return `${title} <br />
                  ${formatedTooltip}  
@@ -646,7 +653,7 @@ export const roomBookedChart = function (
     ],
   });
 };
-
+////////////////Active USers bar chart
 export const actvieUserchart = function (xAxis: 0, bar1: 0, bar2: 0, changMoM: 0) {
   activeInit.setOption({
     color: ['#4D4D4D', '#1FA2FF', 'transparent'],
@@ -761,9 +768,9 @@ export const actvieUserchart = function (xAxis: 0, bar1: 0, bar2: 0, changMoM: 0
           borderRadius: [10, 10, 0, 0],
         },
         barWidth: 40,
-        emphasis: {
-          focus: 'series',
-        },
+        // emphasis: {
+        //   focus: 'series',
+        // },
       },
       {
         //Active users
@@ -772,9 +779,9 @@ export const actvieUserchart = function (xAxis: 0, bar1: 0, bar2: 0, changMoM: 0
         type: 'bar',
         stack: 'active',
         barWidth: 40,
-        emphasis: {
-          focus: 'series',
-        },
+        // emphasis: {
+        //   focus: 'series',
+        // },
         itemStyle: {
           borderRadius: [10, 10, 0, 0],
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
@@ -791,28 +798,37 @@ export const actvieUserchart = function (xAxis: 0, bar1: 0, bar2: 0, changMoM: 0
         stack: 'active',
 
         label: {
+          // colorChange: function (e) {
+          //   const labeltext = e.data;
+          //   return labeltext > 0 ? '#5DE91C' : `red`;
+          // },
           show: true,
           position: 'top',
           //fontStyle: 'italic',
           fontSize: 16,
+          // color: function (e) {
+          //   const labeltext = e.data;
+          //   return labeltext > 0 ? '#5DE91C' : `red`;
+          // },
           color: '#5DE91C',
           fontWeight: 'normal',
-          formatter: function (e) {
-            const labeltext = e.data;
-            return labeltext > 0 ? `${labeltext}%` : '';
-          },
+          // formatter: function (e) {
+          //   console.log(e);
+          //   const labeltext = e.data;
+          //   return labeltext > 0 ? `+${labeltext}%` : `${labeltext}%`;
+          // },
         },
-        barMinHeight: 5,
+        barMinHeight: 10,
         color: 'transparent',
-        emphasis: {
-          focus: 'series',
-        },
+        // emphasis: {
+        //   focus: 'series',
+        // },
         barWidth: 40,
       },
     ],
   });
 };
-
+//////////////////Conversion Rate chart
 export const convertRateChart = function (
   xAxis: 0,
   bar1: 0,
@@ -863,7 +879,6 @@ export const convertRateChart = function (
         },
       },
       formatter: function (params) {
-        console.log(params);
         ////helper function
         function numberWithCommas(x) {
           return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -884,8 +899,16 @@ export const convertRateChart = function (
           androidYoy.value > 0 ? '#fff' : '#fff'
         }"> ${androidYoy.value}% </span> ${iosYoy.value}%</span></div>`;
 
-        const androidTooltip = `<div style= "display: flex; align-items: gap:4rem; center; justify-content: space-between; gap: 4rem;"> <div> ${ic2} ${android.seriesName}</div> : ${android.data}</div>`;
-        const iosTooltip = `<div style= "display: flex; align-items: gap:4rem; center; justify-content: space-between; gap: 4rem;"> <div> ${ic1} ${ios.seriesName}</div> : ${ios.data}</div>`;
+        const androidPercent = ` <span><span style="color:${
+          androidYoy.data > 0 ? '#17B96B' : '#FE4B36'
+        }; "> ${androidYoy.value > 0 ? '+' : ''} ${androidYoy.value}% </span>YoY</span> `;
+
+        const iosPercent = ` <span><span style="color:${
+          androidYoy.data > 0 ? '#17B96B' : '#FE4B36'
+        }; "> ${iosYoy.value > 0 ? '+' : ''} ${iosYoy.value}% </span>YoY</span> `;
+
+        const androidTooltip = `<div style= "display: flex; align-items: gap:4rem; center; justify-content: space-between; gap: 4rem;"> <div> ${ic2} ${android.seriesName}</div><div style="display: flex; gap:10px;" > : ${android.data}%  ${androidPercent} </div></div> `;
+        const iosTooltip = `<div style= "display: flex; align-items: gap:4rem; center; justify-content: space-between; gap: 4rem;"> <div> ${ic1} ${ios.seriesName}</div> <div style="display: flex; gap:10px;" > : ${ios.data}%  ${iosPercent} </div></div>`;
 
         return `${title}
                 ${androidTooltip}
@@ -910,7 +933,11 @@ export const convertRateChart = function (
       axisLabel: {
         margin: 10,
         fontStyle: 16,
+        formatter: function (value) {
+          return `${value}%`;
+        },
       },
+
       axisLine: {
         show: true,
         color: 'white',
@@ -922,26 +949,26 @@ export const convertRateChart = function (
         },
       },
       min: 0,
-      max: 6,
+      max: 5,
     },
     series: [
       {
         ///android conversion
-        name: 'android',
+        name: 'Android',
         data: bar1,
         type: 'bar',
         stack: 'active',
         itemStyle: {
-          borderRadius: [10, 10, 0, 0],
+          borderRadius: [5, 5, 0, 0],
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
             { offset: 0, color: '#F3A183' },
             { offset: 1, color: '#C35953' },
           ]),
         },
         barWidth: 25,
-        emphasis: {
-          focus: 'series',
-        },
+        // emphasis: {
+        //   focus: 'series',
+        // },
       },
       {
         //iOS
@@ -955,7 +982,7 @@ export const convertRateChart = function (
         //   focus: 'series',
         // },
         itemStyle: {
-          borderRadius: [10, 10, 0, 0],
+          borderRadius: [5, 5, 0, 0],
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
             { offset: 0, color: '#9EEDFE' },
             { offset: 1, color: '#0089A7' },
@@ -968,9 +995,9 @@ export const convertRateChart = function (
         type: 'bar',
         stack: 'active',
         color: 'transparent',
-        emphasis: {
-          focus: 'series',
-        },
+        // emphasis: {
+        //   focus: 'series',
+        // },
         barWidth: 40,
       },
       {
@@ -979,9 +1006,9 @@ export const convertRateChart = function (
         type: 'bar',
         stack: 'iosactive',
         color: 'transparent',
-        emphasis: {
-          focus: 'series',
-        },
+        // emphasis: {
+        //   focus: 'series',
+        // },
         barWidth: 40,
       },
     ],
@@ -1108,9 +1135,9 @@ export const revChart = function (xAxis: 0, bar1: 0, bar2: 0, andChangeYoy: 0, i
           ]),
         },
         barWidth: 25,
-        emphasis: {
-          focus: 'series',
-        },
+        // emphasis: {
+        //   focus: 'series',
+        // },
       },
       {
         //iOS
@@ -1124,7 +1151,7 @@ export const revChart = function (xAxis: 0, bar1: 0, bar2: 0, andChangeYoy: 0, i
         //   focus: 'series',
         // },
         itemStyle: {
-          borderRadius: [10, 10, 0, 0],
+          borderRadius: [5, 5, 0, 0],
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
             { offset: 0, color: '#9EEDFE' },
             { offset: 1, color: '#0089A7' },
@@ -1137,9 +1164,9 @@ export const revChart = function (xAxis: 0, bar1: 0, bar2: 0, andChangeYoy: 0, i
         type: 'bar',
         stack: 'active',
         color: 'transparent',
-        emphasis: {
-          focus: 'series',
-        },
+        // emphasis: {
+        //   focus: 'series',
+        // },
         barWidth: 40,
       },
       {
@@ -1148,9 +1175,9 @@ export const revChart = function (xAxis: 0, bar1: 0, bar2: 0, andChangeYoy: 0, i
         type: 'bar',
         stack: 'active',
         color: 'transparent',
-        emphasis: {
-          focus: 'series',
-        },
+        // emphasis: {
+        //   focus: 'series',
+        // },
         barWidth: 40,
       },
     ],

@@ -193,7 +193,7 @@ window.Webflow.push(() => {
     const updateKey = function (contWrap, amount, Wowvalue) {
       contWrap.innerHTML = `<div class="bookings-number-text ligth--text-grad">${amount}</div><div class="key--percent"><span class="key__span--text ${
         Wowvalue > 0 ? 'green' : 'red'
-      }"> ${Wowvalue}% </span>MoM</div>`;
+      }"> ${Wowvalue > 0 ? '+' : ''}${Wowvalue}% </span>MoM</div>`;
     };
 
     updateKey(iosWrap, iosRnsLatest, iosRnsMoMFormatedLatest);
@@ -241,6 +241,8 @@ window.Webflow.push(() => {
     const iosConversion = getColumnData('iOS Conversion', records);
     const androidconversionYoy = getColumnData('Android Conversion (YoY)', records);
     const iosConverionYoy = getColumnData('iOS Conversion (YoY)', records);
+    const combinedConversionYoY = getColumnData('Combined Conversion', records);
+    console.log(combinedConversionYoY, 'this');
     //console.log(iosConversion);
     ///////////////
     const androidRev = getColumnData('Android Revenue', records);
@@ -286,17 +288,24 @@ window.Webflow.push(() => {
     const [androidRevYoyLatest] = androidRevYoyFormated.slice(-1);
     const [iosRevYoyLatest] = iosRevYoyFormated.splice(-1);
 
+    const androidLatestFormat = numberWithCommas(androidRevLatestValue);
+    const iosLatestFormat = numberWithCommas(iosRevLatestValue);
+
     //console.log(iosRevLatestValue);
 
-    const updateUi = function (container, value, percentChange) {
-      container.innerHTML = `<div id="totalDownloads" class="key--percent-value ligth--text-grad">${value}</div><div class="key--percent"><span class="key__span--text ${
+    const updateUiConvertRate = function (container, value, percentChange) {
+      container.innerHTML = `<div id="totalDownloads" class="key--percent-value ligth--text-grad">${value}%</div><div class="key--percent"><span class="key__span--text ${
         percentChange > 0 ? 'green' : 'red'
-      }">-${percentChange}% </span>YoY</div>`;
+      }"> ${[percentChange > 0 ? '+' : '']}${percentChange}% </span>YoY</div>`;
     };
-    updateUi(androidWrapCon, androidLatestConValue, androidYoYlatestConValue);
-    updateUi(iosWrapCon, iOsLatestConValue, iosYoyLatestValue);
-    updateUi(androidWrapRev, androidRevLatestValue, iosRevLatestValue);
-    updateUi(iosWrapRev, androidRevYoyLatest, iosRevYoyLatest);
+
+    const updateRevUi = function (container, value) {
+      container.innerHTML = `<div id="totalDownloads" class="key--percent-value ligth--text-grad">${value}</div>`;
+    };
+    updateUiConvertRate(androidWrapCon, androidLatestConValue, androidYoYlatestConValue);
+    updateUiConvertRate(iosWrapCon, iOsLatestConValue, iosYoyLatestValue);
+    updateRevUi(androidWrapRev, androidLatestFormat);
+    updateRevUi(iosWrapRev, iosLatestFormat);
   });
 
   ////////fix the y-axis to the chart
