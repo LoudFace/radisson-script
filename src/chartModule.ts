@@ -484,15 +484,15 @@ export const chartOnlineShareEmea = function (
         data: yWoW5,
       },
     ],
-    dataZoom: [
-      {
-        type: 'inside',
-        xAxisIndex: [0, 1],
-        start: 5,
-        end: 100,
-        minSpan: 20,
-      },
-    ],
+    // dataZoom: [
+    //   {
+    //     type: 'inside',
+    //     xAxisIndex: [0, 1],
+    //     start: 5,
+    //     end: 100,
+    //     minSpan: 20,
+    //   },
+    // ],
   });
 };
 ////////second Chart APAC
@@ -685,15 +685,15 @@ export const chartOnlineShareApac = function (
         data: yWoW3,
       },
     ],
-    dataZoom: [
-      {
-        type: 'inside',
-        xAxisIndex: [0, 1],
-        start: 5,
-        end: 100,
-        minSpan: 20,
-      },
-    ],
+    // dataZoom: [
+    //   {
+    //     type: 'inside',
+    //     xAxisIndex: [0, 1],
+    //     start: 5,
+    //     end: 100,
+    //     minSpan: 20,
+    //   },
+    // ],
   });
 };
 
@@ -877,14 +877,14 @@ export const bookingsLineChart = function (
         data: rfpPercent,
       },
     ],
-    dataZoom: [
-      {
-        type: 'inside',
-        xAxisIndex: [0, 1],
-        start: 5,
-        end: 100,
-        minSpan: 20,
-      },
-    ],
+    // dataZoom: [
+    //   {
+    //     type: 'inside',
+    //     xAxisIndex: [0, 1],
+    //     start: 5,
+    //     end: 100,
+    //     minSpan: 20,
+    //   },
+    // ],
   });
 };

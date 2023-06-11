@@ -163,7 +163,39 @@ window.Webflow.push(() => {
       const [ceseWowRecentData] = ceseWowFormated.slice(-1);
       const [meaWowRecentData] = meaWowFormated.slice(-1);
       ///////////
-      //
+      ///////////
+      //Fix y axis on scroll
+      ///scroll container
+      const scrollContainer = document.querySelector('[rd-element="emea-scrollwrap"]');
+      const yAxisWrap = document.querySelector('[rd-element="axis-wrap"]');
+      const apacYaxis = document.querySelector('[rd-element="apac-yaxiswrap"]');
+      const apacScroll = document.querySelector('[rd-element="apac-scroll-wrap"]');
+      const chartCOlor = '#151517';
+      console.log([apacScroll, apacYaxis]);
+
+      const fixYaxis = function (scrollCont, yAxisContainer, color) {
+        scrollCont.scrollBy(scrollCont.scrollWidth, 0);
+        scrollCont.style.zIndex = '10';
+        scrollCont.addEventListener('scroll', function () {
+          const pxScrolled = scrollCont.scrollLeft;
+          if (pxScrolled > yAxisContainer.scrollWidth) {
+            yAxisContainer.classList.add('show-y');
+            yAxisContainer.style.backgroundColor = color;
+          } else {
+            yAxisContainer.classList.remove('show-y');
+            yAxisContainer.style.backgroundColor = 'transparent';
+          }
+        });
+      };
+
+      ///////////////calling the fix scroll function
+      fixYaxis(scrollContainer, yAxisWrap, chartCOlor);
+      fixYaxis(apacScroll, apacYaxis, chartCOlor);
+
+      //////
+      //////
+      ////////
+      /////////
       eerutKey.innerHTML = `<div id="eerutKey" class="key__percent--container"><div class="key--percent-value ligth--text-grad">${recentEerutData}%</div><div class="key--percent"><span class="key__span--text ${
         eerutWowRecentData > 0 ? 'green' : 'red'
       }">${eerutWowRecentData}% </span>WoW</div></div>`;
@@ -421,6 +453,16 @@ window.Webflow.push(() => {
       ////
     });
   const conversionRate = document.getElementById('conversionRate');
+  if (!conversionRate) return;
+  getTableRecords('tbldsHsl0iIwJQECd').eachPage(function page(records) {
+    // console.log(records);
+    // get the last records data
+    const [kpilatestRecord] = records.slice(-1);
+    const coversionRateValue = kpilatestRecord.fields['Conversion rate'];
+    const conversionRatePercent = coversionRateValue * 100;
+    conversionRate.innerHTML = `${conversionRatePercent}%`;
+  });
+
   ///// Pie Chart
   radiChartbase('tblCxvDHIID3Z8ncV')
     .select({ view: 'Grid view' })
