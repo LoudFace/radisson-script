@@ -88,6 +88,7 @@ window.Webflow.push(() => {
     const androidMomFormated = formatColumnsTOPercent(androidMom);
     const organiceDownloadsMomFormated = formatColumnsTOPercent(organiceDownloadsMom);
     const compaignDownloadsMomFormated = formatColumnsTOPercent(compaignDownloadsMom);
+    console.log(months);
     // console.log(iOsMomFormated);
     ///////////////////Ploting the chart passing Data to the function created in the newApppageChart.ts
     appMonthlyChart(
@@ -123,6 +124,11 @@ window.Webflow.push(() => {
     const androidKeyWrap = document.querySelector('[rd-element="androidKey"]');
     const organicKeyWrap = document.querySelector('[rd-element="organicKey"]');
     const campaignKeyWrap = document.querySelector('[rd-element="compaignKey"]');
+    const currentMonth = document.querySelector('[rd-element="currentMonth"]');
+
+    const [lastRole] = records.slice(-1);
+    const monthData = lastRole.fields['Month Full'];
+    currentMonth.innerHTML = `${monthData}`;
 
     const updateKey = function (contWrap, amount, Wowvalue) {
       contWrap.innerHTML = `<div class="key--percent-value ligth--text-grad">${amount}</div><div class="key--percent"><span class="key__span--text ${
@@ -186,16 +192,20 @@ window.Webflow.push(() => {
 
     const iosRnsLatest = convertoSingleValue(iosRns);
     const androidRnsLatest = convertoSingleValue(androidRns);
+    const [lastMonthRec] = records.slice(-1);
+    const lastMonth = lastMonthRec.fields['Month Full'];
 
     const androidWrap = document.querySelector('[rd-element="androidRoomnight"]');
     const iosWrap = document.querySelector('[rd-element="iosRoomnight"]');
+    const roomNightMonth = document.querySelector('[rd-element="booknight-currentMonth"]');
+    if (!roomNightMonth) return;
 
     const updateKey = function (contWrap, amount, Wowvalue) {
       contWrap.innerHTML = `<div class="bookings-number-text ligth--text-grad">${amount}</div><div class="key--percent"><span class="key__span--text ${
         Wowvalue > 0 ? 'green' : 'red'
       }"> ${Wowvalue > 0 ? '+' : ''}${Wowvalue}% </span>MoM</div>`;
     };
-
+    roomNightMonth.innerHTML = `${lastMonth}`;
     updateKey(iosWrap, iosRnsLatest, iosRnsMoMFormatedLatest);
     updateKey(androidWrap, androidRnsLatest, androidMomFormatedLatest);
   });
@@ -242,24 +252,30 @@ window.Webflow.push(() => {
     const androidconversionYoy = getColumnData('Android Conversion (YoY)', records);
     const iosConverionYoy = getColumnData('iOS Conversion (YoY)', records);
     const combinedConversionYoY = getColumnData('Combined Conversion', records);
-    console.log(combinedConversionYoY, 'this');
+
+    //console.log(combinedConversionYoY);
     //console.log(iosConversion);
     ///////////////
+    ///////////Revenu values
     const androidRev = getColumnData('Android Revenue', records);
     const iosRev = getColumnData('iOS Revenue', records);
     const androidRevYoy = getColumnData('Prev Android Rev (YoY)', records);
     const iosRevYoy = getColumnData('Prev iOS Rev (YoY)', records);
-
+    const combinedRevenue = getColumnData('Combined Revenue', records);
     const androidRevFormated = convertUnsetValueToZero(androidRev);
     const iosRevFormated = convertUnsetValueToZero(iosRev);
+    console.log(androidRevFormated);
     //console.log(iosRevFormated, 'thisnew');
     ///////
+    const combinedConversionFormated = formatColumnsTOPercent(combinedConversionYoY);
     const androidConversionFormated = formatColumnsTOPercent(androidConversion);
     const iosConversionFormated = formatColumnsTOPercent(iosConversion);
     const androidconversionYoyFormated = formatColumnsTOPercent(androidconversionYoy);
     const iosConverionYoyFormated = formatColumnsTOPercent(iosConverionYoy);
     const androidRevYoyFormated = formatColumnsTOPercent(androidRevYoy);
     const iosRevYoyFormated = formatColumnsTOPercent(iosRevYoy);
+    console.log(combinedConversionFormated);
+    //  const combinesRevFormated =  formatColumnsTOPercent
     // console.log(iosConversionFormated, 'this');
     //////////Pass data to chart function
     convertRateChart(
@@ -267,16 +283,29 @@ window.Webflow.push(() => {
       androidConversionFormated,
       iosConversionFormated,
       androidconversionYoyFormated,
-      iosConverionYoyFormated
+      iosConverionYoyFormated,
+      combinedConversionFormated
     );
-    revChart(month, androidRevFormated, iosRevFormated, androidRevYoyFormated, iosRevYoyFormated);
+    revChart(
+      month,
+      androidRevFormated,
+      iosRevFormated,
+      androidRevYoyFormated,
+      iosRevYoyFormated,
+      combinedRevenue
+    );
     ///////////////////
     ////////Update the UI of the key
     const androidWrapCon = document.querySelector('[rd-element="androidKey-conversion"]');
     const iosWrapCon = document.querySelector('[rd-element="iosKey-conversion"]');
     const androidWrapRev = document.querySelector('[rd-element="androidkey-rev"]');
     const iosWrapRev = document.querySelector('[rd-element="iosKey-rev"]');
+    const revConMonth = document.querySelectorAll('[rd-element="revmonth"]');
 
+    console.log(revConMonth);
+    const [lastMonth] = month.slice(-1);
+    // eslint-disable-next-line no-return-assign
+    revConMonth.forEach((el) => (el.innerHTML = `${lastMonth}`));
     /////Latest items from the array
     const [androidLatestConValue] = androidConversionFormated.slice(-1);
     const [iOsLatestConValue] = iosConversionFormated.slice(-1);
@@ -300,7 +329,7 @@ window.Webflow.push(() => {
     };
 
     const updateRevUi = function (container, value) {
-      container.innerHTML = `<div id="totalDownloads" class="key--percent-value ligth--text-grad">${value}</div>`;
+      container.innerHTML = `<div id="totalDownloads" class="key--percent-value ligth--text-grad">€${value}</div>`;
     };
     updateUiConvertRate(androidWrapCon, androidLatestConValue, androidYoYlatestConValue);
     updateUiConvertRate(iosWrapCon, iOsLatestConValue, iosYoyLatestValue);
@@ -308,37 +337,37 @@ window.Webflow.push(() => {
     updateRevUi(iosWrapRev, iosLatestFormat);
   });
 
-  ////////fix the y-axis to the chart
+  ////////fix the y-axis to the chart conversion Bar chart
   const barScrollContainer = document.querySelector('[rd-element="bar-scroll-wrap"]');
   const barYAxisWrap = document.querySelector('[rd-element="barY-axiswrap"]');
+
+  ///////Revenue chart scroll containers
+  const revScrollwrap = document.querySelector('[rd-element="revBar-scrollwrap"]');
+  const revYaxisWrap = document.querySelector('[rd-element="revbar-Y-wrap"]');
+  const chartCOlor = '#0d0d0d';
+  console.log(revScrollwrap);
+  console.log(revYaxisWrap);
   // console.log(scrollContainer); //////CONVERT THIS TO A FUNCTION
   if (!barScrollContainer || !barYAxisWrap) return;
 
-  barScrollContainer.addEventListener('scroll', function (e) {
-    const pxScrolled = barScrollContainer.scrollLeft;
-    console.log(pxScrolled);
-    if (pxScrolled > 35) {
-      barYAxisWrap.classList.add('show-y');
-      barYAxisWrap.style.backgroundColor = '#0d0d0d';
-    } else {
-      barYAxisWrap.classList.remove('show-y');
-      barYAxisWrap.style.backgroundColor = 'transparent';
-    }
-  });
-
-  const fixYaxis = function (scrollCont, yAxisContainer) {
-    scrollCont.addEventListener('scroll', function (e) {
+  ///////////////FUnctiont that fix the y-axis .
+  const fixYaxis = function (scrollCont, yAxisContainer, color) {
+    scrollCont.scrollBy(scrollCont.scrollWidth, 0);
+    scrollCont.style.zIndex = '10';
+    scrollCont.addEventListener('scroll', function () {
       const pxScrolled = scrollCont.scrollLeft;
-      console.log(pxScrolled);
-      if (pxScrolled > yAxisContainer.innerWidth) {
+      if (pxScrolled > yAxisContainer.scrollWidth) {
         yAxisContainer.classList.add('show-y');
-        yAxisContainer.style.backgroundColor = '#0d0d0d';
+        yAxisContainer.style.backgroundColor = color;
       } else {
         yAxisContainer.classList.remove('show-y');
         yAxisContainer.style.backgroundColor = 'transparent';
       }
     });
   };
+  //////////////////Calling function to fix chart Y-axis
+  fixYaxis(barScrollContainer, barYAxisWrap, chartCOlor);
+  fixYaxis(revScrollwrap, revYaxisWrap, chartCOlor);
 
   /////////////////
   /////////////App Reviews UI update tabel name = App Reviews and Ratings
@@ -451,7 +480,7 @@ window.Webflow.push(() => {
 
   ///////
   /////App Revenue + Conversion
-  const appRevConversion = 'tblW36AI9FXg7LcoD';
+  const appRevConversion = 'tblQ0d7KckUDCVJrg';
   const appheroTotalDownloads = document.querySelector('[rd-element="downloads-2023"]');
   const heroMonthlyActive = document.querySelector('[rd-element="month-active-users"]');
   const heroAppRating = document.querySelector('[rd-element="average-rating"]');
@@ -459,10 +488,18 @@ window.Webflow.push(() => {
   const appHeroRoomnight = document.querySelector('[rd-element="roomnight-booked"]');
   const appHeroConversionRate = document.querySelector('[rd-element="conversion-rate"]');
 
+  const updateAppHEro = function (container, data) {
+    container.innerHTML = `<div class="text-style-3rem light-red-gradient">${data}</div><div class="gradienttext">monthly active users</div><img src="https://uploads-ssl.webflow.com/63ee41b9862db4b9345f1a50/647bc28b017a9563bc3fa61c_IconoirArrowRight%201.png" loading="lazy" width="24" alt="" class="image-47">`;
+  };
+
+  if (!heroMonthlyActive) return;
+
   getTableRecords(appRevConversion).eachPage(function page(records) {
     const [lastRole] = records.slice(-1);
-    const lastroleitem = lastRole.fields;
-    console.log(lastroleitem);
+    const lastroleitem = lastRole.fields['Combined Active Users'];
+    const lastroleitemFormat = numberWithCommas(lastroleitem);
+
+    updateAppHEro(heroMonthlyActive, lastroleitemFormat);
   });
 
   //Working method Querry

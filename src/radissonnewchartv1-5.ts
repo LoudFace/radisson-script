@@ -229,8 +229,10 @@ window.Webflow.push(() => {
         bigData: string,
         wowData: number
       ) {
-        cardcontainer.innerHTML = `<div rd-element="totalRevenue" class="performance_card-wrap"><div class="text-style-18px text-color-white">Total revenue</div><div id="totalRev" class="text-style-3rem gradienttext">${bigData}</div><div><span class="green">+${wowData}%</span> uplift vs Feb 2022</div></div>`;
+        cardcontainer.innerHTML = `<div class="text-style-18px text-color-white">App downloads in 2023</div><div id="appDownloads" class="text-style-3rem gradienttext">${bigData}</div><div><span class="green">+${wowData}%</span> &nbsp;vs Annual Target: 1.3m</div>`;
       };
+      //
+      //`<div class="text-style-18px text-color-white">App downloads in 2023</div><div id="appDownloads" class="text-style-3rem gradienttext">238,888</div><div><span class="green">+39.5%</span> &nbsp;vs Annual Target: 1.3m</div>`
       //////////////////////////////App Anual Target base on Airtable
       getTableRecords('tblCxvDHIID3Z8ncV').eachPage(function page(records) {
         const appDownloadPercent = getColumnData('Progress Percent', records).slice(-1);
@@ -452,13 +454,15 @@ window.Webflow.push(() => {
 
       ////
     });
+
+  //////////App Revenue + Conversion
   const conversionRate = document.getElementById('conversionRate');
   if (!conversionRate) return;
-  getTableRecords('tbldsHsl0iIwJQECd').eachPage(function page(records) {
+  getTableRecords('tblW36AI9FXg7LcoD').eachPage(function page(records) {
     // console.log(records);
     // get the last records data
     const [kpilatestRecord] = records.slice(-1);
-    const coversionRateValue = kpilatestRecord.fields['Conversion rate'];
+    const coversionRateValue = kpilatestRecord.fields['Combined Conversion'];
     const conversionRatePercent = coversionRateValue * 100;
     conversionRate.innerHTML = `${conversionRatePercent}%`;
   });

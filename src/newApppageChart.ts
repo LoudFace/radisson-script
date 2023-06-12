@@ -289,15 +289,15 @@ export const appMonthlyChart = function (
         data: yWoW5,
       },
     ],
-    dataZoom: [
-      {
-        type: 'inside',
-        xAxisIndex: [0, 1],
-        start: 5,
-        end: 100,
-        minSpan: 20,
-      },
-    ],
+    // dataZoom: [
+    //   {
+    //     type: 'inside',
+    //     xAxisIndex: [0, 1],
+    //     start: 5,
+    //     end: 100,
+    //     minSpan: 20,
+    //   },
+    // ],
   });
 };
 
@@ -461,15 +461,15 @@ export const appRatingChart = function (
         data: yaxisPercent2,
       },
     ],
-    dataZoom: [
-      {
-        type: 'inside',
-        xAxisIndex: [0, 1],
-        start: 5,
-        end: 100,
-        minSpan: 20,
-      },
-    ],
+    // dataZoom: [
+    //   {
+    //     type: 'inside',
+    //     xAxisIndex: [0, 1],
+    //     start: 5,
+    //     end: 100,
+    //     minSpan: 20,
+    //   },
+    // ],
   });
 };
 
@@ -642,15 +642,15 @@ export const roomBookedChart = function (
         data: yaxisPercent2,
       },
     ],
-    dataZoom: [
-      {
-        type: 'inside',
-        xAxisIndex: [0, 1],
-        start: 5,
-        end: 100,
-        minSpan: 10,
-      },
-    ],
+    // dataZoom: [
+    //   {
+    //     type: 'inside',
+    //     xAxisIndex: [0, 1],
+    //     start: 5,
+    //     end: 100,
+    //     minSpan: 10,
+    //   },
+    // ],
   });
 };
 ////////////////Active USers bar chart
@@ -834,7 +834,8 @@ export const convertRateChart = function (
   bar1: 0,
   bar2: 0,
   andChangeYoy: 0,
-  iosChangeYoY: 0
+  iosChangeYoY: 0,
+  combinedCon: 0
 ) {
   conversionChartWrapInit.setOption({
     color: ['#4D4D4D', '#1FA2FF', 'transparent'],
@@ -880,12 +881,13 @@ export const convertRateChart = function (
       },
       formatter: function (params) {
         ////helper function
+       //// console.log(params);
         function numberWithCommas(x) {
           return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         }
-        const [android, ios, androidYoy, iosYoy] = params;
+        const [android, ios, androidYoy, iosYoy, combinedYoy] = params;
         //android, ios, androidYoy, iosYoy
-
+        ///console.log(combinedYoy);
         // const prevUserDataformat = numberWithCommas(prevUser.data);
         // const activeUserDataformat = numberWithCommas(activeUser.data);
 
@@ -893,11 +895,7 @@ export const convertRateChart = function (
 
         const ic2 = `<span data-tooltip="minimum" style="border-radius:2px; text-align: left; background: linear-gradient(90deg, #C45953 0%, #F3A183 100%); display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
 
-        const title = `<div style="display:flex; gap:1rem; justify-content:left; border-bottom: 1px solid #4D4D4D; margin-bottom: 10px; padding-bottom:5px;" > <span style=" text-align: left; color: white;  display: inline-block;"> ${
-          ios.axisValue
-        }</span><span><span style="display:inline-block; color: ${
-          androidYoy.value > 0 ? '#fff' : '#fff'
-        }"> ${androidYoy.value}% </span> ${iosYoy.value}%</span></div>`;
+        const title = `<div style="display:flex; gap:1rem; justify-content:left; border-bottom: 1px solid #4D4D4D; margin-bottom: 10px; padding-bottom:5px;" > <span style=" text-align: left; color: white;  display: inline-block;"> ${ios.axisValue}</span><span style="color: ${combinedYoy.data>0?'#17b96b': '#fe4b36'}"> ${combinedYoy.value > 0 ? '+' : ''} ${combinedYoy.value}%</span></div>`;
 
         const androidPercent = ` <span><span style="color:${
           androidYoy.data > 0 ? '#17B96B' : '#FE4B36'
@@ -949,7 +947,7 @@ export const convertRateChart = function (
         },
       },
       min: 0,
-      max: 5,
+      max: 6,
     },
     series: [
       {
@@ -1011,11 +1009,29 @@ export const convertRateChart = function (
         // },
         barWidth: 40,
       },
+      {
+        data: combinedCon,
+        name: 'combinedYoy',
+        type: 'bar',
+        stack: 'iosactive',
+        color: 'transparent',
+        // emphasis: {
+        //   focus: 'series',
+        // },
+        //barWidth: 40,
+      },
     ],
   });
 };
 
-export const revChart = function (xAxis: 0, bar1: 0, bar2: 0, andChangeYoy: 0, iosChangeYoY: 0) {
+export const revChart = function (
+  xAxis: 0,
+  bar1: 0,
+  bar2: 0,
+  andChangeYoy: 0,
+  iosChangeYoY: 0,
+  combinedRev: 0
+) {
   revInit.setOption({
     color: ['#4D4D4D', '#1FA2FF', 'transparent'],
     xAxis: {
@@ -1059,29 +1075,37 @@ export const revChart = function (xAxis: 0, bar1: 0, bar2: 0, andChangeYoy: 0, i
         },
       },
       formatter: function (params) {
-        console.log(params);
         ////helper function
+        console.log(params);
         function numberWithCommas(x) {
           return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         }
-        const [android, ios, androidYoy, iosYoy] = params;
+        const [android, ios, androidYoy, iosYoy, combinedRev] = params;
         //android, ios, androidYoy, iosYoy
-
+        console.log(androidYoy);
         // const prevUserDataformat = numberWithCommas(prevUser.data);
         // const activeUserDataformat = numberWithCommas(activeUser.data);
+
+        const androidDataFormat = numberWithCommas(android.data);
+        const iOsDataFormat = numberWithCommas(ios.data);
+        const combinedRevFormat = numberWithCommas(combinedRev.value);
 
         const ic1 = `<span data-tooltip="minimum" style="border-radius:2px; text-align: left; background: linear-gradient(90deg, #0089A7 0%, #9EEDFE 100%); display:inline-block; height: 12px; width:12px; margin-right: 5px; margin-bottom: -2px;"></span>`;
 
         const ic2 = `<span data-tooltip="minimum" style="border-radius:2px; text-align: left; background: linear-gradient(90deg, #C45953 0%, #F3A183 100%); display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
 
-        const title = `<div style="display:flex; gap:1rem; justify-content:left; border-bottom: 1px solid #4D4D4D; margin-bottom: 10px; padding-bottom:5px;" > <span style=" text-align: left; color: white;  display: inline-block;"> ${
-          ios.axisValue
-        }</span><span><span style="display:inline-block; color: ${
-          androidYoy.value > 0 ? '#fff' : '#fff'
-        }"> ${androidYoy.value}% </span> ${iosYoy.value}%</span></div>`;
+        const title = `<div style="display:flex; gap:1rem; justify-content:left; border-bottom: 1px solid #4D4D4D; margin-bottom: 10px; padding-bottom:5px;" > <span style=" text-align: left; color: white;  display: inline-block;"> ${ios.axisValue}</span><span> €${combinedRevFormat}</span></div>`;
 
-        const androidTooltip = `<div style= "display: flex; align-items: gap:4rem; center; justify-content: space-between; gap: 4rem;"> <div> ${ic2} ${android.seriesName}</div> : ${android.data}</div>`;
-        const iosTooltip = `<div style= "display: flex; align-items: gap:4rem; center; justify-content: space-between; gap: 4rem;"> <div> ${ic1} ${ios.seriesName}</div> : ${ios.data}</div>`;
+        const androidPercent = ` <span><span style="color:${
+          androidYoy.data > 0 ? '#17B96B' : '#FE4B36'
+        }; ">${androidYoy.data > 0 ? '+' : ''}${androidYoy.data}% </span>YoY</span> `;
+
+        const iosPercent = ` <span><span style="color:${
+          iosYoy.data > 0 ? '#17B96B' : '#FE4B36'
+        }; ">${iosYoy.data > 0 ? '+' : ''}${iosYoy.data}% </span>YoY</span> `;
+
+        const androidTooltip = `<div style= "display: flex; align-items: gap:4rem; center; justify-content: space-between; gap: 4rem;"> <div> ${ic2} ${android.seriesName}</div> <span style="display:flex; gap:10px;"> : € ${androidDataFormat} ${androidPercent}</span> </div>`;
+        const iosTooltip = `<div style= "display: flex; align-items: gap:4rem; center; justify-content: space-between; gap: 4rem;"> <div> ${ic1} ${ios.seriesName}</div> <span style="display:flex; gap:10px;"> : € ${iOsDataFormat} ${iosPercent} </span> </div>`;
 
         return `${title}
                 ${androidTooltip}
@@ -1123,7 +1147,7 @@ export const revChart = function (xAxis: 0, bar1: 0, bar2: 0, andChangeYoy: 0, i
     series: [
       {
         ///android conversion
-        name: 'android',
+        name: 'Android',
         data: bar1,
         type: 'bar',
         stack: 'active',
@@ -1179,6 +1203,17 @@ export const revChart = function (xAxis: 0, bar1: 0, bar2: 0, andChangeYoy: 0, i
         //   focus: 'series',
         // },
         barWidth: 40,
+      },
+      {
+        data: combinedRev,
+        name: 'combined Revenue',
+        type: 'bar',
+        stack: 'active',
+        color: 'transparent',
+        // emphasis: {
+        //   focus: 'series',
+        // },
+        //barWidth: 40,
       },
     ],
   });
