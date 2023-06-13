@@ -881,7 +881,7 @@ export const convertRateChart = function (
       },
       formatter: function (params) {
         ////helper function
-       //// console.log(params);
+        //// console.log(params);
         function numberWithCommas(x) {
           return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         }
@@ -895,7 +895,11 @@ export const convertRateChart = function (
 
         const ic2 = `<span data-tooltip="minimum" style="border-radius:2px; text-align: left; background: linear-gradient(90deg, #C45953 0%, #F3A183 100%); display:inline-block; height: 12px; width:12px; margin-right: 5px;"></span>`;
 
-        const title = `<div style="display:flex; gap:1rem; justify-content:left; border-bottom: 1px solid #4D4D4D; margin-bottom: 10px; padding-bottom:5px;" > <span style=" text-align: left; color: white;  display: inline-block;"> ${ios.axisValue}</span><span style="color: ${combinedYoy.data>0?'#17b96b': '#fe4b36'}"> ${combinedYoy.value > 0 ? '+' : ''} ${combinedYoy.value}%</span></div>`;
+        const title = `<div style="display:flex; gap:1rem; justify-content:left; border-bottom: 1px solid #4D4D4D; margin-bottom: 10px; padding-bottom:5px;" > <span style=" text-align: left; color: white;  display: inline-block;"> ${
+          ios.axisValue
+        }</span><span style="color: ${combinedYoy.data > 0 ? '#17b96b' : '#fe4b36'}"> ${
+          combinedYoy.value > 0 ? '+' : ''
+        } ${combinedYoy.value}%</span></div>`;
 
         const androidPercent = ` <span><span style="color:${
           androidYoy.data > 0 ? '#17B96B' : '#FE4B36'
@@ -1218,3 +1222,82 @@ export const revChart = function (
     ],
   });
 };
+
+// ('use strict');
+// (() => {
+//   window.Webflow || (window.Webflow = []);
+//   window.Webflow.push(() => {
+//     const d = document.querySelector('#firstname'),
+//       j = document.querySelector('#lastname'),
+//       m = document.querySelector('#email'),
+//       g = document.querySelector('#company'),
+//       f = document.querySelector('#cell-driver-interested-form');
+//     // console.log(f),
+//     !(!f || !j || !m || !g || !d) &&
+//       f.addEventListener('submit', function () {
+//         const z = MktoForms2.allForms()[0];
+//         m.addHiddenFields({
+//           Email: m.value,
+//           FirstName: d.value,
+//           LastName: j.value,
+//           Company: g.value,
+//         }),
+//           z.submit(),
+//           console.log(d.value, j.value, g.value, m.value);
+//       });
+//   });
+// })();
+
+// /////First form
+
+// ('use strict');
+// (() => {
+//   window.Webflow || (window.Webflow = []);
+//   window.Webflow.push(() => {
+//     const e = document.querySelector('#firstname-cs'),
+//       t = document.querySelector('#lastname-cs'),
+//       l = document.querySelector('#email-cs'),
+//       c = document.querySelector('#company-cs'),
+//       u = document.querySelector('#cell-driver-case-study-form');
+//     console.log(u),
+//       !(!u || !t || !l || !c || !e) &&
+//         u.addEventListener('submit', function () {
+//           const m = MktoForms2.allForms()[0];
+//           m.addHiddenFields({
+//             Email: l.value,
+//             FirstName: e.value,
+//             LastName: t.value,
+//             Company: c.value,
+//           }),
+//             m.submit(),
+//             console.log(e.value, t.value, c.value, l.value);
+//         });
+//   });
+// })();
+
+// ('use strict');
+// (() => {
+//   window.Webflow || (window.Webflow = []);
+//   window.Webflow.push(() => {
+//     const e = document.querySelector('#firstname'),
+//       t = document.querySelector('#lastname'),
+//       l = document.querySelector('#email'),
+//       n = document.querySelector('#subject'),
+//       o = document.querySelector('#message'),
+//       u = document.querySelector('#form');
+//     console.log(u),
+//       !(!u || !t || !l || !n || !o || !e) &&
+//         u.addEventListener('submit', function () {
+//           const m = MktoForms2.allForms()[0];
+//           m.addHiddenFields({
+//             Email: l.value,
+//             FirstName: e.value,
+//             LastName: t.value,
+//             subject: n.value,
+//             message: o.value,
+//           }),
+//             m.submit(),
+//             console.log(e.value, t.value, n.value, l.value, o.value);
+//         });
+//   });
+// })();

@@ -226,20 +226,20 @@ window.Webflow.push(() => {
 
   /////////
   ////////fix the y-axis to the chart
-  const scrollContainer = document.querySelector('[rd-element="scrollcontainer"]');
-  const yAxisWrap = document.querySelector('[rd-element="y-axiswrap"]');
+  // const scrollContainer = document.querySelector('[rd-element="scrollcontainer"]');
+  // const yAxisWrap = document.querySelector('[rd-element="y-axiswrap"]');
   // console.log(scrollContainer);
-  if (!scrollContainer || !yAxisWrap) return;
-  scrollContainer.addEventListener('scroll', function (e) {
-    const pxScrolled = scrollContainer.scrollLeft;
-    if (pxScrolled > 89) {
-      yAxisWrap.classList.add('show-y');
-      yAxisWrap.style.backgroundColor = '#121214';
-    } else {
-      yAxisWrap.classList.remove('show-y');
-      yAxisWrap.style.backgroundColor = '#0d0d0d';
-    }
-  });
+  // if (!scrollContainer || !yAxisWrap) return;
+  // scrollContainer.addEventListener('scroll', function (e) {
+  //   const pxScrolled = scrollContainer.scrollLeft;
+  //   if (pxScrolled > 89) {
+  //     yAxisWrap.classList.add('show-y');
+  //     yAxisWrap.style.backgroundColor = '#121214';
+  //   } else {
+  //     yAxisWrap.classList.remove('show-y');
+  //     yAxisWrap.style.backgroundColor = '#0d0d0d';
+  //   }
+  // });
 
   ////////
   ////// Conversion rate and revenue genrated Bar chart
@@ -342,11 +342,20 @@ window.Webflow.push(() => {
   const barYAxisWrap = document.querySelector('[rd-element="barY-axiswrap"]');
 
   ///////Revenue chart scroll containers
+  const scrollContainer = document.querySelector('[rd-element="scrollcontainer"]');
+  const yAxisWrap = document.querySelector('[rd-element="y-axiswrap"]');
+  const monthlySCroll = document.querySelector('[rd-element="month-scroll"]');
+  const monthYWrap = document.querySelector('[rd-element="month-ywrap"]');
   const revScrollwrap = document.querySelector('[rd-element="revBar-scrollwrap"]');
   const revYaxisWrap = document.querySelector('[rd-element="revbar-Y-wrap"]');
+  const rmNightYwrap = document.querySelector('[rd-element="room-yWrap"]');
+  const roomScroll = document.querySelector('[rd-element="room-night-scroll"]');
+  const appratingScroll = document.querySelector('[rd-element="appScroll"]');
+  const appRatingYwrap = document.querySelector('[rd-element="app-ywrap"]');
   const chartCOlor = '#0d0d0d';
-  console.log(revScrollwrap);
-  console.log(revYaxisWrap);
+  const appcolor = '#121213';
+  console.log(monthYWrap);
+  console.log(monthlySCroll);
   // console.log(scrollContainer); //////CONVERT THIS TO A FUNCTION
   if (!barScrollContainer || !barYAxisWrap) return;
 
@@ -366,8 +375,12 @@ window.Webflow.push(() => {
     });
   };
   //////////////////Calling function to fix chart Y-axis
+  fixYaxis(scrollContainer, yAxisWrap, chartCOlor);
   fixYaxis(barScrollContainer, barYAxisWrap, chartCOlor);
   fixYaxis(revScrollwrap, revYaxisWrap, chartCOlor);
+  fixYaxis(monthlySCroll, monthYWrap, appcolor);
+  fixYaxis(roomScroll, rmNightYwrap, chartCOlor);
+  fixYaxis(appratingScroll, appRatingYwrap, chartCOlor);
 
   /////////////////
   /////////////App Reviews UI update tabel name = App Reviews and Ratings
