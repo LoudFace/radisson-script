@@ -38,8 +38,8 @@ export const appMonthlyChart = function (
 ) {
   monthlyChart.setOption({
     grid: {
-      width: '90%',
-      left: 40,
+      width: '96%',
+      left: 30,
       //height: '80%',
     },
     color: [
@@ -311,7 +311,7 @@ export const appRatingChart = function (
 ) {
   appRating.setOption({
     grid: {
-      width: '90%',
+      width: '96%',
       left: 40,
     },
     color: ['#FAACA8', '#9EEDFE', 'transparent', 'transparent'],
@@ -483,7 +483,7 @@ export const roomBookedChart = function (
 ) {
   roomBookedInstance.setOption({
     grid: {
-      width: '90%',
+      width: '97%',
       left: 40,
     },
     color: ['#FAACA8', '#9EEDFE', 'transparent', 'transparent'],
@@ -700,6 +700,24 @@ export const actvieUserchart = function (xAxis: 0, bar1: 0, bar2: 0, changMoM: 0
       formatter: function (params) {
         //console.log(params);
         ////helper function
+        const months = [
+          'January',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+          'July',
+          'August',
+          'September',
+          'October',
+          'November',
+          'December',
+        ];
+        const dateOb = new Date();
+        const monthIndex = dateOb.getMonth() - 1;
+        const currentMonth = months[monthIndex];
+
         function numberWithCommas(x) {
           return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         }
@@ -718,8 +736,8 @@ export const actvieUserchart = function (xAxis: 0, bar1: 0, bar2: 0, changMoM: 0
           percentChange.value > 0 ? '#17B96B' : '#FE4B36'
         }"> ${percentChange.value}% </span> MoM</span></div>`;
 
-        const prevUsertoolTip = `<div style= "display: flex; align-items: center; justify-content: space-between; gap: 4rem;"> <div style="width: 150px"> ${ic1} ${prevUser.seriesName}</div> : ${prevUserDataformat}</div>`;
-        const activeUserTooltip = `<div style= "display: flex; align-items: center; justify-content: space-between; gap: 4rem;"> <div style="width: 150px"> ${ic2} ${activeUser.seriesName}</div> : ${activeUserDataformat}</div>`;
+        const prevUsertoolTip = `<div style= "display: flex; align-items: center; justify-content: space-between; gap: 4rem;"> <div> ${ic1} ${prevUser.seriesName}</div> : ${prevUserDataformat}</div>`;
+        const activeUserTooltip = `<div style= "display: flex; align-items: center; justify-content: space-between; gap: 4rem;"> <div style="width: 150px"> ${ic2} ${activeUser.seriesName} in ${currentMonth}</div> : ${activeUserDataformat}</div>`;
 
         return `${title}
                 ${activeUserTooltip}
@@ -761,7 +779,7 @@ export const actvieUserchart = function (xAxis: 0, bar1: 0, bar2: 0, changMoM: 0
     series: [
       {
         ///Previous Active Users
-        name: 'Previous active Users',
+        name: 'Active users of the previous month',
         data: bar1,
         type: 'bar',
         itemStyle: {
@@ -774,7 +792,7 @@ export const actvieUserchart = function (xAxis: 0, bar1: 0, bar2: 0, changMoM: 0
       },
       {
         //Active users
-        name: 'Current active users',
+        name: 'Active users',
         data: bar2,
         type: 'bar',
         stack: 'active',
@@ -796,33 +814,8 @@ export const actvieUserchart = function (xAxis: 0, bar1: 0, bar2: 0, changMoM: 0
         name: 'changeMoM',
         type: 'bar',
         stack: 'active',
-
-        label: {
-          // colorChange: function (e) {
-          //   const labeltext = e.data;
-          //   return labeltext > 0 ? '#5DE91C' : `red`;
-          // },
-          show: true,
-          position: 'top',
-          //fontStyle: 'italic',
-          fontSize: 16,
-          // color: function (e) {
-          //   const labeltext = e.data;
-          //   return labeltext > 0 ? '#5DE91C' : `red`;
-          // },
-          color: '#5DE91C',
-          fontWeight: 'normal',
-          // formatter: function (e) {
-          //   console.log(e);
-          //   const labeltext = e.data;
-          //   return labeltext > 0 ? `+${labeltext}%` : `${labeltext}%`;
-          // },
-        },
         barMinHeight: 10,
         color: 'transparent',
-        // emphasis: {
-        //   focus: 'series',
-        // },
         barWidth: 40,
       },
     ],
@@ -1236,7 +1229,7 @@ export const revChart = function (
 //     !(!f || !j || !m || !g || !d) &&
 //       f.addEventListener('submit', function () {
 //         const z = MktoForms2.allForms()[0];
-//         m.addHiddenFields({
+//         z.addHiddenFields({
 //           Email: m.value,
 //           FirstName: d.value,
 //           LastName: j.value,
@@ -1301,3 +1294,126 @@ export const revChart = function (
 //         });
 //   });
 // })();
+
+// MktoForms2.loadForm('//info.exro.com', '377-PDP-233', 1041);
+// MktoForms2.loadForm('//info.exro.com', '377-PDP-233', 1032);
+
+// MktoForms2.whenReady(function (mktoForm) {
+//   const customFormDataByMarketoFormId = {
+//     1041: {
+//       formSelector: '#cell-driver-case-study-form',
+//       fieldMap: [
+//         {
+//           marketo: 'Email',
+//           custom: '#email-cs',
+//         },
+//         {
+//           marketo: 'FirstName',
+//           custom: '#firstname-cs',
+//         },
+//         {
+//           marketo: 'LastName',
+//           custom: '#lastname-cs',
+//         },
+//         {
+//           marketo: 'message',
+//           custom: '#company-cs',
+//         },
+//       ],
+//     },
+//     1032: {
+//       formSelector: '#cell-driver-interested-form',
+//       fieldMap: [
+//         {
+//           marketo: 'Email',
+//           custom: '#email',
+//         },
+//         {
+//           marketo: 'FirstName',
+//           custom: '#firstname',
+//         },
+//         {
+//           marketo: 'LastName',
+//           custom: '#lastname',
+//         },
+//         {
+//           marketo: 'Company',
+//           custom: '#company',
+//         },
+//       ],
+//     },
+//   };
+
+//   const customFormData = customFormDataByMarketoFormId[mktoForm.getId()];
+
+//   document.querySelector(customFormData.formSelector).addEventListener('submit', function (e) {
+//     const customForm = e.target,
+//       mktoFields = {};
+
+//     // iterate over fields on custom form to create MktoForms-compat object
+//     customFormData.fieldMap.forEach(function (field) {
+//       mktoFields[field.marketo] = customForm.querySelector(field.custom).value;
+//     });
+
+//     // add to Marketo form
+//     mktoForm.addHiddenFields(mktoFields);
+
+//     // submit Marketo form
+//     mktoForm.submit();
+
+//     // stop custom HTML form submission
+//     e.preventDefault();
+//   });
+// });
+
+// <script>
+// ('use strict');
+// (() => {
+// window.Webflow || (window.Webflow = []);
+// window.Webflow.push(() => {
+// const d = document.querySelector('#firstname'),
+// j = document.querySelector('#lastname'),
+// m = document.querySelector('#email'),
+// g = document.querySelector('#company'),
+// f = document.querySelector('#cell-driver-interested-form');
+// // console.log(f),
+// !(!f || !j || !m || !g || !d) &&
+// f.addEventListener('submit', function () {
+// const z = MktoForms2.allForms()[0];
+// m.addHiddenFields({
+// Email: m.value,
+// FirstName: d.value,
+// LastName: j.value,
+// Company: g.value,
+// }),
+// z.submit(),
+// console.log(d.value, j.value, g.value, m.value);
+// });
+// });
+// })(); </script>
+
+// <script>
+// ('use strict');
+// (() => {
+// window.Webflow || (window.Webflow = []);
+// window.Webflow.push(() => {
+// const e = document.querySelector('#firstname-cs'),
+// t = document.querySelector('#lastname-cs'),
+// l = document.querySelector('#email-cs'),
+// c = document.querySelector('#company-cs'),
+// u = document.querySelector('#cell-driver-case-study-form');
+// console.log(u),
+// !(!u || !t || !l || !c || !e) &&
+// u.addEventListener('submit', function () {
+// const m = MktoForms2.allForms()[0];
+// m.addHiddenFields({
+// Email: l.value,
+// FirstName: e.value,
+// LastName: t.value,
+// Company: c.value,
+// }),
+// m.submit(),
+// console.log(e.value, t.value, c.value, l.value);
+// });
+// });
+// })(); </script>

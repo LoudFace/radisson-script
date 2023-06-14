@@ -235,7 +235,7 @@ export const chartOnlineShareEmea = function (
 ) {
   myChart.setOption({
     grid: {
-      width: '90%',
+      width: '95%',
       left: 40,
       //height: '80%',
     },
@@ -507,7 +507,7 @@ export const chartOnlineShareApac = function (
 ) {
   apacChart.setOption({
     grid: {
-      width: '90%',
+      width: '95%',
       left: 35,
       //height: '80%',
     },

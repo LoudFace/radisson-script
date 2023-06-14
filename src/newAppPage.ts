@@ -4,6 +4,7 @@
 import Airtable from 'airtable';
 import * as echarts from 'echarts';
 
+import { renderTestimonial } from './airtableWebflowCms';
 import {
   actvieUserchart,
   appMonthlyChart,
@@ -215,6 +216,15 @@ window.Webflow.push(() => {
   ////Active users Benchmark tabele
   const activeTableId = 'tblBB9s2JT4wbCYAP';
   getTableRecords(activeTableId).eachPage(function page(records) {
+    //const month = [];
+    // getTableRecords('tblQ0d7KckUDCVJrg').eachPage(function page(newrecors) {
+    //   const [lastRoleItem] = newrecors.slice(-1);
+    //   const lastMmonth = lastRoleItem.fields['Month'];
+    //   month.push(lastMmonth);
+    // });
+    const date = new Date();
+    const month = date.getMonth();
+    console.log(month, 'this');
     const brands = getColumnData('Brands', records);
     const currentMonthUsers = getColumnData('Current Month Active Users', records);
     const prevMonthUsers = getColumnData('Prev Month Active Users', records);
@@ -328,13 +338,15 @@ window.Webflow.push(() => {
       }"> ${[percentChange > 0 ? '+' : '']}${percentChange}% </span>YoY</div>`;
     };
 
-    const updateRevUi = function (container, value) {
-      container.innerHTML = `<div id="totalDownloads" class="key--percent-value ligth--text-grad">€${value}</div>`;
+    const updateRevUi = function (container, value, percentChange) {
+      container.innerHTML = `<div id="totalDownloads" class="key--percent-value ligth--text-grad">€ ${value}</div><div class="key--percent"><span class="key__span--text ${
+        percentChange > 0 ? 'green' : 'red'
+      }"> ${[percentChange > 0 ? '+' : '']}${percentChange}% </span>YoY</div>`;
     };
     updateUiConvertRate(androidWrapCon, androidLatestConValue, androidYoYlatestConValue);
     updateUiConvertRate(iosWrapCon, iOsLatestConValue, iosYoyLatestValue);
-    updateRevUi(androidWrapRev, androidLatestFormat);
-    updateRevUi(iosWrapRev, iosLatestFormat);
+    updateRevUi(androidWrapRev, androidLatestFormat, androidRevYoyLatest);
+    updateRevUi(iosWrapRev, iosLatestFormat, iosRevYoyLatest);
   });
 
   ////////fix the y-axis to the chart conversion Bar chart
@@ -418,7 +430,7 @@ window.Webflow.push(() => {
   //table name: App Annual Target
   const appTargetId = 'tblCxvDHIID3Z8ncV';
   getTableRecords(appTargetId).eachPage(function page(records) {
-    console.log(records);
+    // console.log(records);
     const [lastROle] = records.slice(-1);
     const appAt = lastROle.fields;
     //console.log(appAt);
@@ -514,7 +526,7 @@ window.Webflow.push(() => {
 
     updateAppHEro(heroMonthlyActive, lastroleitemFormat);
   });
-
+  renderTestimonial();
   //Working method Querry
   //const API_KEY = 'f647046cc46a758c81c2af41f9c649d938597ca0385a10256a084a5d0ca5fd0f';
   // const url = `https://api.webflow.com/collections/647a48349d710f24028849ca/items?access_token=${API_KEY}`;
