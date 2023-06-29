@@ -1,8 +1,5 @@
 import Airtable, { Record } from 'airtable';
 
-//import { getColumnData } from './appPageContentv1-2';
-//import { callback } from 'chart.js/dist/helpers/helpers.core';
-//import * as echarts from 'echarts';
 import {
   apacScorePieChart,
   appDownloadPieChart,
@@ -12,7 +9,9 @@ import {
   emeaScorePieChart,
   overAllScorePieChart,
 } from './chartModule';
+import { homeUiUpdate } from './homeUI';
 import { imageCarousel } from './slider';
+
 window.Webflow ||= [];
 window.Webflow.push(() => {
   ///helpers function
@@ -45,7 +44,6 @@ window.Webflow.push(() => {
     return 100 - x;
   };
   ////////
-  // section scroll into view
   const hotelAppSect = document.querySelector('.hotel-app--section');
   const imageQualitySection = document.querySelector('.image-quality--section');
   if (!imageQualitySection || !hotelAppSect) return;
@@ -217,32 +215,7 @@ window.Webflow.push(() => {
       }">${meaWowRecentData}% </span>WoW</div></div>`;
       /////////
       //New UI updates on Home page
-      ///////////updating UI interface for homepage
-      const totalRevenueCard = document.querySelector('[rd-element="totalRevenue"]');
-      const bookNightCard = document.querySelector('[rd-element="booknight"]');
-      const appDownloadCard = document.querySelector('[rd-element="appDownload"]');
-      const enrollWebAppCard = document.querySelector('[rd-element="wepApp"]');
-      if (!totalRevenueCard || !bookNightCard || !appDownloadCard || !enrollWebAppCard) return;
-
-      const updateCardContent = function (
-        cardcontainer: HTMLElement,
-        bigData: string,
-        wowData: number
-      ) {
-        cardcontainer.innerHTML = `<div class="text-style-18px text-color-white">App downloads in 2023</div><div id="appDownloads" class="text-style-3rem gradienttext">${bigData}</div><div><span class="green">+${wowData}%</span> &nbsp;vs Annual Target: 1.3m</div>`;
-      };
-      //
-      //`<div class="text-style-18px text-color-white">App downloads in 2023</div><div id="appDownloads" class="text-style-3rem gradienttext">238,888</div><div><span class="green">+39.5%</span> &nbsp;vs Annual Target: 1.3m</div>`
-      //////////////////////////////App Anual Target base on Airtable
-      getTableRecords('tblCxvDHIID3Z8ncV').eachPage(function page(records) {
-        const appDownloadPercent = getColumnData('Progress Percent', records).slice(-1);
-        const [appTotalDownload] = getColumnData('Total downloads (Combined)', records).slice(-1);
-        const [month] = getColumnData('Month', records).slice(-1);
-        const appTotalDownloadFormated = numberWithCommas(appTotalDownload);
-        const appDownloadPercentformated = changeToPercent(appDownloadPercent);
-        console.log(month);
-        updateCardContent(appDownloadCard, appTotalDownloadFormated, appDownloadPercentformated);
-      });
+      homeUiUpdate();
 
       //function calling the chart on pageLoad
       chartOnlineShareEmea(
@@ -263,7 +236,6 @@ window.Webflow.push(() => {
       //////////// MOnthly Data
       const btnClick = document.querySelector('.w-button');
       getTableRecords('tblHtSQ3Evr2lgwWu').eachPage(function page(records) {
-        console.log(records);
         const month = getColumnData('Month', records);
         const ceseMonthData = getColumnData('CESE (MoM)', records).flat();
         const eerutMonthData = getColumnData('EERUT (MoM)', records).flat();
@@ -277,11 +249,11 @@ window.Webflow.push(() => {
           records
         ).flat();
         ///convert to percent
-        const ceseMonthDataPercent = formatColumnsTOPercent(ceseMonthData);
-        const eerutMonthDataPercent = formatColumnsTOPercent(eerutMonthData);
-        const nobMonthDataPercent = formatColumnsTOPercent(nobMonthData);
-        const ukirMonthDataPercent = formatColumnsTOPercent(ukirMonthData);
-        const meaMonthDataPercent = formatColumnsTOPercent(meaMonthData);
+        // const ceseMonthDataPercent = formatColumnsTOPercent(ceseMonthData);
+        // const eerutMonthDataPercent = formatColumnsTOPercent(eerutMonthData);
+        // const nobMonthDataPercent = formatColumnsTOPercent(nobMonthData);
+        // const ukirMonthDataPercent = formatColumnsTOPercent(ukirMonthData);
+        // const meaMonthDataPercent = formatColumnsTOPercent(meaMonthData);
 
         // btnClick.addEventListener('click', function (e) {
         //   console.log('demc clic me');

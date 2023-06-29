@@ -471,39 +471,6 @@ window.Webflow.push(() => {
   //     .then((json) => console.log(json))
   //     .catch((err) => console.error('error:' + err));
 
-  //   const siteId = '63ee41b9862db4b9345f1a50';
-  //   const collectionId = '647a48349d710f24028849ca';
-  //   const url = `https://api.webflow.com/collections/${collectionId}/items?access_token=${API_KEY}`;
-
-  //   //const url = `https://api.webflow.com/collections/${collectionId}/items?access_token=${API_KEY}`;
-  //   //this code runs everytime the page load and ot creates lot of the dublicate items.
-  //   //Updating the cms from airtable.
-  //   reviewFields.map((el) => {
-  //     const options = {
-  //       method: 'POST',
-  //       headers: { accept: 'application/json', 'content-type': 'application/json' },
-  //       body: JSON.stringify({
-  //         fields: {
-  //           slug: el.Device,
-  //           name: el.Device,
-  //           _archived: false,
-  //           _draft: false,
-  //          // 'testimonial text': el.Review,
-  //           // 'phone brand icon': el['Device icon'],
-  //         },
-  //       }),
-  //     };
-  //     const updateCMS = async function () {
-  //   try{
-  //   const res = await fetch(url, options);
-  //       const data = await res.json();
-  //   } catch(err) {console.log(err)}
-  //     };
-  // collection ID : 647a48349d710f24028849ca
-  // site ID: 63ee41b9862db4b9345f1a50
-  //});
-
-  ///////
   /////App Revenue + Conversion
   const appRevConversion = 'tblQ0d7KckUDCVJrg';
   const appheroTotalDownloads = document.querySelector('[rd-element="downloads-2023"]');

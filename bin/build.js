@@ -14,6 +14,7 @@ const ENTRY_POINTS = [
   'src/appPageContentv1-2.ts',
   'src/personalizatnSwiper.ts',
   'src/newAppPage.ts',
+  'src/imgQp/imgQualityPage.ts',
 ];
 
 // Config dev serving
