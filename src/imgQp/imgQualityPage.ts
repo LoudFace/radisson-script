@@ -19,40 +19,6 @@ window.Webflow.push(() => {
 
   const hotelImgaeWrap = document.querySelector('[rd-element="hotelchart"]') as HTMLElement;
 
-  const toggleChange = document.querySelectorAll('.chart-tab') as NodeList;
-  console.log(toggleChange);
-  //   document.addEventListener('load', function (e) {
-  //     console.log(e);
-  //     console.log(pieEmea.clientHeight, imgPieWrap.scrollHeight, pieApac.clientHeight);
-  //   });
-
-  //   const toggleActiveClass = function (buttons: NodeList) {
-  //     buttons.forEach((button) => {
-  //       button.addEventListener('click', (e) => {
-  //         buttons.forEach((button) => {
-  //           button.classList.remove('active');
-  //         });
-
-  //         this.classList.add('active');
-  //       });
-  //     });
-  //   };
-
-  //   function addActiveClass(buttons: NodeList) {
-  //     buttons.forEach(function (button) {
-  //       button.addEventListener('click', function () {
-  //         // Remove the active class from all buttons
-  //         buttons.forEach(function (button: HTMLAnchorElement) {
-  //           button.classList.remove('active');
-  //         });
-
-  //         // Add the active class to the current button
-  //         this.classList.add('active');
-  //       });
-  //     });
-  //   }
-  //   addActiveClass(toggleChange);
-
   if (
     !imgPieWrap ||
     !activeProp ||
@@ -65,7 +31,7 @@ window.Webflow.push(() => {
     return;
   ////handling UI updates on page
   imgPageUI();
-  /////////Airtable API
+  /////////Airtable API Config
   Airtable.configure({ apiKey: 'keyAk5slAmWBfaIoz' });
   const radiChartbase = new Airtable({ apiKey: 'keyAk5slAmWBfaIoz' }).base('appRQPFdsg8bGEHBO');
   //getting table Records function
