@@ -4,10 +4,24 @@ export const getColumnData = function (nameOfField: string, records) {
 export const changeToPercent = function (x) {
   return +(x * 100).toFixed(1);
 };
-
 export function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
+
+export const twoDecimalNum = function (x: number) {
+  const roundNum = +x.toFixed(1);
+  const roundWithComa = numberWithCommas(roundNum);
+  // console.log(roundWithComa);
+  return roundWithComa;
+};
+
+export const FormatMillion = function (x) {
+  return x / 1000000;
+};
+// const towDeci = function (x) {
+//   return +x.toFixed(2);
+// };
+
 export const formatColumnsTOPercent = function (arr) {
   const formatedArr = arr
     .map((el) => {

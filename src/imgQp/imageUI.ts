@@ -35,7 +35,7 @@ const saScoreWrap = document.querySelectorAll('[rd-element="saScore"]') as NodeL
 const overallImgscoreWrap = document.querySelector(
   '[rd-element="hero-overall-img"]'
 ) as HTMLElement;
-console.log(overallImgscoreWrap);
+//console.log(overallImgscoreWrap);
 
 //console.log(saScore);
 

@@ -1,5 +1,5 @@
 import Airtable, { Record } from 'airtable';
-import { fixYaxis, getColumnData, pieSecondValue } from 'src/helperFunction';
+import { getColumnData, pieSecondValue } from 'src/helperFunction';
 
 import { imgPageUI } from './imageUI';
 import { hotelLineChart, imgPieChart } from './imgChart';
