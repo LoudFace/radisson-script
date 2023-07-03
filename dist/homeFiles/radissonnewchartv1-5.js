@@ -81249,6 +81249,11 @@
   var getColumnData = function(nameOfField, records) {
     return records.map((rec) => rec.get(nameOfField));
   };
+  var getFields = function(rec) {
+    const [lf] = rec.slice(-1);
+    const lsField = lf.fields;
+    return lsField;
+  };
   var changeToPercent = function(x) {
     return +(x * 100).toFixed(1);
   };
@@ -81282,7 +81287,7 @@
     if (!totalRevenueCard || !bookNightCard || !appDownloadCard || !enrollWebAppCard || !totalRevCard || !totalRevYoy)
       return;
     const updateCardContent = function(cardcontainer, bigData, wowData) {
-      cardcontainer.innerHTML = `<div class="text-style-18px text-color-white">App downloads in 2023</div><div id="appDownloads" class="text-style-3rem gradienttext">${bigData}</div><div><span class="green">+${wowData}%</span> vs Annual Target: 1.3m</div>`;
+      cardcontainer.innerHTML = `<div class="text-style-18px text-color-white">App downloads in 2023</div><div id="appDownloads" class="text-style-3rem gradienttext">${bigData}</div><div><span class="green">+${wowData}%</span> uplift vs <span rd-element="upliftHome">June 22</span></div>`;
     };
     const updateCardContentUplift = function(cardcontainer, bigData, wowData, cardText) {
       cardcontainer.innerHTML = `<div class="text-style-18px text-color-white">${cardText}</div><div id="appEnroll" class="text-style-3rem gradienttext">${bigData}</div><div><span class="green">+${wowData}%</span> uplift YoY</div>`;
@@ -81297,9 +81302,24 @@
     });
     const revYoyID = "tblRyuOYcUeH3hT7g";
     const mainKpi = "tbl8Ye0eoBXdPGyL5";
+    const mainAppId = "tbldsHsl0iIwJQECd";
     const updateCardPercent = function(htmlWrap, data) {
       htmlWrap.innerHTML = `<div rd-element="revUplift"><span class="${data > 0 ? "green" : "red"}">${data > 0 ? "+" : "-"}${data}%</span> uplift YoY</div>`;
     };
+    const upliftWrap = document.querySelector('[rd-element="upliftHome"]');
+    console.log(upliftWrap);
+    getTableRecords(mainAppId).eachPage(function page(records) {
+      console.log(records);
+      const mainAppFields = getFields(records);
+      const refTableId = mainAppFields["Previous Year"];
+      radiChartbase(mainAppId)._findRecordById(refTableId, function(err, rec) {
+        const refField = rec?.fields;
+        const month = refField["Month"];
+        console.log(month);
+        upliftWrap.textContent = `${month}`;
+      });
+      console.log(mainAppFields);
+    });
     getTableRecords(mainKpi).eachPage(function page(records) {
       const [lastRecord] = records.slice(-1);
       const lastRecordField = lastRecord.fields;

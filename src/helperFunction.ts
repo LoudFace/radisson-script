@@ -1,6 +1,13 @@
 export const getColumnData = function (nameOfField: string, records) {
   return records.map((rec) => rec.get(nameOfField));
 };
+
+export const getFields = function (rec) {
+  const [lf] = rec.slice(-1);
+  const lsField = lf.fields;
+  return lsField;
+};
+
 export const changeToPercent = function (x) {
   return +(x * 100).toFixed(1);
 };

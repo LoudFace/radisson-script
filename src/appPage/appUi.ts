@@ -5,6 +5,7 @@ import {
   changeToPercent,
   FormatMillion,
   getColumnData,
+  getFields,
   numberWithCommas,
   twoDecimalNum,
 } from '../helperFunction';
@@ -92,6 +93,16 @@ export const airtableUiData = function () {
     updateAppRatingUi(googleRatingWrap, andYoyFormat);
     updateAppRatingUi(combinedRatingWrap, combinedYoyFormat);
     updateAppRatingUi(iosRatingWrap, iosYoyFormat);
+  });
+
+  //app anual Target
+  const totalRoomsWrap = document.querySelector('[rd-element="appHero-totalroom"]') as HTMLElement;
+  const appTargetID = 'tblCxvDHIID3Z8ncV';
+  getTableRecords(appTargetID).eachPage(function page(records) {
+    const appTargetFields = getFields(records);
+    const totalRoomnight = appTargetFields['Total downloads (Combined)'];
+    const totalRoomnightFormat = numberWithCommas(totalRoomnight);
+    totalRoomsWrap.textContent = `${totalRoomnightFormat}`;
   });
 
   getTableRecords(appRevConversion).eachPage(function page(records) {

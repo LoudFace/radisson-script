@@ -2201,6 +2201,11 @@
   var getColumnData = function(nameOfField, records) {
     return records.map((rec) => rec.get(nameOfField));
   };
+  var getFields = function(rec) {
+    const [lf] = rec.slice(-1);
+    const lsField = lf.fields;
+    return lsField;
+  };
   var changeToPercent = function(x) {
     return +(x * 100).toFixed(1);
   };
@@ -2285,6 +2290,14 @@
       updateAppRatingUi(googleRatingWrap, andYoyFormat);
       updateAppRatingUi(combinedRatingWrap, combinedYoyFormat);
       updateAppRatingUi(iosRatingWrap, iosYoyFormat);
+    });
+    const totalRoomsWrap = document.querySelector('[rd-element="appHero-totalroom"]');
+    const appTargetID = "tblCxvDHIID3Z8ncV";
+    getTableRecords(appTargetID).eachPage(function page(records) {
+      const appTargetFields = getFields(records);
+      const totalRoomnight = appTargetFields["Total downloads (Combined)"];
+      const totalRoomnightFormat = numberWithCommas(totalRoomnight);
+      totalRoomsWrap.textContent = `${totalRoomnightFormat}`;
     });
     getTableRecords(appRevConversion).eachPage(function page(records) {
       const [lastRole] = records.slice(-1);
