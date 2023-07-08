@@ -18,8 +18,8 @@ window.Webflow.push(() => {
 
   ///function UI Content
 
-  const updateCroCard = function (htmlWrap: HTMLElement, data: unknown) {
-    htmlWrap.innerHTML = `<div class="text-style-3rem gradienttext">${data}</div><div class="text-block-22">in incremental revenue</div>`;
+  const updateCroCard = function (htmlWrap: HTMLElement, data: unknown, cardText: string) {
+    htmlWrap.innerHTML = `<div class="text-style-3rem gradienttext">${data}</div><div class="text-block-22">${cardText}</div>`;
   };
 
   getTableRecords('tbllZXWji4qm6uw8O').eachPage(function page(records) {
@@ -29,9 +29,11 @@ window.Webflow.push(() => {
     const internalRev = lastRole.fields['Internal Revenue Generated'];
     const internalRevFomated = numberWithCommas(internalRev);
     const interRevHtmlFormat = `${internalRevFomated}M €` as unknown;
+    const firstCardText = `in incremental revenue`;
+    const secondCardText = `A/B tests launched`;
     // 3,800,000,000
-    updateCroCard(allRevGene, interRevHtmlFormat);
-    updateCroCard(abTestWrap, abTest);
+    updateCroCard(allRevGene, interRevHtmlFormat, firstCardText);
+    updateCroCard(abTestWrap, abTest, secondCardText);
   });
 
   /////////////Monthly insight UI update

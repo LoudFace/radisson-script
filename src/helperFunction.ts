@@ -63,3 +63,12 @@ export const fixYaxis = function (
     }
   });
 };
+
+// const tabEl = document.querySelectorAll('[db-element="tabEl"]') as NodeList;
+// const tabCount = document.querySelectorAll('[db-element="tabcount"]');
+
+// tabEl.forEach((tab, i) => {
+//   tab.addEventListener('click', () => {
+//     console.log(i, tabCount.textContent);
+//   });
+// });

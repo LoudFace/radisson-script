@@ -77,7 +77,7 @@ export const airtableUiData = function () {
     const andYoyFormat = changeToPercent(androidYoy);
     const iosYoyFormat = changeToPercent(iosYoy);
     const combinedYoyFormat = changeToPercent(combinedYoy);
-    console.log(combinedYoyFormat);
+    //console.log(combinedYoyFormat);
 
     const [refTableId] = lastRollDataField['Previous Year'] as string;
 
