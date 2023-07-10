@@ -86,6 +86,9 @@ window.Webflow.push(() => {
   const emeaScore = document.querySelector('.emea__score--number');
   const apacScore = document.querySelector('.apac__score--number');
   const downloadScore = document.getElementById('downloadPercent');
+  const totalAPpDownload = document.querySelector('[rd-element="totalDownloads"]') as HTMLElement;
+
+  console.log(totalAPpDownload);
   //dataRevCard dataRoomBook dataDownloads dataEnrollWeb
   if (
     !dataRevContainer ||
@@ -421,6 +424,7 @@ window.Webflow.push(() => {
   });
 
   ///// Pie Chart
+  ////Total Downloads
   radiChartbase('tblCxvDHIID3Z8ncV')
     .select({ view: 'Grid view' })
     .eachPage(function page(records) {
@@ -429,6 +433,16 @@ window.Webflow.push(() => {
         .filter((rec) => rec !== undefined)
         .map((rec) => Math.floor(rec * 100))
         .slice(-1);
+      const [lastRecord] = records.slice(-1);
+
+      console.log(lastRecord);
+
+      const totalDownloads = lastRecord.fields['Total downloads (Combined)'];
+      const totalDownloadsFormat = numberWithCommas(totalDownloads);
+      console.log(totalDownloadsFormat);
+
+      totalAPpDownload.textContent = `${totalDownloadsFormat}`;
+      console.log(totalAPpDownload);
 
       const secondValue = pieSecondValue(downloadsData);
       console.log(downloadsData);

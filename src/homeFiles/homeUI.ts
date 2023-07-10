@@ -135,10 +135,16 @@ export const homeUiUpdate = function () {
     const totalEnrolFormat = twoDecimalNum(enrolTotal);
     const enrolYoyPercent = changeToPercent(enrolYoy);
 
+    const enrolyoyHtml = document.querySelector('[rd-element="enrolYoy"]') as HTMLElement;
+    const enrolNumberhtml = document.querySelector('[rd-element="enrol-numer"]') as HTMLElement;
+
+    enrolNumberhtml.textContent = `${totalEnrolFormat}`;
+    enrolyoyHtml.textContent = `+${enrolYoyPercent}%`;
+
     const bookNighText = `Booked room nights`;
     const enrolText = `Enrollment through web<br> & app`;
     updateCardContentUplift(bookNightCard, totalRnFormat, rnYoyPercent, bookNighText);
-    updateCardContentUplift(enrollWebAppCard, totalEnrolFormat, enrolYoyPercent, enrolText);
+    //updateCardContentUplift(enrollWebAppCard, totalEnrolFormat, enrolYoyPercent, enrolText);
 
     console.log(totalRnFormat);
     const revFormated = changeToPercent(RevenueYoy) as number;
