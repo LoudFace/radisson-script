@@ -442,7 +442,6 @@ window.Webflow.push(() => {
       console.log(totalDownloadsFormat);
 
       totalAPpDownload.textContent = `${totalDownloadsFormat}`;
-      console.log(totalAPpDownload);
 
       const secondValue = pieSecondValue(downloadsData);
       console.log(downloadsData);
