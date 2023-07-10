@@ -451,7 +451,26 @@ window.Webflow.push(() => {
     const downloadRange = document.querySelector('[rd-element="download-range"]') as HTMLElement;
     if (!appDownloadInfoWrap || !currentDownload || !toolTipDownload || !downloadRange) return;
     console.log(progressPercentFormat);
-    downloadRange.style.width = `${progressPercentFormat}%`;
+
+    const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+    const dateOb = new Date();
+    const monthIndex = dateOb.getMonth();
+    const monthPercent = (monthIndex / months.length) * 100;
+
+    downloadRange.style.width = `${monthPercent}%`;
     toolTipDownload.textContent = tdownloadsFormat;
     currentDownload.textContent = tdownloadsFormat;
     appDownloadInfoWrap.innerHTML = `<div class="estimated_downloads-col"><div class="estimated_downloads-wrap"><div rd-element="achieved" class="text-style-24px-bold gradienttext">${progressPercentFormat}%</div><div class="text-style-16px white-text">Achieved to date</div></div><div class="estimated_downloads-wrap"><div rd-element="projected-target" class="text-style-24px-bold gradienttext">${projectedTagetFormat}%</div><div class="text-style-16px white-text">Projected target year to date</div></div></div><div class="app_target-wrap"><div rd-element="download-target" class="text-style-32px bold-text gradienttext">1.3 M</div><div class="text-style-14px-medium">Downloads target for 2023</div></div>`;
