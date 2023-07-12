@@ -391,13 +391,13 @@ window.Webflow.push(() => {
       function callbackFunction(entries) {
         entries.forEach((el) => {
           if (el.isIntersecting) {
-            overallScore.textContent = `${overallData}%`;
+            overallScore.textContent = `${overallData === undefined ? '-' : overallData}%`;
             overAllScorePieChart(overallData, pieValue2);
 
-            apacScore.textContent = `${apacData}%`;
+            apacScore.textContent = `${apacData === undefined ? '-' : apacData}%`;
             apacScorePieChart(apacData, apacPieValue2);
 
-            emeaScore.textContent = `${emeaData}%`;
+            emeaScore.textContent = `${emeaData === undefined ? '-' : emeaData}%`;
             emeaScorePieChart(emeaData, emeaPieValue2);
           }
         });

@@ -23,18 +23,23 @@ window.Webflow.push(() => {
   };
 
   getTableRecords('tbllZXWji4qm6uw8O').eachPage(function page(records) {
-    const [lastRole] = records.slice(-1);
+    const [lastRole] = records;
+    console.log(lastRole);
     // const monthYear = lastRole.fields['Month Year'];
     const abTest = lastRole.fields['A/B Tests launched (YTD)'];
     const internalRev = lastRole.fields['Internal Revenue Generated'];
+    console.log(internalRev);
     const internalRevFomated = numberWithCommas(internalRev);
+    console.log(internalRevFomated);
     const interRevHtmlFormat = `${internalRevFomated}M €` as unknown;
     const firstCardText = `in incremental revenue`;
     const secondCardText = `A/B tests launched`;
+    console.log(interRevHtmlFormat);
     // 3,800,000,000
     updateCroCard(allRevGene, interRevHtmlFormat, firstCardText);
     updateCroCard(abTestWrap, abTest, secondCardText);
   });
+  //console.log(int);
 
   /////////////Monthly insight UI update
 
@@ -54,7 +59,7 @@ window.Webflow.push(() => {
   ) as HTMLVideoElement;
   console.log(firsInsightVideo.src);
 
-  const updateInsightUi = function (htmlWrap: HTMLElement, data: object) {
+  const updateInsightUi = function (htmlWrap: HTMLElement, data: unknown) {
     htmlWrap.innerHTML = `<div rd-element="second-isight-title" class="section__col--text appgradient--1">${data['Title']}</div><p rd-element="second-insight-text" class="text-style-normal-20px">${data['Description']}</p>`;
   };
 

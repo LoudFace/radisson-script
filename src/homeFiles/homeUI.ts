@@ -124,7 +124,7 @@ export const homeUiUpdate = function () {
     const RevenueYoy = lastRecordFields['Revenue (YoY)'];
     const rnYoy = lastRecordFields['RN (YoY)'];
     const totalRn = lastRecordFields['Total Room Nights'] as number;
-    const enrolTotal = lastRecordFields['Total Enrolments (Prev Year)'] as number;
+    const enrolTotal = lastRecordFields['Total Enrolments'] as number;
     const enrolYoy = lastRecordFields['Enrolments (YoY)'];
     console.log(enrolTotal);
     //const prevYearMonth = lastRecordFields['Previous Year'];

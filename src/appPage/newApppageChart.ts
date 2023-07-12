@@ -944,7 +944,7 @@ export const convertRateChart = function (
         },
       },
       min: 0,
-      max: 6,
+      max: 8,
     },
     series: [
       {
