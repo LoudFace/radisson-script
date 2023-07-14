@@ -32,8 +32,8 @@ window.Webflow.push(() => {
     const internalRevFomated = numberWithCommas(internalRev);
     console.log(internalRevFomated);
     const interRevHtmlFormat = `${internalRevFomated}M €` as unknown;
-    const firstCardText = `in incremental revenue`;
-    const secondCardText = `A/B tests launched`;
+    const firstCardText = `Incremental revenue YTD to <br>30 June 2023`;
+    const secondCardText = `Tests launched to 30 June 2023`;
     console.log(interRevHtmlFormat);
     // 3,800,000,000
     updateCroCard(allRevGene, interRevHtmlFormat, firstCardText);
@@ -57,7 +57,7 @@ window.Webflow.push(() => {
   const firsInsightVideo = document.querySelector(
     '[rd-element="insight-video"]'
   ) as HTMLVideoElement;
-  console.log(firsInsightVideo.src);
+  //console.log(firsInsightVideo.src);
 
   const updateInsightUi = function (htmlWrap: HTMLElement, data: unknown) {
     htmlWrap.innerHTML = `<div rd-element="second-isight-title" class="section__col--text appgradient--1">${data['Title']}</div><p rd-element="second-insight-text" class="text-style-normal-20px">${data['Description']}</p>`;
