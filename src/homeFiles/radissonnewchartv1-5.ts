@@ -81,11 +81,11 @@ window.Webflow.push(() => {
   const dataRevContainer = document.getElementById('dataRevCard');
   const dataRoomContainer = document.getElementById('dataRoomBook');
   const dataDownloadsContainer = document.getElementById('dataDownloads');
-  const dataEnrollContainer = document.getElementById('dataEnrollWeb');
-  const overallScore = document.querySelector('.overall__score--number');
-  const emeaScore = document.querySelector('.emea__score--number');
-  const apacScore = document.querySelector('.apac__score--number');
-  const downloadScore = document.getElementById('downloadPercent');
+  const dataEnrollContainer = document.getElementById('dataEnrollWeb') as HTMLElement;
+  const overallScore = document.querySelector<HTMLElement>('.overall__score--number');
+  const emeaScore = document.querySelector<HTMLElement>('.emea__score--number');
+  const apacScore = document.querySelector<HTMLElement>('.apac__score--number');
+  const downloadScore = document.getElementById('downloadPercent') as HTMLElement;
   const totalAPpDownload = document.querySelector('[rd-element="totalDownloads"]') as HTMLElement;
 
   console.log(totalAPpDownload);
