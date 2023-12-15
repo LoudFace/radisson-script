@@ -50,10 +50,13 @@ export const imgPageUI = function () {
     const emeaScore = getLastRole.fields['EMEA Overall Score'] as number;
     const apacScore = getLastRole.fields['APAC Overall Score'] as number;
     const meScore = getLastRole.fields['M&E Score'] as number;
-    const metaScore = getLastRole.fields['META Overall Score'] as number;
+    //change made
+    const metaScore = getLastRole.fields['MEA&MED Overall Score'] as number;
+    //change made
+
     const ceseScore = getLastRole.fields['CESE Overall Score'] as number;
     const ukirScore = getLastRole.fields['UKIRWE Overall Score'] as number;
-    const nobaScore = getLastRole.fields['NOBA Overall Score'] as number;
+    const nobaScore = getLastRole.fields['UKI&NOBA Overall Score'] as number; // name change made
     const eeruScore = getLastRole.fields['EERU Overall Score'] as number;
     const chinaScore = getLastRole.fields['CHINA Overall Score'] as number;
     const saScore = getLastRole.fields['South Asia Overall Score'] as number;

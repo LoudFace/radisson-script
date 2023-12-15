@@ -15,6 +15,7 @@ const ENTRY_POINTS = [
   'src/personalizatnSwiper.ts',
   'src/appPage/newAppPage.ts',
   'src/imgQp/imgQualityPage.ts',
+  'src/imgQp/imgQualityPagev1.ts',
   'src/cro/croPagenew.ts',
 ];
 

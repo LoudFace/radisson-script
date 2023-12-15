@@ -493,6 +493,7 @@ window.Webflow.push(() => {
 
   renderTestimonial();
   airtableUiData();
+
   //Working method Querry
   //const API_KEY = 'f647046cc46a758c81c2af41f9c649d938597ca0385a10256a084a5d0ca5fd0f';
   // const url = `https://api.webflow.com/collections/647a48349d710f24028849ca/items?access_token=${API_KEY}`;
