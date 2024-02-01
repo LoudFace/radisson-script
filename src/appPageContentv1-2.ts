@@ -68,6 +68,7 @@ window.Webflow.push(() => {
     return;
   //////////////
   ////////////
+
   Airtable.configure({ apiKey: 'keyAk5slAmWBfaIoz' });
   const radiChartbase = new Airtable({ apiKey: 'keyAk5slAmWBfaIoz' }).base('appRQPFdsg8bGEHBO');
   // getTableRecords('tblhxgDITpzlU0Nu4').eachPage(function page(records) {

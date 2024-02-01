@@ -11,8 +11,11 @@ import {
 } from '../helperFunction';
 //import Webflow from 'webflow-api';
 
-Airtable.configure({ apiKey: 'keyAk5slAmWBfaIoz' });
-const radissonAirtable = new Airtable({ apiKey: 'keyAk5slAmWBfaIoz' }).base('appRQPFdsg8bGEHBO');
+const airtableToken =
+  'patdwE10W5YOIwOla.4a633223c06422d5a54fdcc94b427170221e267365c08a0e0f9a894cffad3904';
+
+Airtable.configure({ apiKey: airtableToken });
+const radissonAirtable = new Airtable({ apiKey: airtableToken }).base('appRQPFdsg8bGEHBO');
 const getTableRecords = function (tableId) {
   return radissonAirtable(tableId).select({
     view: 'Grid view',

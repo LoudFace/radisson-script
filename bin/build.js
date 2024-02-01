@@ -10,13 +10,13 @@ const PRODUCTION = process.env.NODE_ENV === 'production';
 // Config entrypoint files
 const ENTRY_POINTS = [
   'src/index.ts',
-  'src/homeFiles/radissonnewchartv1-5.ts',
+  'src/homeFiles/radissonnewchartv1-6.ts',
   'src/appPageContentv1-2.ts',
   'src/personalizatnSwiper.ts',
-  'src/appPage/newAppPage.ts',
+  'src/appPage/newAppPageV-0.ts',
   'src/imgQp/imgQualityPage.ts',
   'src/imgQp/imgQualityPagev1.ts',
-  'src/cro/croPagenew.ts',
+  'src/cro/croPagenewV-0.ts',
 ];
 
 // Config dev serving

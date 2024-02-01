@@ -9,10 +9,13 @@ import {
   numberWithCommas,
   twoDecimalNum,
 } from '../helperFunction';
+//console.log(airtableToken);
 
-Airtable.configure({ apiKey: 'keyAk5slAmWBfaIoz' });
+const airtableToken =
+  'patdwE10W5YOIwOla.4a633223c06422d5a54fdcc94b427170221e267365c08a0e0f9a894cffad3904';
+Airtable.configure({ apiKey: airtableToken });
 
-const radiChartbase = new Airtable({ apiKey: 'keyAk5slAmWBfaIoz' }).base('appRQPFdsg8bGEHBO');
+const radiChartbase = new Airtable({ apiKey: airtableToken }).base('appRQPFdsg8bGEHBO');
 export const getTableRecords = function (tableId) {
   return radiChartbase(tableId).select({
     view: 'Grid view',
