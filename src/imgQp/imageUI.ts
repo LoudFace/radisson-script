@@ -54,13 +54,13 @@ export const imgPageUI = function () {
     const apacScore = getLastRole.fields['APAC Overall Score'] as number;
     const meScore = getLastRole.fields['M&E Score'] as number;
     //change made
-    const metaScore = getLastRole.fields['MEA&MED Overall Score'] as number;
+    const metaScore = getLastRole.fields['Middle East, Africa & Turkey Overall Score'] as number;
     //change made
 
-    const ceseScore = getLastRole.fields['CESE Overall Score'] as number;
-    const ukirScore = getLastRole.fields['UKIRWE Overall Score'] as number;
-    const nobaScore = getLastRole.fields['UKI&NOBA Overall Score'] as number; // name change made
-    const eeruScore = getLastRole.fields['EERU Overall Score'] as number;
+    const ceseScore = getLastRole.fields['CESE & Baltics Overall Score'] as number;
+    const ukirScore = getLastRole.fields['Mediterranean Overall Score'] as number;
+    const nobaScore = getLastRole.fields['Nordics & Benelux, UK & Ireland Overall Score'] as number; // name change made
+    const eeruScore = getLastRole.fields['Russia Overall Score'] as number;
     const chinaScore = getLastRole.fields['CHINA Overall Score'] as number;
     const saScore = getLastRole.fields['South Asia Overall Score'] as number;
     const seapScore = getLastRole.fields['SEAP Overall Score'] as number;
