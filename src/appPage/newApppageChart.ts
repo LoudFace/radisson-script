@@ -1073,13 +1073,12 @@ export const revChart = function (
       },
       formatter: function (params) {
         ////helper function
-        console.log(params);
         function numberWithCommas(x) {
           return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         }
         const [android, ios, androidYoy, iosYoy, combinedRev] = params;
         //android, ios, androidYoy, iosYoy
-        console.log(androidYoy);
+        //console.log(androidYoy);
         // const prevUserDataformat = numberWithCommas(prevUser.data);
         // const activeUserDataformat = numberWithCommas(activeUser.data);
 
@@ -1139,7 +1138,7 @@ export const revChart = function (
         },
       },
       min: 0,
-      max: 15000000,
+      max: 25000000,
     },
     series: [
       {

@@ -13,7 +13,7 @@ const ENTRY_POINTS = [
   'src/homeFiles/radissonnewchartv1-6.ts',
   'src/appPageContentv1-2.ts',
   'src/personalizatnSwiper.ts',
-  'src/appPage/newAppPageV-0.ts',
+  'src/appPage/newAppPageV-01.ts',
   'src/imgQp/imgQualityPage.ts',
   'src/imgQp/imgQualityPagev1.02.ts',
   'src/cro/croPagenewV-0.ts',
