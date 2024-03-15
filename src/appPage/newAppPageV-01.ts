@@ -486,7 +486,7 @@ window.Webflow.push(() => {
     downloadRange.style.width = `${monthPercent}%`;
     toolTipDownload.textContent = tdownloadsFormat;
     currentDownload.textContent = tdownloadsFormat;
-    appDownloadInfoWrap.innerHTML = `<div class="estimated_downloads-col"><div class="estimated_downloads-wrap"><div rd-element="achieved" class="text-style-24px-bold gradienttext">${progressPercentFormat}%</div><div class="text-style-16px white-text">Achieved to date</div></div><div class="estimated_downloads-wrap"><div rd-element="projected-target" class="text-style-24px-bold gradienttext">${projectedTagetFormat}%</div><div class="text-style-16px white-text">Projected target year to date</div></div></div><div class="app_target-wrap"><div rd-element="download-target" class="text-style-32px bold-text gradienttext">${annualTagetFormated} M</div><div class="text-style-14px-medium">Downloads target for 2023</div></div>`;
+    appDownloadInfoWrap.innerHTML = `<div class="estimated_downloads-col"><div class="estimated_downloads-wrap"><div rd-element="achieved" class="text-style-24px-bold gradienttext">${progressPercentFormat}%</div><div class="text-style-16px white-text">Achieved to date</div></div><div class="estimated_downloads-wrap"><div rd-element="projected-target" class="text-style-24px-bold gradienttext">${projectedTagetFormat}%</div><div class="text-style-16px white-text">Projected target year to date</div></div></div><div class="app_target-wrap"><div rd-element="download-target" class="text-style-32px bold-text gradienttext">${annualTagetFormated} M</div><div class="text-style-14px-medium">Downloads target for 2024</div></div>`;
   });
 
   ////////////APP Reviews
